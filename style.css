@@ -3,8 +3,8 @@
 #app{display:flex;align-items:center;justify-content:center;background:#111}
 .screen{position:relative;overflow:hidden;background-size:100% 100%;background-position:center;background-repeat:no-repeat;box-shadow:0 0 0 9999px #111}
 .screen:not(.login){aspect-ratio:3/2;width:min(100vw,150vh);max-height:100vh}
-.login{aspect-ratio:16/9;width:min(100vw,177.777vh);max-height:100vh;background-image:url('assets/screens/bg_login_desktop.jpg?v=1015')}
-.profile{background-image:url('assets/screens/bg_profile.jpg?v=1015')}.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1015')}
+.login{aspect-ratio:16/9;width:min(100vw,177.777vh);max-height:100vh;background-image:url('assets/screens/bg_login_desktop.jpg?v=1016')}
+.profile{background-image:url('assets/screens/bg_profile.jpg?v=1016')}.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1016')}
 .hot{position:absolute;border:0;outline:0;background:transparent;color:#fff;font-weight:900;letter-spacing:.5px;padding:0 18px;text-shadow:0 2px 4px rgba(0,0,0,.9)}
 .hot::placeholder{color:transparent}.hot:focus{background:rgba(255,255,255,.05);border-radius:8px;box-shadow:0 0 0 2px rgba(255,255,255,.10)}
 .btn{position:absolute;border:0;background:transparent;cursor:pointer;color:transparent;font-size:0}.btn:focus{outline:3px dashed rgba(255,255,255,.6);outline-offset:-4px;border-radius:10px}
@@ -17,19 +17,19 @@
 #createProfileBtn{left:40.0%;top:78.2%;width:21.2%;height:7.2%}
 #helpBtn{left:35.0%;top:94.0%;width:8.0%;height:4.0%}
 /* PROFILE */
-.profileLabel{position:absolute;z-index:5;color:#15120e;font-weight:900;letter-spacing:.4px;text-shadow:0 1px 0 rgba(255,255,255,.45);font-size:clamp(13px,1.45vw,22px);pointer-events:none}
-.countryLabel{left:21.3%;top:18.0%}.numberLabel{left:21.3%;top:32.4%}.nameLabel{left:21.3%;top:48.0%}.pinLabel{left:21.3%;top:62.5%}
+.profileLabel{display:none}
 .back{left:1.5%;top:1.8%;width:13%;height:7%}
-.countrySelect{position:absolute;left:21.4%;top:22.8%;width:52.8%;height:8.0%;cursor:pointer;color:#111;background:rgba(238,229,210,.45);border:0;font-size:clamp(15px,1.65vw,24px);font-weight:800;letter-spacing:0;padding-left:22px}.countrySelect option{color:#111;background:#eee;font-size:15px;font-weight:600}.countrySelect option:checked{background:#d5d5d5;color:#111}.countrySelect option:hover{background:#d5d5d5;color:#111}
-.playerText{position:absolute;left:21.4%;top:38.0%;width:33.0%;height:7.0%;display:flex;align-items:center;font-size:clamp(14px,1.5vw,22px);font-weight:800;color:rgba(25,25,22,.72);letter-spacing:.4px;line-height:1;pointer-events:none;text-shadow:0 1px 0 rgba(255,255,255,.22);background:transparent!important;mix-blend-mode:multiply}
-.nameInput{left:21.4%;top:52.0%;width:52.8%;height:7.2%;color:#222;background:rgba(238,229,210,.25);border-radius:8px;font-size:clamp(15px,1.65vw,24px);font-weight:800;padding-left:22px;text-shadow:none}
-.pin1,.pin2,.pin3,.pin4{top:66.2%;width:6.0%;height:7.2%;color:#222;text-align:center;font-size:clamp(18px,2.0vw,30px);font-weight:900;padding:0;background:rgba(238,229,210,.22);border-radius:8px;text-shadow:none}
-.pin1{left:21.4%}.pin2{left:28.8%}.pin3{left:36.2%}.pin4{left:43.6%}.saveProfile{left:24.6%;top:76.7%;width:42.0%;height:9.2%}
+.countrySelect{position:absolute;left:26.6%;top:25.8%;width:48.9%;height:7.7%;cursor:pointer;color:#e8e0ce;background:transparent;border:0;font-size:clamp(15px,1.65vw,24px);font-weight:800;letter-spacing:0;padding-left:88px;text-shadow:0 2px 3px rgba(0,0,0,.85)}
+.countrySelect option{color:#111;background:#eee;font-size:15px;font-weight:600}.countrySelect option:checked{background:#d5d5d5;color:#111}.countrySelect option:hover{background:#d5d5d5;color:#111}
+.playerText{position:absolute;left:32.4%;top:42.5%;width:18.0%;height:5.5%;display:flex;align-items:center;font-size:clamp(15px,1.55vw,23px);font-weight:800;color:rgba(232,224,206,.92);letter-spacing:.4px;line-height:1;pointer-events:none;text-shadow:0 2px 3px rgba(0,0,0,.85);background:transparent!important}
+.nameInput{left:32.4%;top:56.0%;width:42.9%;height:7.3%;color:#e8e0ce;background:transparent;border-radius:8px;font-size:clamp(15px,1.65vw,24px);font-weight:800;padding-left:4px;text-shadow:0 2px 3px rgba(0,0,0,.85)}
+.pin1,.pin2,.pin3,.pin4{top:69.7%;width:5.2%;height:7.1%;color:#e8e0ce;text-align:center;font-size:clamp(18px,2.0vw,30px);font-weight:900;padding:0;background:transparent;border-radius:8px;text-shadow:0 2px 3px rgba(0,0,0,.85)}
+.pin1{left:26.6%}.pin2{left:33.2%}.pin3{left:39.8%}.pin4{left:46.4%}.saveProfile{left:30.0%;top:80.0%;width:36.5%;height:9.4%}
 /* ROOMS */
 #createRoomBtn{left:16.8%;top:62.7%;width:26.2%;height:10.5%}#joinCode{left:54%;top:78.5%;width:22%;height:5.6%;font-size:20px}#joinRoomBtn{left:76%;top:78.5%;width:9.2%;height:5.6%}#logoutBtn{left:29%;top:88.5%;width:42%;height:7%}.recentBtn{position:absolute;left:76%;width:9%;height:4.5%;border:0;background:transparent;cursor:pointer;color:transparent}.r1{top:45.8%}.r2{top:56.2%}.r3{top:66.4%}
 .toast{position:absolute;left:50%;bottom:3%;transform:translateX(-50%);background:rgba(0,0,0,.78);color:#fff;padding:12px 20px;border-radius:10px;font-weight:700;z-index:10;max-width:90%;text-align:center}
 @media (orientation: portrait){
-  .login{aspect-ratio:2/3;width:min(100vw,66.666vh);max-height:100vh;background-image:url('assets/screens/bg_login_mobile.jpg?v=1015')}
+  .login{aspect-ratio:2/3;width:min(100vw,66.666vh);max-height:100vh;background-image:url('assets/screens/bg_login_mobile.jpg?v=1016')}
   .screen:not(.login){aspect-ratio:3/2;width:100vw;max-height:100vh}
   .loginField{font-size:clamp(17px,5vw,28px)}
   #loginId{left:24.5%;top:42.8%;width:54.6%;height:7.4%;padding-left:9.5%}
