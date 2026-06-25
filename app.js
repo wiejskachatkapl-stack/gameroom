@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1009';
+const VERSION = 'GAME ROOM v1010';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)'};
@@ -29,4 +29,4 @@ document.getElementById('createRoomBtn').onclick=()=>{const code=roomCode();addR
 document.getElementById('joinRoomBtn').onclick=()=>{const code=document.getElementById('joinCode').value.trim().toUpperCase();if(!code)return toast('Wpisz kod pokoju.');addRecent({code,name:'Pokój znajomych',lastPlayed:'teraz'});toast('Dołączanie do pokoju '+code)};
 document.querySelectorAll('.recentBtn').forEach(b=>b.onclick=()=>{const r=recentRooms()[Number(b.dataset.i)];if(r)toast('Dołączanie do '+r.code);else toast('Brak zapisanego pokoju w tym miejscu.')});
 document.getElementById('logoutBtn').onclick=()=>{storage.remove('gr_logged_in');renderLogin()};}
-function init(){storage.get('gr_logged_in')&&profile()?renderRooms():renderLogin()} init();
+function init(){storage.get('gr_logged_in')&&profile()?renderRooms():renderLogin()}init();
