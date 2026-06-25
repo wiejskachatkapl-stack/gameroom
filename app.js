@@ -29,4 +29,4 @@ document.getElementById('createRoomBtn').onclick=()=>{const code=roomCode();addR
 document.getElementById('joinRoomBtn').onclick=()=>{const code=document.getElementById('joinCode').value.trim().toUpperCase();if(!code)return toast('Wpisz kod pokoju.');addRecent({code,name:'Pokój znajomych',lastPlayed:'teraz'});toast('Dołączanie do pokoju '+code)};
 document.querySelectorAll('.recentBtn').forEach(b=>b.onclick=()=>{const r=recentRooms()[Number(b.dataset.i)];if(r)toast('Dołączanie do '+r.code);else toast('Brak zapisanego pokoju w tym miejscu.')});
 document.getElementById('logoutBtn').onclick=()=>{storage.remove('gr_logged_in');renderLogin()};}
-function init(){if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});storage.get('gr_logged_in')&&profile()?renderRooms():renderLogin()}init();
+function init(){storage.get('gr_logged_in')&&profile()?renderRooms():renderLogin()} init();
