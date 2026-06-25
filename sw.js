@@ -1,10 +1,10 @@
-const CACHE='game-room-v1008';
+const CACHE='game-room-v1009';
 const ASSETS=[
   './',
   './index.html',
-  './style.css?v=1008',
-  './app.js?v=1008',
-  './firebase.js?v=1008',
+  './style.css?v=1009',
+  './app.js?v=1009',
+  './firebase.js?v=1009',
   './manifest.json',
   './assets/screens/bg_login.png',
   './assets/screens/bg_profile.png',
