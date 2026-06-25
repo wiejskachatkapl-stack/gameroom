@@ -1,11 +1,15 @@
-GAME ROOM v1013
+GAME ROOM v1014
 
-Wgraj na GitHub tylko wymienione pliki z folderu „pliki do podmiany”.
+Pliki do podmiany:
+- index.html
+- app.js
+- style.css
+- manifest.json
+- assets/screens/bg_login.jpg
+- assets/screens/bg_profile.jpg
+- assets/screens/bg_rooms.jpg
 
-Zmiany:
-- pola wpisywania mają czyste tło, aby tekst HTML nie nakładał się na tekst z grafiki,
-- etykiety pól logowania są nad okienkami,
-- tła ekranów dodane jako JPG,
-- dodane ikony aplikacji GAME ROOM.
+Pliki do dodania: brak
+Pliki do usunięcia: brak
 
-Po wgraniu: Ctrl+F5 i poczekaj na zielony deployment GitHub Pages.
+Po wgraniu odśwież stronę Ctrl+F5.
