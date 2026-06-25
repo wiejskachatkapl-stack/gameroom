@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1007';
+const VERSION = 'GAME ROOM v1008';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)'};
@@ -19,7 +19,7 @@ document.getElementById('helpBtn').onclick=()=>toast('Wpisz nr gracza i PIN albo
 document.getElementById('loginBtn').onclick=()=>{const pid=document.getElementById('loginId').value.trim().toUpperCase();const pin=document.getElementById('loginPin').value.trim();const p=profile();if(!p)return toast('Najpierw utwórz profil.');if(pid!==p.playerId||pin!==p.pin)return toast('Zły numer gracza lub PIN.');storage.set('gr_logged_in',true);renderRooms()};}
 function renderProfile(){let currentId=id('PL');app.innerHTML=`<section class="screen profile"><button class="btn back" id="backBtn">COFNIJ</button>
 <select class="hot countrySelect" id="country"><option value="PL">Polska (PL)</option><option value="DE">Niemcy (DE)</option><option value="NL">Holandia (NL)</option><option value="GB">Wielka Brytania (GB)</option><option value="FR">Francja (FR)</option><option value="ES">Hiszpania (ES)</option><option value="IT">Włochy (IT)</option></select>
-<div class="playerMask"></div><div class="playerText" id="playerText">${currentId}</div><input class="hot nameInput" id="name" maxlength="20" placeholder="Imię / nick" />
+<div class="playerText" id="playerText">${currentId}</div><input class="hot nameInput" id="name" maxlength="20" placeholder="Imię / nick" />
 <input class="hot pin1" maxlength="1" inputmode="numeric"><input class="hot pin2" maxlength="1" inputmode="numeric"><input class="hot pin3" maxlength="1" inputmode="numeric"><input class="hot pin4" maxlength="1" inputmode="numeric"><button class="btn saveProfile" id="saveBtn">ZAPISZ PROFIL</button>${version()}</section>`;
 const c=document.getElementById('country');c.onchange=()=>{currentId=id(c.value);document.getElementById('playerText').textContent=currentId};
 [...document.querySelectorAll('.pin1,.pin2,.pin3,.pin4')].forEach((el,i,arr)=>el.oninput=()=>{el.value=el.value.replace(/\D/g,'').slice(0,1);if(el.value&&arr[i+1])arr[i+1].focus()});
