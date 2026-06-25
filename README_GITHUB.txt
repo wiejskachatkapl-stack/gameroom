@@ -1,12 +1,11 @@
-GAME ROOM v1012
+GAME ROOM v1013
 
-Pliki do podmiany na GitHub:
-- index.html
-- app.js
-- style.css
+Wgraj na GitHub tylko wymienione pliki z folderu „pliki do podmiany”.
 
 Zmiany:
-- poprawiono pole IMIĘ / NICK: po rozpoczęciu wpisywania tekst z grafiki jest zakrywany papierowym tłem i nick nie nakłada się na napis.
-- nic więcej z v1011 nie zmieniano.
+- pola wpisywania mają czyste tło, aby tekst HTML nie nakładał się na tekst z grafiki,
+- etykiety pól logowania są nad okienkami,
+- tła ekranów dodane jako JPG,
+- dodane ikony aplikacji GAME ROOM.
 
-Nie trzeba podmieniać assetów.
+Po wgraniu: Ctrl+F5 i poczekaj na zielony deployment GitHub Pages.
