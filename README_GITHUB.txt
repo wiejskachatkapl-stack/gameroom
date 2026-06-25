@@ -1,15 +1,10 @@
-GAME ROOM v1015
+GAME ROOM v1018
 
-Pliki do podmiany:
+Pliki do podmiany w repozytorium GitHub Pages:
 - index.html
 - app.js
 - style.css
-- manifest.json
-- assets/screens/bg_login.jpg
 - assets/screens/bg_profile.jpg
-- assets/screens/bg_rooms.jpg
 
-Pliki do dodania: brak
-Pliki do usunięcia: brak
-
+Nie dodawaj nowych plików. Niczego nie usuwaj.
 Po wgraniu odśwież stronę Ctrl+F5.
