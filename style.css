@@ -40,7 +40,7 @@
   .version{font-size:10px;right:8px;bottom:6px}
 }
 
-/* v1020 – profil: czyste ramki, tekst wyśrodkowany w polach, bez podwójnych napisów */
+/* v1027 – profil: czyste ramki, tekst wyśrodkowany w polach, bez podwójnych napisów */
 .profile .hot,
 .profile input,
 .profile select{
@@ -128,7 +128,7 @@
 .saveProfile{left:30.0%!important;top:80.0%!important;width:36.5%!important;height:9.4%!important}
 
 
-/* v1021 – profil: nowa grafika z przeźroczystymi ramkami, dane wycentrowane w polach */
+/* v1027 – profil: nowa grafika z przeźroczystymi ramkami, dane wycentrowane w polach */
 .profile{background-image:url('assets/screens/bg_profile.jpg?v=1026')!important}
 .profile .hot,
 .profile input,
@@ -218,7 +218,7 @@
 .saveProfile{left:30.0%!important;top:80.0%!important;width:36.5%!important;height:9.4%!important}
 
 
-/* v1022 – pokoje: czyste pola, dane dynamiczne z HTML, bez przykładowych pokoi w grafice */
+/* v1027 – pokoje: czyste pola, dane dynamiczne z HTML, bez przykładowych pokoi w grafice */
 .rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1026')!important}
 .roomGreeting{position:absolute;left:15.0%;top:3.5%;font-size:clamp(18px,2.0vw,31px);font-weight:900;color:rgba(238,232,214,.92);line-height:1.05;text-shadow:0 3px 4px rgba(0,0,0,.9);z-index:6}
 .roomGreeting span{color:#4b9ce0;font-size:1.18em}
@@ -235,7 +235,7 @@
 #createRoomBtn{left:16.8%!important;top:62.7%!important;width:26.2%!important;height:10.5%!important;z-index:7}#logoutBtn{left:29%!important;top:88.5%!important;width:42%!important;height:7%!important;z-index:7}
 
 
-/* v1023 – pokoje: lista tylko zapisanych pokoi + okno tworzenia pokoju */
+/* v1027 – pokoje: lista tylko zapisanych pokoi + okno tworzenia pokoju */
 .rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1026')!important}
 .recentList{left:54.5%!important;top:51.0%!important;width:30.5%!important;height:20.5%!important;overflow:hidden!important;z-index:8!important;color:rgba(238,232,214,.95)!important}
 .roomRow{height:25%!important;min-height:25%!important;display:flex!important;align-items:center!important;padding:0 22% 0 3%!important;border-bottom:1px solid rgba(238,232,214,.18);font-size:clamp(10px,1.0vw,16px)!important;line-height:1!important;position:relative!important;overflow:hidden!important}
@@ -244,7 +244,7 @@
 .roomModal{position:absolute;inset:0;background:rgba(0,0,0,.54);z-index:30;display:flex;align-items:center;justify-content:center}.roomModalBox{width:min(520px,82%);padding:24px 28px;border:2px solid rgba(238,232,214,.75);border-radius:16px;background:rgba(20,18,14,.92);box-shadow:0 16px 50px rgba(0,0,0,.7);color:rgba(238,232,214,.96);font-weight:900;text-shadow:0 2px 3px #000}.modalTitle{font-size:28px;text-align:center;color:#cda737;margin-bottom:18px}.roomModalBox label{display:block;font-size:14px;margin:14px 0 7px;color:#4b9ce0;letter-spacing:.6px}.roomModalBox input{width:100%;height:46px;border:2px solid rgba(238,232,214,.45);border-radius:8px;background:rgba(0,0,0,.28);color:#fff;font-size:22px;font-weight:900;padding:0 14px;outline:0}.generatedCode{height:46px;display:flex;align-items:center;border:2px solid rgba(238,232,214,.45);border-radius:8px;background:rgba(0,0,0,.18);font-size:25px;padding:0 14px;color:#fff;letter-spacing:1px}.roomModalBox button{height:46px;margin-top:18px;border:2px solid rgba(238,232,214,.45);border-radius:8px;background:rgba(0,0,0,.2);color:rgba(238,232,214,.95);font-weight:900;font-size:16px;cursor:pointer}.roomModalBox #saveRoomBtn{width:58%;margin-right:3%;color:#75ad4a;border-color:rgba(117,173,74,.8)}.roomModalBox #cancelRoomBtn{width:38%}
 @media (max-width:800px){.roomModalBox{width:90%;padding:18px}.modalTitle{font-size:22px}.roomModalBox input,.generatedCode,.roomModalBox button{height:40px;font-size:18px}}
 
-/* v1025 – pokoje: 4 widoczne ramki, puste ramki bez pokoju, scroll dopiero przy większej liczbie */
+/* v1027 – pokoje: 4 widoczne ramki, puste ramki bez pokoju, scroll dopiero przy większej liczbie */
 .recentList{
   left:54.2%!important;
   top:49.8%!important;
@@ -332,7 +332,7 @@
 .manualJoinBtn{top:76.5%!important}
 
 
-/* v1026 – pokoje: układ jak zaakceptowany wzór, 4 ramki pokoi, reszta pusta, scroll tylko przy większej liczbie */
+/* v1027 – pokoje: układ jak zaakceptowany wzór, 4 ramki pokoi, reszta pusta, scroll tylko przy większej liczbie */
 .rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1026')!important}
 .joinTitle{
   left:56.8%!important; top:30.2%!important; width:30.0%!important;
@@ -400,3 +400,201 @@
 .roomCodeInput:not(#joinCode){display:none!important}
 #createRoomBtn{left:16.8%!important;top:62.7%!important;width:26.2%!important;height:10.5%!important;z-index:7!important}
 #logoutBtn{left:29%!important;top:88.5%!important;width:42%!important;height:7%!important;z-index:7!important}
+
+/* v1027 – ekran pokoi zrobiony od nowa: jeden czysty panel, 4 ramki, scroll od 5 pokoju */
+.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1027')!important}
+.rooms .joinPanel{
+  position:absolute!important;
+  left:52.6%!important;
+  top:24.1%!important;
+  width:36.4%!important;
+  height:63.4%!important;
+  border:4px solid rgba(63,134,188,.90)!important;
+  border-radius:22px!important;
+  background:rgba(0,0,0,.24)!important;
+  box-shadow:0 0 0 1px rgba(63,134,188,.22) inset, 0 8px 30px rgba(0,0,0,.28)!important;
+  z-index:8!important;
+  overflow:hidden!important;
+}
+.rooms .joinTitle{
+  position:absolute!important;
+  left:4%!important;
+  top:4.0%!important;
+  width:92%!important;
+  text-align:center!important;
+  font-size:clamp(20px,2.05vw,34px)!important;
+  line-height:1!important;
+  letter-spacing:.8px!important;
+  font-weight:900!important;
+  color:#4b9ce0!important;
+  text-shadow:0 3px 4px rgba(0,0,0,.9)!important;
+}
+.rooms .joinText{
+  position:absolute!important;
+  left:8%!important;
+  top:10.5%!important;
+  width:84%!important;
+  text-align:center!important;
+  font-size:clamp(12px,1.10vw,18px)!important;
+  line-height:1.18!important;
+  font-weight:900!important;
+  color:rgba(238,232,214,.96)!important;
+  text-shadow:0 3px 4px rgba(0,0,0,.9)!important;
+}
+.rooms .topJoinBox{
+  position:absolute!important;
+  left:8%!important;
+  top:17.4%!important;
+  width:84%!important;
+  height:9.2%!important;
+}
+.rooms .bottomJoinBox{
+  position:absolute!important;
+  left:8%!important;
+  bottom:4.2%!important;
+  width:84%!important;
+  height:8.8%!important;
+}
+.rooms .topJoinBox .roomCodeInput,
+.rooms .bottomJoinBox .roomCodeInput{
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  width:73%!important;
+  height:100%!important;
+  padding-left:6.5%!important;
+  padding-right:2%!important;
+  border:2px solid rgba(238,232,214,.68)!important;
+  border-radius:8px!important;
+  background:rgba(0,0,0,.08)!important;
+  color:rgba(238,232,214,.96)!important;
+  font-size:clamp(13px,1.25vw,20px)!important;
+  font-weight:900!important;
+  text-shadow:0 2px 4px rgba(0,0,0,.9)!important;
+  z-index:2!important;
+}
+.rooms .topJoinBox .roomCodeInput::placeholder,
+.rooms .bottomJoinBox .roomCodeInput::placeholder{color:rgba(238,232,214,.35)!important}
+.rooms .joinSmallBtn{
+  position:absolute!important;
+  right:0!important;
+  top:0!important;
+  width:23%!important;
+  height:100%!important;
+  border:2px solid rgba(63,134,188,.95)!important;
+  border-radius:8px!important;
+  background:rgba(0,0,0,.08)!important;
+  color:#4b9ce0!important;
+  font-weight:900!important;
+  font-size:clamp(11px,1.05vw,17px)!important;
+  cursor:pointer!important;
+  text-shadow:0 2px 3px rgba(0,0,0,.95)!important;
+}
+.rooms .lastTitle{
+  position:absolute!important;
+  left:10%!important;
+  top:30.3%!important;
+  width:80%!important;
+  text-align:center!important;
+  color:#4b9ce0!important;
+  font-size:clamp(13px,1.25vw,21px)!important;
+  font-weight:900!important;
+  line-height:1!important;
+  text-shadow:0 3px 4px rgba(0,0,0,.9)!important;
+}
+.rooms .recentList{
+  position:absolute!important;
+  left:7.4%!important;
+  top:35.4%!important;
+  width:82.5%!important;
+  height:40.5%!important;
+  padding-right:2.6%!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  scrollbar-width:thin!important;
+  scrollbar-color:#3f86bc rgba(255,255,255,.14)!important;
+  z-index:9!important;
+}
+.rooms .recentList::-webkit-scrollbar{width:7px!important}
+.rooms .recentList::-webkit-scrollbar-track{background:rgba(255,255,255,.12)!important;border-radius:8px!important}
+.rooms .recentList::-webkit-scrollbar-thumb{background:#3f86bc!important;border-radius:8px!important}
+.rooms .roomSlot{
+  position:relative!important;
+  height:calc((100% - 18px)/4)!important;
+  min-height:calc((100% - 18px)/4)!important;
+  margin:0 0 6px 0!important;
+  border:2px solid rgba(238,232,214,.62)!important;
+  border-radius:9px!important;
+  background:rgba(0,0,0,.08)!important;
+  display:flex!important;
+  align-items:center!important;
+  overflow:hidden!important;
+  color:rgba(238,232,214,.96)!important;
+  text-shadow:0 3px 4px rgba(0,0,0,.95)!important;
+}
+.rooms .roomSlot.empty{background:rgba(0,0,0,.04)!important;opacity:.72!important}
+.rooms .roomIcon{
+  flex:0 0 14%!important;
+  width:14%!important;
+  text-align:center!important;
+  color:#3f86bc!important;
+  font-size:clamp(17px,1.55vw,25px)!important;
+  font-weight:900!important;
+}
+.rooms .roomInfo{
+  flex:1!important;
+  min-width:0!important;
+  padding-right:27%!important;
+  line-height:1.05!important;
+}
+.rooms .roomName{
+  display:block!important;
+  font-size:clamp(12px,1.16vw,19px)!important;
+  font-weight:900!important;
+  color:rgba(238,232,214,.98)!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+.rooms .roomCodeLine{
+  display:block!important;
+  margin-top:2px!important;
+  font-size:clamp(10px,.95vw,16px)!important;
+  font-weight:900!important;
+  color:rgba(238,232,214,.92)!important;
+  white-space:nowrap!important;
+}
+.rooms .roomCodeLine span{color:#4b9ce0!important}
+.rooms .roomJoin{
+  position:absolute!important;
+  right:4.0%!important;
+  top:22%!important;
+  width:21.5%!important;
+  height:56%!important;
+  border:2px solid rgba(63,134,188,.95)!important;
+  border-radius:7px!important;
+  background:rgba(0,0,0,.08)!important;
+  color:rgba(238,232,214,.98)!important;
+  font-size:clamp(9px,.88vw,14px)!important;
+  font-weight:900!important;
+  cursor:pointer!important;
+  text-shadow:0 2px 3px rgba(0,0,0,.95)!important;
+}
+.rooms .manualTitle{
+  position:absolute!important;
+  left:10%!important;
+  bottom:14.6%!important;
+  width:80%!important;
+  text-align:center!important;
+  color:#4b9ce0!important;
+  font-size:clamp(12px,1.10vw,18px)!important;
+  font-weight:900!important;
+  line-height:1!important;
+  text-shadow:0 3px 4px rgba(0,0,0,.9)!important;
+}
+.rooms #createRoomBtn{left:16.8%!important;top:62.7%!important;width:26.2%!important;height:10.5%!important;z-index:9!important}
+.rooms #logoutBtn{left:29%!important;top:88.5%!important;width:42%!important;height:7%!important;z-index:9!important}
+.rooms .roomEmpty,.rooms .roomRow{display:none!important}
+@media (orientation:portrait){
+  .rooms .joinPanel{left:52.6%!important;top:24.1%!important;width:36.4%!important;height:63.4%!important}
+}
