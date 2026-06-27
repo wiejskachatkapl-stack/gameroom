@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1031';
+const VERSION = 'GAME ROOM v1032';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
@@ -32,54 +32,54 @@ document.getElementById('backBtn').onclick=renderLogin;document.getElementById('
 function renderRooms(){
 const p=profile();if(!p)return renderLogin();
 const rooms=recentRooms();
-const newCode=roomCode();
-const slotCount=Math.max(4,rooms.length);
-const slots=Array.from({length:slotCount},(_,i)=>{
+const displayCount=Math.max(4,rooms.length);
+const slots=Array.from({length:displayCount},(_,i)=>{
   const r=rooms[i];
-  if(!r)return `<div class="roomSlot empty"><div class="slotIcon">♙</div><div class="slotEmptyText">Brak pokoju</div></div>`;
-  return `<div class="roomSlot filled"><div class="slotIcon">♙</div><div class="slotInfo"><div class="slotName">${r.name||'Pokój'}</div><div class="slotCode"><span>Kod:</span> ${r.code}</div></div><button class="roomJoin" data-i="${i}">DOŁĄCZ</button></div>`;
+  if(!r)return `<div class="roomSlot empty"><div class="roomIcon">♙</div><div class="roomInfo muted">Puste miejsce</div></div>`;
+  return `<div class="roomSlot filled"><div class="roomIcon">♙</div><div class="roomInfo"><div class="roomName">${r.name||'Pokój'}</div><div class="roomCodeLine"><span>Kod:</span> ${r.code}</div></div><button class="roomJoin" data-i="${i}">DOŁĄCZ</button></div>`;
 }).join('');
+const newCode=roomCode();
 app.innerHTML=`<section class="screen rooms">
-  <div class="roomGreeting">Witaj,<br><span>${p.name}</span></div>
-  <div class="roomPlayerBox"><span>NR GRACZA:</span><strong>${p.playerId}</strong></div>
-
-  <div class="roomsFrame">
-    <section class="createPanel">
-      <div class="panelIcon">♙ ♙</div>
-      <h2>UTWÓRZ POKÓJ</h2>
-      <div class="createUnderline"></div>
-      <p class="createHint">Wpisz nazwę pokoju.<br>Kod pokoju zostanie wygenerowany automatycznie.</p>
-      <label class="panelLabel" for="newRoomName">NAZWA POKOJU</label>
-      <input class="roomInput createRoomName" id="newRoomName" maxlength="24" autocomplete="off" placeholder="Wpisz nazwę pokoju" />
-      <label class="panelLabel codeRoomLabel" for="generatedRoomCode">KOD POKOJU</label>
-      <div class="codeRow"><div class="generatedCodeInline" id="generatedRoomCode">${newCode}</div><button class="regenerateBtn" id="regenRoomCode" title="Wygeneruj nowy kod">↻</button></div>
-      <div class="createActions"><button class="createSaveBtn" id="saveRoomBtn">▣&nbsp; ZAPISZ POKÓJ</button><button class="createClearBtn" id="clearRoomBtn">←&nbsp; COFNIJ</button></div>
-    </section>
-
-    <section class="joinPanel">
-      <h2>DOŁĄCZ DO POKOJU</h2>
-      <p class="joinText">Wybierz pokój z listy albo wpisz kod pokoju.</p>
-      <button class="refreshBtn" id="refreshRoomsBtn">↻ ODŚWIEŻ</button>
-      <div class="listTitle"><span></span><b>TWOJE POKOJE</b><span></span></div>
-      <div class="recentList">${slots}</div>
-      <div class="manualTitle"><span></span><b>LUB WPISZ KOD POKOJU</b><span></span></div>
-      <div class="bottomJoinBox"><input class="roomInput roomCodeInput" id="joinCode" maxlength="7" autocomplete="off" placeholder="Wpisz 7-znakowy kod pokoju" /><button class="joinSmallBtn" id="joinRoomBtn">DOŁĄCZ</button></div>
-    </section>
+  <div class="roomsHeader">
+    <div class="roomGreeting">Witaj,<br><span>${p.name}</span></div>
+    <div class="roomPlayerBox"><span>NR GRACZA:</span><strong>${p.playerId}</strong></div>
   </div>
-
-  <button class="logoutRoomsBtn" id="logoutBtn">↪&nbsp; WYLOGUJ / ZMIEŃ PROFIL</button>
+  <div class="roomsBoard">
+    <div class="createPanel">
+      <div class="panelIcon">♙ ♙</div>
+      <div class="createTitle">UTWÓRZ POKÓJ</div>
+      <div class="createHint">Wpisz nazwę pokoju.<br>Kod pokoju zostanie wygenerowany automatycznie.</div>
+      <label class="createLabel" for="newRoomName">NAZWA POKOJU</label>
+      <input class="hot createRoomName" id="newRoomName" maxlength="24" autocomplete="off" placeholder="Wpisz nazwę pokoju" />
+      <label class="createLabel" for="generatedRoomCode">KOD POKOJU</label>
+      <div class="generatedCodeWrap"><span id="generatedRoomCode">${newCode}</span><button id="regenRoomCode" title="Nowy kod">⟳</button></div>
+      <div class="createActions"><button class="createSaveBtn" id="saveRoomBtn">▣ ZAPISZ POKÓJ</button><button class="createClearBtn" id="clearRoomBtn">← COFNIJ</button></div>
+    </div>
+    <div class="joinPanel">
+      <div class="panelIcon blue">♟ ♟</div>
+      <div class="joinTitle">DOŁĄCZ DO POKOJU</div>
+      <div class="joinText">Wybierz pokój z listy albo wpisz kod pokoju.</div>
+      <button class="refreshBtn" id="refreshRoomsBtn">⟳ ODŚWIEŻ</button>
+      <div class="lastTitle">TWOJE POKOJE</div>
+      <div class="recentList">${slots}</div>
+      <div class="manualTitle">LUB WPISZ KOD POKOJU</div>
+      <div class="bottomJoinBox"><input class="hot roomCodeInput bottomCode" id="joinCode" placeholder="Wpisz 7-znakowy kod pokoju" autocomplete="off" maxlength="7" /><button class="joinSmallBtn" id="joinRoomBtn">DOŁĄCZ</button></div>
+    </div>
+  </div>
+  <button class="logoutBtn" id="logoutBtn">↪ WYLOGUJ / ZMIEŃ PROFIL</button>
   ${version()}
 </section>`;
 const normalizeCode=(v)=>v.trim().toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,7);
 const joinByCode=()=>{const input=document.getElementById('joinCode');const code=normalizeCode(input.value);input.value=code;if(code.length!==7)return toast('Kod pokoju musi mieć 7 znaków.');addRecent({code,name:'Pokój '+code,lastPlayed:'teraz'});toast('Dodano pokój '+code);renderRooms()};
 document.getElementById('joinRoomBtn').onclick=joinByCode;
+document.getElementById('joinCode').oninput=e=>{e.target.value=normalizeCode(e.target.value)};
 document.querySelectorAll('.roomJoin').forEach(b=>b.onclick=()=>{const r=recentRooms()[Number(b.dataset.i)];if(r)toast('Dołączanie do pokoju '+r.code)});
 document.getElementById('saveRoomBtn').onclick=()=>{const name=document.getElementById('newRoomName').value.trim();const code=document.getElementById('generatedRoomCode').textContent.trim();if(name.length<2)return toast('Wpisz nazwę pokoju.');addRecent({code,name,lastPlayed:'teraz'});toast('Pokój zapisany: '+code);renderRooms()};
+document.getElementById('regenRoomCode').onclick=()=>{document.getElementById('generatedRoomCode').textContent=roomCode()};
 document.getElementById('clearRoomBtn').onclick=()=>{document.getElementById('newRoomName').value='';document.getElementById('generatedRoomCode').textContent=roomCode();};
-document.getElementById('regenRoomCode').onclick=()=>{document.getElementById('generatedRoomCode').textContent=roomCode();};
 document.getElementById('refreshRoomsBtn').onclick=()=>renderRooms();
-document.getElementById('joinCode').addEventListener('input',e=>{e.target.value=normalizeCode(e.target.value)});
 document.getElementById('logoutBtn').onclick=()=>{storage.remove('gr_logged_in');renderLogin()};
 }
+
 function openCreateRoom(){renderRooms()}
 function init(){storage.get('gr_logged_in')&&profile()?renderRooms():renderLogin()}init();
