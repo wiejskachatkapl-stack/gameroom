@@ -3,8 +3,8 @@
 #app{display:flex;align-items:center;justify-content:center;background:#111}
 .screen{position:relative;overflow:hidden;background-size:100% 100%;background-position:center;background-repeat:no-repeat;box-shadow:0 0 0 9999px #111}
 .screen:not(.login){aspect-ratio:3/2;width:min(100vw,150vh);max-height:100vh}
-.login{aspect-ratio:16/9;width:min(100vw,177.777vh);max-height:100vh;background-image:url('assets/screens/bg_login_desktop.jpg?v=1035')}
-.profile{background-image:url('assets/screens/bg_profile.jpg?v=1035')}.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1035')}
+.login{aspect-ratio:16/9;width:min(100vw,177.777vh);max-height:100vh;background-image:url('assets/screens/bg_login_desktop.jpg?v=1037')}
+.profile{background-image:url('assets/screens/bg_profile.jpg?v=1037')}.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1037')}
 .hot{position:absolute;border:0;outline:0;background:transparent!important;color:#fff;font-weight:900;letter-spacing:.5px;padding:0 18px;text-shadow:0 2px 4px rgba(0,0,0,.9);-webkit-appearance:none;appearance:none}
 .hot::placeholder{color:transparent}.hot:focus{background:rgba(255,255,255,.02)!important;border-radius:8px;box-shadow:none}
 .btn{position:absolute;border:0;background:transparent;cursor:pointer;color:transparent;font-size:0}.btn:focus{outline:3px dashed rgba(255,255,255,.6);outline-offset:-4px;border-radius:10px}
@@ -29,7 +29,7 @@
 #createRoomBtn{left:16.8%;top:62.7%;width:26.2%;height:10.5%}#joinCode{left:54%;top:78.5%;width:22%;height:5.6%;font-size:20px}#joinRoomBtn{left:76%;top:78.5%;width:9.2%;height:5.6%}#logoutBtn{left:29%;top:88.5%;width:42%;height:7%}.recentBtn{position:absolute;left:76%;width:9%;height:4.5%;border:0;background:transparent;cursor:pointer;color:transparent}.r1{top:45.8%}.r2{top:56.2%}.r3{top:66.4%}
 .toast{position:absolute;left:50%;bottom:3%;transform:translateX(-50%);background:rgba(0,0,0,.78);color:#fff;padding:12px 20px;border-radius:10px;font-weight:700;z-index:10;max-width:90%;text-align:center}
 @media (orientation: portrait){
-  .login{aspect-ratio:2/3;width:min(100vw,66.666vh);max-height:100vh;background-image:url('assets/screens/bg_login_mobile.jpg?v=1035')}
+  .login{aspect-ratio:2/3;width:min(100vw,66.666vh);max-height:100vh;background-image:url('assets/screens/bg_login_mobile.jpg?v=1037')}
   .screen:not(.login){aspect-ratio:3/2;width:100vw;max-height:100vh}
   .loginField{font-size:clamp(17px,5vw,28px)}
   #loginId{left:24.5%;top:42.8%;width:54.6%;height:7.4%;padding-left:9.5%}
@@ -129,7 +129,7 @@
 
 
 /* v1027 – profil: nowa grafika z przeźroczystymi ramkami, dane wycentrowane w polach */
-.profile{background-image:url('assets/screens/bg_profile.jpg?v=1035')!important}
+.profile{background-image:url('assets/screens/bg_profile.jpg?v=1037')!important}
 .profile .hot,
 .profile input,
 .profile select{
@@ -219,7 +219,7 @@
 
 
 /* v1027 – pokoje: czyste pola, dane dynamiczne z HTML, bez przykładowych pokoi w grafice */
-.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1035')!important}
+.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1037')!important}
 .roomGreeting{position:absolute;left:15.0%;top:3.5%;font-size:clamp(18px,2.0vw,31px);font-weight:900;color:rgba(238,232,214,.92);line-height:1.05;text-shadow:0 3px 4px rgba(0,0,0,.9);z-index:6}
 .roomGreeting span{color:#4b9ce0;font-size:1.18em}
 .roomPlayerBox{position:absolute;left:15.0%;top:13.3%;width:14.7%;height:7.6%;display:flex;flex-direction:column;justify-content:center;align-items:center;color:rgba(238,232,214,.92);font-weight:900;text-shadow:0 3px 4px rgba(0,0,0,.9);z-index:6;pointer-events:none}
@@ -236,7 +236,7 @@
 
 
 /* v1027 – pokoje: lista tylko zapisanych pokoi + okno tworzenia pokoju */
-.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1035')!important}
+.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1037')!important}
 .recentList{left:54.5%!important;top:51.0%!important;width:30.5%!important;height:20.5%!important;overflow:hidden!important;z-index:8!important;color:rgba(238,232,214,.95)!important}
 .roomRow{height:25%!important;min-height:25%!important;display:flex!important;align-items:center!important;padding:0 22% 0 3%!important;border-bottom:1px solid rgba(238,232,214,.18);font-size:clamp(10px,1.0vw,16px)!important;line-height:1!important;position:relative!important;overflow:hidden!important}
 .roomCode{font-weight:900!important;margin-right:8px!important;color:rgba(238,232,214,.98)!important;white-space:nowrap!important}.roomName{font-weight:800!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.roomEmpty{height:100%;display:flex;align-items:center;justify-content:center;color:rgba(238,232,214,.65);font-weight:800;font-size:clamp(11px,1.05vw,17px);font-style:normal}.roomJoin{position:absolute!important;right:2.0%!important;top:18%!important;width:18%!important;height:64%!important;border:0!important;background:transparent!important;color:rgba(238,232,214,.95)!important;font-weight:900!important;font-size:clamp(8px,.85vw,14px)!important;cursor:pointer!important;text-shadow:0 2px 3px #000!important}
@@ -333,7 +333,7 @@
 
 
 /* v1027 – pokoje: układ jak zaakceptowany wzór, 4 ramki pokoi, reszta pusta, scroll tylko przy większej liczbie */
-.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1035')!important}
+.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1037')!important}
 .joinTitle{
   left:56.8%!important; top:30.2%!important; width:30.0%!important;
   text-align:center!important; font-size:clamp(20px,2.05vw,34px)!important;
@@ -402,7 +402,7 @@
 #logoutBtn{left:29%!important;top:88.5%!important;width:42%!important;height:7%!important;z-index:7!important}
 
 /* v1027 – ekran pokoi zrobiony od nowa: jeden czysty panel, 4 ramki, scroll od 5 pokoju */
-.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1035')!important}
+.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1037')!important}
 .rooms .joinPanel{
   position:absolute!important;
   left:52.6%!important;
@@ -601,7 +601,7 @@
 
 
 /* v1029 – ekran pokoi całkowicie przebudowany pod nowe tło i dwa panele */
-.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1035')!important;background-size:100% 100%!important}
+.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1037')!important;background-size:100% 100%!important}
 .rooms .btn,.rooms button{font-family:Arial,Helvetica,sans-serif}
 .roomGreeting{position:absolute!important;left:4.2%!important;top:3.0%!important;width:20%!important;font-size:clamp(18px,2.05vw,34px)!important;font-weight:900!important;line-height:1.05!important;color:rgba(238,232,214,.95)!important;text-shadow:0 3px 4px rgba(0,0,0,.9)!important;z-index:20!important}
 .roomGreeting span{color:#3292ff!important;font-size:1.15em!important}
@@ -624,7 +624,7 @@
 
 /* GAME ROOM v1036 — ekran pokoi od zera, czysty układ HTML/CSS */
 .rooms.gr-clean-rooms{
-  background-image:url('assets/screens/bg_rooms.jpg?v=1035')!important;
+  background-image:url('assets/screens/bg_rooms.jpg?v=1037')!important;
   background-size:100% 100%!important;
   background-position:center!important;
   color:#efe8d6;
@@ -657,7 +657,7 @@
 
 /* v1036 – GAME ROOM: poprawiony układ pokojów, bez tekstów pomocniczych i bez fikcyjnych pokoi */
 .rooms.gr-clean-rooms{
-  background-image:url('assets/screens/bg_rooms.jpg?v=1036')!important;
+  background-image:url('assets/screens/bg_rooms.jpg?v=1037')!important;
   background-size:100% 100%!important;
   background-position:center!important;
 }
@@ -729,3 +729,23 @@
   .gr-profile-head{left:13.8%!important;top:2.5%!important;transform:scale(.62)!important;}
   .gr-stage{left:16.2%!important;top:24.6%!important;width:69.8%!important;height:60.5%!important;gap:1%!important;}
 }
+
+
+/* v1037 – ustawienia */
+#helpBtn::after{
+  content:'USTAWIENIA';
+  position:absolute;
+  left:0;top:0;width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(238,232,214,.92);
+  font-size:clamp(10px,.9vw,15px);
+  font-weight:900;
+  text-shadow:0 2px 3px #000;
+  letter-spacing:.5px;
+}
+.settingsOverlay{position:absolute;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.62);backdrop-filter:blur(2px)}
+.settingsBox{width:min(560px,88%);max-height:92%;overflow:auto;padding:24px 28px;border:3px solid rgba(205,167,55,.86);border-radius:22px;background:rgba(18,16,13,.94);box-shadow:0 20px 70px rgba(0,0,0,.75);color:var(--chalk);font-weight:900;text-shadow:0 2px 3px #000}
+.settingsBox h2{margin:0 0 18px;text-align:center;color:#cda737;font-size:clamp(24px,2.2vw,36px);letter-spacing:1px}
+.settingsSection{border:1px solid rgba(238,232,214,.22);border-radius:14px;padding:14px;margin:12px 0;background:rgba(0,0,0,.16)}
+.settingsTitle{color:#3f86bc;font-size:16px;letter-spacing:.8px;margin-bottom:10px}.settingsBox label{display:block;margin:10px 0 6px;color:rgba(238,232,214,.86);font-size:13px;letter-spacing:.5px}.settingsBox input,.settingsBox select{width:100%;height:42px;border:2px solid rgba(238,232,214,.45);border-radius:10px;background:rgba(0,0,0,.28);color:#fff;font-size:18px;font-weight:900;padding:0 12px;outline:0}.settingsBox select option{color:#111;background:#eee}.settingsRow{display:flex;gap:12px;margin-top:14px}.settingsRow.two{margin-top:0}.settingsBox button{height:44px;border-radius:10px;border:2px solid rgba(63,134,188,.8);background:rgba(0,0,0,.22);color:#eae2cf;font-weight:900;font-size:15px;cursor:pointer;text-shadow:0 2px 3px #000}.settingsChoice{flex:1}.settingsChoice.active{border-color:#75ad4a;color:#75ad4a}.settingsMain{width:100%;margin-top:14px;border-color:rgba(117,173,74,.9)!important;color:#75ad4a!important}.settingsDanger{flex:1;border-color:rgba(190,64,64,.9)!important;color:#ff6b6b!important}.settingsBack{flex:1}.settingsAbout{margin-top:14px;color:rgba(238,232,214,.62);font-size:12px;line-height:1.35;text-align:center}.settingsBox button:disabled,.settingsBox input:disabled,.settingsBox select:disabled{opacity:.45;cursor:not-allowed}
+@media (orientation:portrait){#helpBtn::after{font-size:clamp(9px,2.7vw,13px)}.settingsBox{width:92%;padding:18px}.settingsBox h2{font-size:24px}.settingsBox input,.settingsBox select,.settingsBox button{height:40px;font-size:15px}.settingsRow{gap:8px}}
