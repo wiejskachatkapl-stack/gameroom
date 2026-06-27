@@ -975,3 +975,176 @@
 
 /* Usuń stare nakładane teksty logowania, jeżeli zostały w DOM z cache */
 .login-clean .loginText,.login-clean .loginBtnText,.login-clean .loginSettingsText{display:none!important}
+
+/* ===== GAME ROOM v1045: NOWY CZYSTY LOGIN + USTAWIENIA ===== */
+.login.login-clean{
+  aspect-ratio:16/9!important;
+  width:min(100vw,177.777vh)!important;
+  height:auto!important;
+  max-height:100vh!important;
+  background-image:url('assets/screens/bg_login_desktop.jpg?v=1045')!important;
+  background-size:cover!important;
+  background-position:center!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:0!important;
+}
+.login-clean .login-shell{
+  position:relative!important;
+  width:100%!important;
+  height:100%!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding-top:9.5%!important;
+  z-index:3!important;
+}
+.login-clean .lang-switch{
+  position:absolute!important;
+  left:18.2%!important;
+  top:23.2%!important;
+  display:flex!important;
+  gap:14px!important;
+  z-index:5!important;
+}
+.login-clean .lang-btn{
+  position:static!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:8px!important;
+  min-width:110px!important;
+  height:48px!important;
+  border-radius:10px!important;
+  border:2px solid rgba(255,255,255,.35)!important;
+  background:linear-gradient(180deg,rgba(20,24,28,.92),rgba(5,8,12,.92))!important;
+  color:#e8edf7!important;
+  font-weight:900!important;
+  font-size:20px!important;
+  letter-spacing:.5px!important;
+  text-shadow:0 2px 3px #000!important;
+  cursor:pointer!important;
+  box-shadow:0 0 18px rgba(0,0,0,.55), inset 0 0 16px rgba(255,255,255,.05)!important;
+}
+.login-clean .lang-btn.active{
+  border-color:#82ff4a!important;
+  box-shadow:0 0 20px rgba(123,255,64,.65), inset 0 0 18px rgba(80,255,30,.16)!important;
+}
+.login-clean .login-card{
+  position:absolute!important;
+  left:29.5%!important;
+  top:36.5%!important;
+  width:47.5%!important;
+  max-width:760px!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  gap:12px!important;
+  z-index:4!important;
+}
+.login-clean .field-label{
+  display:block!important;
+  margin:0 0 -4px 0!important;
+  color:#1aa7ff!important;
+  font-size:clamp(15px,1.45vw,25px)!important;
+  font-weight:950!important;
+  letter-spacing:1px!important;
+  text-shadow:0 2px 3px #000,0 0 10px rgba(0,150,255,.5)!important;
+}
+.login-clean .input-wrap{
+  position:relative!important;
+  width:100%!important;
+  height:64px!important;
+  border:2px solid rgba(72,190,255,.86)!important;
+  border-radius:10px!important;
+  background:linear-gradient(180deg,rgba(0,0,0,.72),rgba(0,0,0,.48))!important;
+  box-shadow:inset 0 0 18px rgba(0,0,0,.85),0 0 12px rgba(0,145,255,.38)!important;
+  display:grid!important;
+  grid-template-columns:86px 1fr 58px!important;
+  align-items:center!important;
+  overflow:hidden!important;
+}
+.login-clean .input-icon{
+  position:static!important;
+  width:86px!important;
+  height:100%!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-right:1px solid rgba(255,255,255,.22)!important;
+  font-size:34px!important;
+  color:#149dff!important;
+  text-shadow:0 0 14px rgba(0,160,255,.75)!important;
+}
+.login-clean .pin-icon{color:#ffd12e!important;text-shadow:0 0 14px rgba(255,190,0,.75)!important}
+.login-clean .login-input,
+.login-clean #loginId,
+.login-clean #loginPin{
+  position:static!important;
+  left:auto!important;top:auto!important;width:100%!important;height:100%!important;
+  border:0!important;outline:0!important;background:transparent!important;
+  color:#fff!important;
+  font-size:clamp(18px,2.0vw,34px)!important;
+  font-weight:900!important;
+  padding:0 16px!important;
+  letter-spacing:.4px!important;
+  text-shadow:0 2px 4px #000!important;
+  box-shadow:none!important;
+}
+.login-clean .login-input::placeholder{color:rgba(255,255,255,.45)!important;text-shadow:none!important;font-weight:700!important}
+.login-clean .eye-btn,
+.login-clean #togglePin{
+  position:static!important;
+  width:58px!important;height:100%!important;
+  border:0!important;background:transparent!important;color:#fff!important;
+  font-size:25px!important;cursor:pointer!important;text-shadow:0 0 10px rgba(255,255,255,.55)!important;
+}
+.login-clean .login-action,
+.login-clean #loginBtn,
+.login-clean #createProfileBtn,
+.login-clean #helpBtn{
+  position:static!important;
+  left:auto!important;top:auto!important;width:100%!important;height:66px!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;gap:18px!important;
+  border-radius:12px!important;
+  color:#fff!important;
+  font-size:clamp(19px,2.0vw,36px)!important;
+  font-weight:950!important;
+  letter-spacing:.8px!important;
+  text-transform:uppercase!important;
+  text-shadow:0 2px 4px #000!important;
+  cursor:pointer!important;
+  border:2px solid currentColor!important;
+  padding:0 22px!important;
+}
+.login-clean .login-main{margin-top:8px!important;background:linear-gradient(180deg,rgba(100,230,40,.92),rgba(33,120,8,.92))!important;border-color:#9cff54!important;box-shadow:0 0 22px rgba(110,255,50,.65), inset 0 0 24px rgba(255,255,255,.15)!important}
+.login-clean .login-create{background:linear-gradient(180deg,rgba(255,196,22,.92),rgba(170,105,0,.92))!important;border-color:#ffd132!important;box-shadow:0 0 20px rgba(255,190,20,.55), inset 0 0 24px rgba(255,255,255,.12)!important}
+.login-clean .login-settings{background:linear-gradient(180deg,rgba(0,124,210,.92),rgba(0,43,90,.92))!important;border-color:#20a9ff!important;box-shadow:0 0 20px rgba(0,150,255,.55), inset 0 0 24px rgba(255,255,255,.1)!important}
+.login-clean .login-action span{font-size:1.05em!important;min-width:42px!important;text-align:center!important}
+.login-clean .or-line{height:36px!important;display:flex!important;align-items:center!important;justify-content:center!important;color:#fff!important;font-weight:900!important;font-size:24px!important;text-shadow:0 2px 4px #000!important;margin:0!important}
+.login-clean .or-line:before,.login-clean .or-line:after{content:'';height:1px;background:rgba(255,255,255,.38);flex:1}.login-clean .or-line span{padding:0 26px!important}
+.login-clean .version{z-index:6!important;color:rgba(255,255,255,.55)!important}
+
+.settingsOverlay{position:absolute;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.48);backdrop-filter:blur(4px)}
+.settingsBox{width:min(520px,88vw);max-height:90vh;overflow:auto;padding:28px;border-radius:18px;border:2px solid rgba(90,190,255,.8);background:linear-gradient(180deg,rgba(5,8,14,.94),rgba(0,0,0,.94));box-shadow:0 0 35px rgba(0,150,255,.55), inset 0 0 28px rgba(255,255,255,.05);color:#fff;text-shadow:0 2px 4px #000}
+.settingsBox h2{margin:0 0 20px;color:#1aa7ff;text-align:center;font-size:30px;letter-spacing:1px}.settingsSection{border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:14px;margin-bottom:14px}.settingsTitle{font-weight:900;color:#fff;margin-bottom:10px;font-size:18px}.settingsRow{display:flex;gap:12px}.settingsRow.two>*{flex:1}.settingsChoice,.settingsMain,.settingsBack,.settingsDanger{height:48px;border-radius:10px;border:2px solid rgba(255,255,255,.45);background:rgba(0,0,0,.45);color:#fff;font-weight:900;font-size:16px;cursor:pointer}.settingsChoice.active{border-color:#83ff4a;box-shadow:0 0 16px rgba(120,255,70,.5)}.settingsBox label{display:block;margin:10px 0 5px;color:#1aa7ff;font-weight:900}.settingsBox input,.settingsBox select{width:100%;height:42px;border-radius:8px;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.5);color:#fff;padding:0 12px;font-weight:800}.settingsMain{width:100%;margin-top:12px;border-color:#83ff4a;background:rgba(40,120,10,.65)}.settingsDanger{flex:1;border-color:#ff5656;background:rgba(120,10,10,.65)}.settingsBack{flex:1;border-color:#20a9ff;background:rgba(0,80,150,.55)}.settingsAbout{margin-top:12px;color:rgba(255,255,255,.7);font-size:13px;text-align:center}
+
+@media (orientation:portrait){
+  .login.login-clean{aspect-ratio:2/3!important;width:min(100vw,66.666vh)!important;background-image:url('assets/screens/bg_login_mobile.jpg?v=1045')!important;background-size:cover!important;background-position:center!important}
+  .login-clean .login-shell{padding-top:0!important;align-items:flex-end!important;padding-bottom:5.5%!important}
+  .login-clean .lang-switch{left:50%!important;top:21.5%!important;transform:translateX(-50%)!important;gap:10px!important}
+  .login-clean .lang-btn{min-width:94px!important;height:42px!important;font-size:17px!important}
+  .login-clean .login-card{left:8%!important;top:auto!important;bottom:6.5%!important;width:84%!important;gap:10px!important}
+  .login-clean .field-label{font-size:17px!important;margin-bottom:-4px!important}
+  .login-clean .input-wrap{height:56px!important;grid-template-columns:68px 1fr 50px!important}
+  .login-clean .input-icon{width:68px!important;font-size:27px!important}
+  .login-clean .login-input{font-size:23px!important;padding:0 12px!important}
+  .login-clean .eye-btn{width:50px!important;font-size:22px!important}
+  .login-clean .login-action{height:58px!important;font-size:24px!important;gap:10px!important}
+  .login-clean .or-line{height:28px!important;font-size:18px!important}
+  .login-clean .or-line span{padding:0 16px!important}
+}
