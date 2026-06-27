@@ -1,3 +1,2 @@
-GAME ROOM v1036
-
-Podmień wskazane pliki z paczki na GitHub Pages.
+GAME ROOM v1047
+Podmień pliki z katalogu "pliki do podmiany".
