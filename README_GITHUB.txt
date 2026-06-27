@@ -1,4 +1,4 @@
-GAME ROOM v1034
+GAME ROOM v1027
 
 Pliki do podmiany:
 - index.html
