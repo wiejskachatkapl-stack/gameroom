@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1043';
+const VERSION = 'GAME ROOM v1044';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
@@ -85,40 +85,53 @@ function openSettings(){
 }
 function renderLogin(){
   const p=profile();
-  const isEn=lang()==='en';
-  app.innerHTML=`<section class="screen login cleanLogin">
-    <div class="loginPanel">
-      <div class="langSwitch" aria-label="language">
-        <button id="loginLangPL" class="langBtn ${!isEn?'active':''}" type="button">🇵🇱 PL</button>
-        <button id="loginLangEN" class="langBtn ${isEn?'active':''}" type="button">🇬🇧 EN</button>
+  const loginValue = p?.playerId || '';
+  app.innerHTML=`<section class="screen login login-clean">
+    <div class="login-shell">
+      <div class="lang-switch" aria-label="language">
+        <button id="langLoginPL" class="lang-btn ${lang()==='pl'?'active':''}" type="button">🇵🇱 PL</button>
+        <button id="langLoginEN" class="lang-btn ${lang()==='en'?'active':''}" type="button">🇬🇧 EN</button>
       </div>
 
-      <label class="loginLabel" for="loginId">${tr('loginLabel')}</label>
-      <div class="fieldWrap">
-        <span class="fieldIcon">♙</span>
-        <input id="loginId" class="loginInput" autocomplete="username" value="${esc(p?.playerId||'')}" placeholder="${isEn?'Enter login or ID':'Wpisz login lub numer'}" />
-      </div>
+      <form class="login-card" id="loginForm" autocomplete="off">
+        <label class="field-label" for="loginId">${tr('loginLabel').toUpperCase()}</label>
+        <div class="input-wrap">
+          <span class="input-icon user-icon">♙</span>
+          <input id="loginId" class="login-input" autocomplete="username" value="${esc(loginValue)}" placeholder="${lang()==='pl'?'Wpisz login lub numer':'Enter login or ID'}" />
+        </div>
 
-      <label class="loginLabel" for="loginPin">PIN</label>
-      <div class="fieldWrap">
-        <span class="fieldIcon lock">▣</span>
-        <input id="loginPin" class="loginInput" type="password" inputmode="numeric" maxlength="4" autocomplete="current-password" placeholder="${isEn?'Enter PIN':'Wpisz PIN'}" />
-        <button id="togglePin" class="eyeBtn" type="button">◉</button>
-      </div>
+        <label class="field-label" for="loginPin">PIN</label>
+        <div class="input-wrap">
+          <span class="input-icon pin-icon">▣</span>
+          <input id="loginPin" class="login-input" type="password" inputmode="numeric" maxlength="4" autocomplete="current-password" placeholder="${lang()==='pl'?'Wpisz PIN':'Enter PIN'}" />
+          <button type="button" id="togglePin" class="eye-btn" aria-label="show PIN">◉</button>
+        </div>
 
-      <button class="loginAction loginGreen" id="loginBtn" type="button"><span>↪</span>${tr('loginBtn')}</button>
-      <div class="orLine"><span>${isEn?'OR':'LUB'}</span></div>
-      <button class="loginAction loginYellow" id="createProfileBtn" type="button"><span>♙+</span>${tr('createProfile')}</button>
-      <button class="loginAction loginBlue" id="helpBtn" type="button"><span>⚙</span>${tr('settings')}</button>
+        <button class="login-action login-main" id="loginBtn" type="submit"><span>↪</span>${tr('loginBtn')}</button>
+        <div class="or-line"><span>${lang()==='pl'?'LUB':'OR'}</span></div>
+        <button class="login-action login-create" id="createProfileBtn" type="button"><span>♙+</span>${tr('createProfile')}</button>
+        <button class="login-action login-settings" id="helpBtn" type="button"><span>⚙</span>${tr('settings')}</button>
+      </form>
     </div>
     ${version()}
   </section>`;
-  document.getElementById('loginLangPL').onclick=()=>{storage.set('gr_lang','pl');renderLogin()};
-  document.getElementById('loginLangEN').onclick=()=>{storage.set('gr_lang','en');renderLogin()};
-  document.getElementById('togglePin').onclick=()=>{const pin=document.getElementById('loginPin');pin.type=pin.type==='password'?'text':'password'};
+
+  document.getElementById('langLoginPL').onclick=()=>{storage.set('gr_lang','pl');renderLogin()};
+  document.getElementById('langLoginEN').onclick=()=>{storage.set('gr_lang','en');renderLogin()};
   document.getElementById('createProfileBtn').onclick=renderProfile;
   document.getElementById('helpBtn').onclick=openSettings;
-  document.getElementById('loginBtn').onclick=()=>{const pid=document.getElementById('loginId').value.trim().toUpperCase();const pin=document.getElementById('loginPin').value.trim();const p=profile();if(!p)return toast(tr('createFirst'));if(pid!==p.playerId||pin!==p.pin)return toast(tr('badLogin'));storage.set('gr_logged_in',true);renderRooms()};
+  document.getElementById('togglePin').onclick=()=>{const pin=document.getElementById('loginPin');pin.type=pin.type==='password'?'text':'password'};
+  document.getElementById('loginPin').oninput=e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,4)};
+  document.getElementById('loginForm').onsubmit=(ev)=>{
+    ev.preventDefault();
+    const pid=document.getElementById('loginId').value.trim().toUpperCase();
+    const pin=document.getElementById('loginPin').value.trim();
+    const p=profile();
+    if(!p)return toast(tr('createFirst'));
+    if(pid!==p.playerId||pin!==p.pin)return toast(tr('badLogin'));
+    storage.set('gr_logged_in',true);
+    renderRooms();
+  };
 }
 function renderProfile(){let currentId=id('PL');app.innerHTML=`<section class="screen profile"><button class="btn back" id="backBtn">COFNIJ</button>
 <label class="profileLabel countryLabel" for="country">KRAJ</label>
