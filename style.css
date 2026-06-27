@@ -3,8 +3,8 @@
 #app{display:flex;align-items:center;justify-content:center;background:#111}
 .screen{position:relative;overflow:hidden;background-size:100% 100%;background-position:center;background-repeat:no-repeat;box-shadow:0 0 0 9999px #111}
 .screen:not(.login){aspect-ratio:3/2;width:min(100vw,150vh);max-height:100vh}
-.login{aspect-ratio:16/9;width:min(100vw,177.777vh);max-height:100vh;background-image:url('assets/screens/bg_login_desktop.jpg?v=1033')}
-.profile{background-image:url('assets/screens/bg_profile.jpg?v=1033')}.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1033')}
+.login{aspect-ratio:16/9;width:min(100vw,177.777vh);max-height:100vh;background-image:url('assets/screens/bg_login_desktop.jpg?v=1026')}
+.profile{background-image:url('assets/screens/bg_profile.jpg?v=1026')}.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1034')}
 .hot{position:absolute;border:0;outline:0;background:transparent!important;color:#fff;font-weight:900;letter-spacing:.5px;padding:0 18px;text-shadow:0 2px 4px rgba(0,0,0,.9);-webkit-appearance:none;appearance:none}
 .hot::placeholder{color:transparent}.hot:focus{background:rgba(255,255,255,.02)!important;border-radius:8px;box-shadow:none}
 .btn{position:absolute;border:0;background:transparent;cursor:pointer;color:transparent;font-size:0}.btn:focus{outline:3px dashed rgba(255,255,255,.6);outline-offset:-4px;border-radius:10px}
@@ -29,7 +29,7 @@
 #createRoomBtn{left:16.8%;top:62.7%;width:26.2%;height:10.5%}#joinCode{left:54%;top:78.5%;width:22%;height:5.6%;font-size:20px}#joinRoomBtn{left:76%;top:78.5%;width:9.2%;height:5.6%}#logoutBtn{left:29%;top:88.5%;width:42%;height:7%}.recentBtn{position:absolute;left:76%;width:9%;height:4.5%;border:0;background:transparent;cursor:pointer;color:transparent}.r1{top:45.8%}.r2{top:56.2%}.r3{top:66.4%}
 .toast{position:absolute;left:50%;bottom:3%;transform:translateX(-50%);background:rgba(0,0,0,.78);color:#fff;padding:12px 20px;border-radius:10px;font-weight:700;z-index:10;max-width:90%;text-align:center}
 @media (orientation: portrait){
-  .login{aspect-ratio:2/3;width:min(100vw,66.666vh);max-height:100vh;background-image:url('assets/screens/bg_login_mobile.jpg?v=1033')}
+  .login{aspect-ratio:2/3;width:min(100vw,66.666vh);max-height:100vh;background-image:url('assets/screens/bg_login_mobile.jpg?v=1026')}
   .screen:not(.login){aspect-ratio:3/2;width:100vw;max-height:100vh}
   .loginField{font-size:clamp(17px,5vw,28px)}
   #loginId{left:24.5%;top:42.8%;width:54.6%;height:7.4%;padding-left:9.5%}
@@ -129,7 +129,7 @@
 
 
 /* v1027 – profil: nowa grafika z przeźroczystymi ramkami, dane wycentrowane w polach */
-.profile{background-image:url('assets/screens/bg_profile.jpg?v=1033')!important}
+.profile{background-image:url('assets/screens/bg_profile.jpg?v=1026')!important}
 .profile .hot,
 .profile input,
 .profile select{
@@ -219,7 +219,7 @@
 
 
 /* v1027 – pokoje: czyste pola, dane dynamiczne z HTML, bez przykładowych pokoi w grafice */
-.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1033')!important}
+.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1034')!important}
 .roomGreeting{position:absolute;left:15.0%;top:3.5%;font-size:clamp(18px,2.0vw,31px);font-weight:900;color:rgba(238,232,214,.92);line-height:1.05;text-shadow:0 3px 4px rgba(0,0,0,.9);z-index:6}
 .roomGreeting span{color:#4b9ce0;font-size:1.18em}
 .roomPlayerBox{position:absolute;left:15.0%;top:13.3%;width:14.7%;height:7.6%;display:flex;flex-direction:column;justify-content:center;align-items:center;color:rgba(238,232,214,.92);font-weight:900;text-shadow:0 3px 4px rgba(0,0,0,.9);z-index:6;pointer-events:none}
@@ -236,7 +236,7 @@
 
 
 /* v1027 – pokoje: lista tylko zapisanych pokoi + okno tworzenia pokoju */
-.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1033')!important}
+.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1034')!important}
 .recentList{left:54.5%!important;top:51.0%!important;width:30.5%!important;height:20.5%!important;overflow:hidden!important;z-index:8!important;color:rgba(238,232,214,.95)!important}
 .roomRow{height:25%!important;min-height:25%!important;display:flex!important;align-items:center!important;padding:0 22% 0 3%!important;border-bottom:1px solid rgba(238,232,214,.18);font-size:clamp(10px,1.0vw,16px)!important;line-height:1!important;position:relative!important;overflow:hidden!important}
 .roomCode{font-weight:900!important;margin-right:8px!important;color:rgba(238,232,214,.98)!important;white-space:nowrap!important}.roomName{font-weight:800!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.roomEmpty{height:100%;display:flex;align-items:center;justify-content:center;color:rgba(238,232,214,.65);font-weight:800;font-size:clamp(11px,1.05vw,17px);font-style:normal}.roomJoin{position:absolute!important;right:2.0%!important;top:18%!important;width:18%!important;height:64%!important;border:0!important;background:transparent!important;color:rgba(238,232,214,.95)!important;font-weight:900!important;font-size:clamp(8px,.85vw,14px)!important;cursor:pointer!important;text-shadow:0 2px 3px #000!important}
@@ -333,7 +333,7 @@
 
 
 /* v1027 – pokoje: układ jak zaakceptowany wzór, 4 ramki pokoi, reszta pusta, scroll tylko przy większej liczbie */
-.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1033')!important}
+.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1034')!important}
 .joinTitle{
   left:56.8%!important; top:30.2%!important; width:30.0%!important;
   text-align:center!important; font-size:clamp(20px,2.05vw,34px)!important;
@@ -402,7 +402,7 @@
 #logoutBtn{left:29%!important;top:88.5%!important;width:42%!important;height:7%!important;z-index:7!important}
 
 /* v1027 – ekran pokoi zrobiony od nowa: jeden czysty panel, 4 ramki, scroll od 5 pokoju */
-.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1033')!important}
+.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1034')!important}
 .rooms .joinPanel{
   position:absolute!important;
   left:52.6%!important;
@@ -601,7 +601,7 @@
 
 
 /* v1029 – ekran pokoi całkowicie przebudowany pod nowe tło i dwa panele */
-.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1033')!important;background-size:100% 100%!important}
+.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1034')!important;background-size:100% 100%!important}
 .rooms .btn,.rooms button{font-family:Arial,Helvetica,sans-serif}
 .roomGreeting{position:absolute!important;left:4.2%!important;top:3.0%!important;width:20%!important;font-size:clamp(18px,2.05vw,34px)!important;font-weight:900!important;line-height:1.05!important;color:rgba(238,232,214,.95)!important;text-shadow:0 3px 4px rgba(0,0,0,.9)!important;z-index:20!important}
 .roomGreeting span{color:#3292ff!important;font-size:1.15em!important}
@@ -623,128 +623,49 @@
 @media (max-width:800px){.screen:not(.login){width:100vw}.createPanel{left:6%;top:24%;width:42%;height:62%}.joinPanel{left:52%;top:24%;width:42%;height:64%}.roomGreeting{left:2.5%;top:2.5%;font-size:15px!important}.roomPlayerBox{left:14%;top:12%;width:16%;font-size:12px}.createTitle,.joinTitle{font-size:18px!important}.createHint,.joinText{font-size:10px!important}.roomSlot{height:24%!important}.roomName{font-size:10px!important}.roomCodeLine{font-size:9px!important}}
 
 
-/* v1033 ROOMS — czysty układ oparty na CSS, bez dopasowywania do starych hitboxów */
-.rooms{
-  background-image:url('assets/screens/bg_rooms.jpg?v=1033')!important;
+/* === GAME ROOM v1034: CLEAN ROOMS LAYOUT - rebuilt from scratch === */
+.screen.rooms.grRoomsScreen{
+  aspect-ratio:1448/1086!important;
+  width:min(100vw,133.333vh)!important;
+  max-height:100vh!important;
+  background-image:url('assets/screens/bg_rooms.jpg?v=1034')!important;
   background-size:100% 100%!important;
   background-position:center!important;
-  color:#f3ead6;
+  background-repeat:no-repeat!important;
+  overflow:hidden!important;
+  font-family:Arial,Helvetica,sans-serif!important;
 }
-.rooms .hot{
-  position:static!important;
-  background:transparent!important;
-  border:0!important;
-  outline:0!important;
-  color:#f3ead6!important;
-  text-shadow:0 2px 4px rgba(0,0,0,.95)!important;
-  font-weight:900!important;
-  padding:0!important;
-  width:100%!important;
-  height:100%!important;
-}
-.roomsHeader{
-  position:absolute;
-  left:3.0%; top:2.2%; width:21.5%; height:20.5%;
-  z-index:4;
-}
-.roomGreeting{
-  position:absolute; left:28%; top:0; width:72%;
-  font-size:clamp(18px,3.2vmin,40px); line-height:.95; font-weight:900;
-  color:#fff; text-shadow:0 3px 5px #000;
-}
-.roomGreeting span{color:#1f83ff; display:block; margin-top:.2em;}
-.roomPlayerBox{
-  position:absolute; left:30%; top:47%; width:58%; height:38%;
-  border:2px solid rgba(255,255,255,.65); border-radius:8px;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  background:rgba(0,0,0,.18); text-align:center; color:#fff;
-  text-shadow:0 2px 4px #000;
-}
-.roomPlayerBox span{font-size:clamp(9px,1.35vmin,17px);font-weight:900;letter-spacing:.04em;}
-.roomPlayerBox strong{font-size:clamp(13px,2.1vmin,28px);font-weight:900;margin-top:.25em;}
-.roomsBoard{
-  position:absolute;
-  left:14.5%; top:22.5%; width:72.5%; height:66.5%;
-  border:3px solid rgba(198,143,18,.88); border-radius:26px;
-  padding:1.9% 2.0%; display:flex; gap:1.8%;
-  background:rgba(0,0,0,.03);
-}
-.createPanel,.joinPanel{
-  position:relative!important;
-  height:100%; min-width:0;
-  border-radius:20px;
-  background:rgba(0,0,0,.14);
-  overflow:hidden;
-}
-.createPanel{flex:0 0 47%; border:2px solid rgba(202,153,18,.88); padding:2.4% 3.0%; color:#f4b818;}
-.joinPanel{flex:1; border:2px solid rgba(38,132,229,.9); padding:2.0% 2.2%; color:#2d91ff;}
-.panelIcon{font-size:clamp(18px,3vmin,42px); text-align:center; line-height:1; font-weight:900; margin-top:.2%; color:#e0a910;}
-.panelIcon.blue{color:#1689ff;}
-.createTitle,.joinTitle{
-  text-align:center; font-weight:900; letter-spacing:.03em; line-height:.95; text-shadow:0 3px 5px #000;
-}
-.createTitle{font-size:clamp(22px,4.2vmin,56px); color:#f0b400; margin-top:1.5%;}
-.joinTitle{font-size:clamp(20px,3.4vmin,46px); color:#238dff; margin-top:1.0%;}
-.createHint,.joinText{
-  text-align:center; color:#fff; font-weight:800; text-shadow:0 2px 4px #000; line-height:1.28;
-}
-.createHint{font-size:clamp(11px,1.65vmin,22px); margin:7% auto 5%; width:85%;}
-.joinText{font-size:clamp(10px,1.45vmin,19px); margin:2.2% auto 5%; width:92%;}
-.createLabel,.lastTitle,.manualTitle{
-  display:block; text-align:center; color:#1e8fff; font-weight:900; letter-spacing:.04em; text-shadow:0 2px 4px #000;
-  font-size:clamp(11px,1.75vmin,23px); margin:.4em 0 .5em;
-}
-.createRoomName,.generatedCodeWrap,.bottomJoinBox{
-  border:2px solid rgba(230,169,18,.92); border-radius:9px; height:8.6%;
-  background:rgba(0,0,0,.12); display:flex; align-items:center;
-}
-.createRoomName{padding:0 5%!important; font-size:clamp(12px,1.8vmin,24px)!important; margin-bottom:5%;}
-.generatedCodeWrap{justify-content:space-between; padding:0 4%; margin-bottom:7%;}
-#generatedRoomCode{font-size:clamp(17px,2.8vmin,36px);font-weight:900;color:#fff;letter-spacing:.06em;text-shadow:0 3px 4px #000;}
-#regenRoomCode{border:0;background:transparent;color:#e2ab1b;font-size:clamp(15px,2.4vmin,32px);font-weight:900;cursor:pointer;line-height:1;}
-.createActions{display:flex; gap:6%; height:10%; margin-top:2%;}
-.createSaveBtn,.createClearBtn,.joinSmallBtn,.refreshBtn,.roomJoin,.logoutBtn{
-  position:static!important; cursor:pointer; background:transparent; border-radius:8px; font-weight:900; text-shadow:0 2px 4px #000;
-  font-family:Arial,Helvetica,sans-serif;
-}
-.createSaveBtn,.createClearBtn{flex:1;border:2px solid currentColor;font-size:clamp(10px,1.5vmin,20px);}
-.createSaveBtn{color:#f0b400}.createClearBtn{color:#1689ff}
-.refreshBtn{position:absolute!important; right:6%; top:19.0%; height:6.2%; padding:0 2.5%; border:2px solid #1689ff; color:#1689ff; font-size:clamp(8px,1.15vmin,16px);}
-.lastTitle{margin-top:8.5%; position:relative;}
-.lastTitle:before,.lastTitle:after,.manualTitle:before,.manualTitle:after{content:"";display:inline-block;width:24%;height:1px;background:rgba(255,255,255,.4);vertical-align:middle;margin:0 3%;}
-.recentList{
-  height:42%; overflow-y:auto; padding-right:3%; display:flex; flex-direction:column; gap:3%;
-  scrollbar-color:#1689ff rgba(255,255,255,.18); scrollbar-width:thin;
-}
-.recentList::-webkit-scrollbar{width:8px}.recentList::-webkit-scrollbar-track{background:rgba(255,255,255,.15);border-radius:8px}.recentList::-webkit-scrollbar-thumb{background:#1689ff;border-radius:8px}
-.roomSlot{
-  min-height:22.5%; border:2px solid rgba(255,255,255,.5); border-radius:9px; display:flex; align-items:center; gap:3%; padding:0 3%;
-  background:rgba(0,0,0,.12); color:#fff; text-shadow:0 2px 3px #000;
-}
-.roomSlot.empty{opacity:.42;border-style:solid}.roomSlot.empty .roomInfo{font-size:clamp(10px,1.45vmin,20px);font-weight:800;color:rgba(255,255,255,.55)}
-.roomIcon{flex:0 0 9%;font-size:clamp(14px,2.2vmin,30px);color:#1689ff;text-align:center;line-height:1;}
-.roomInfo{flex:1;min-width:0}.roomName{font-size:clamp(12px,1.85vmin,25px);font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.roomCodeLine{font-size:clamp(10px,1.45vmin,19px);font-weight:900;color:#fff}.roomCodeLine span{color:#1689ff;}
-.roomJoin{flex:0 0 25%; height:58%; border:2px solid #1689ff; color:#1689ff; font-size:clamp(8px,1.15vmin,16px);}
-.manualTitle{margin-top:4.0%;}
-.bottomJoinBox{height:9.2%; border-color:rgba(255,255,255,.55); display:flex; gap:3%; background:transparent;}
-.bottomCode{flex:1!important;padding:0 4%!important;font-size:clamp(10px,1.45vmin,18px)!important;color:#fff!important;}
-.bottomCode::placeholder,.createRoomName::placeholder{color:rgba(255,255,255,.45)!important;}
-.joinSmallBtn{flex:0 0 27%; border:2px solid #1689ff; color:#1689ff; font-size:clamp(9px,1.3vmin,18px);}
-.logoutBtn{
-  position:absolute!important; left:31%; bottom:3.0%; width:38%; height:8%;
-  border:2px solid rgba(255,255,255,.55); color:rgba(255,255,255,.78); background:rgba(0,0,0,.12); font-size:clamp(13px,2.0vmin,28px);
-}
-.rooms #logoutBtn{left:31%!important;top:auto!important;width:38%!important;height:8%!important;color:rgba(255,255,255,.78)!important;font-size:clamp(13px,2.0vmin,28px)!important;}
-@media (orientation: portrait){
-  .rooms{aspect-ratio:9/16!important;width:min(100vw,56.25vh)!important;height:auto;max-height:100vh;background-size:cover!important;background-position:center!important;}
-  .roomsHeader{left:3%;top:1.5%;width:42%;height:12%;}
-  .roomGreeting{left:27%;font-size:clamp(16px,5.2vw,34px)}
-  .roomPlayerBox{left:28%;top:56%;width:66%;height:38%}
-  .roomsBoard{left:5%;top:16%;width:90%;height:73%;padding:3%;gap:2%;flex-direction:column;border-radius:20px;}
-  .createPanel,.joinPanel{flex:1 1 0;width:100%;padding:3%;}
-  .createTitle{font-size:clamp(20px,7vw,42px)}.joinTitle{font-size:clamp(18px,6vw,38px)}
-  .createHint,.joinText{font-size:clamp(10px,3.4vw,17px);margin:3% auto}
-  .createRoomName,.generatedCodeWrap{height:12%;margin-bottom:3%}.createActions{height:14%}
-  .recentList{height:38%;gap:2%}.roomSlot{min-height:23%}
-  .logoutBtn,.rooms #logoutBtn{left:12%!important;width:76%!important;bottom:1.2%!important;height:6%!important;}
+.grRoomsScreen *{box-sizing:border-box!important}
+.grRoomsScreen button{font-family:Arial,Helvetica,sans-serif!important;cursor:pointer!important}
+.grHud{position:absolute;left:0;top:0;width:100%;height:21%;z-index:3;pointer-events:none}
+.grHello{position:absolute;left:14.1%;top:3.0%;font-size:clamp(18px,2.4vw,34px);font-weight:900;line-height:1.05;color:#f4efe2;text-shadow:0 3px 4px #000}
+.grHello span{color:#1684ff;font-size:1.08em}
+.grPlayerCard{position:absolute;left:14.8%;top:11.2%;width:15.2%;height:8.2%;border:2px solid rgba(238,232,214,.72);border-radius:7px;background:rgba(0,0,0,.10);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#f4efe2;text-shadow:0 3px 4px #000;font-weight:900;line-height:1.05}
+.grPlayerCard div{font-size:clamp(10px,1.0vw,15px);letter-spacing:.3px}.grPlayerCard strong{font-size:clamp(14px,1.6vw,24px);letter-spacing:.5px}
+.grMainFrame{position:absolute;left:14.2%;top:22.3%;width:71.8%;height:61.8%;display:grid;grid-template-columns:1fr 1fr;gap:2.2%;padding:1.6%;z-index:4}
+.grPanel{position:relative;width:100%;height:100%;border-radius:18px;background:rgba(0,0,0,.05)}
+.grCreatePanel{border:3px solid rgba(205,167,55,.86);padding:4.1% 5.2%}
+.grJoinPanel{border:3px solid rgba(30,128,222,.88);padding:3.7% 4.0%}
+.grIconTop{text-align:center;color:#cda737;font-weight:900;font-size:clamp(22px,2.5vw,40px);height:7%;line-height:1;text-shadow:0 3px 4px #000}.grBlue{color:#1684ff}
+.grPanel h2{margin:0;text-align:center;font-weight:900;letter-spacing:.5px;text-shadow:0 3px 4px #000;line-height:1.05}.grCreatePanel h2{color:#e0a900;font-size:clamp(26px,3.2vw,48px);margin-top:1.5%}.grJoinPanel h2{color:#1684ff;font-size:clamp(22px,2.35vw,38px);margin-top:1.2%}
+.grPanel p{margin:4% 0 0;text-align:center;color:#f4efe2;font-size:clamp(13px,1.2vw,19px);font-weight:800;line-height:1.33;text-shadow:0 3px 4px #000}.grJoinPanel p{margin-top:2.1%;font-size:clamp(11px,1.05vw,17px)}
+.grCreatePanel label{display:block;text-align:center;color:#1684ff;font-weight:900;font-size:clamp(13px,1.3vw,20px);margin:5.7% 0 1.9%;letter-spacing:.6px;text-shadow:0 2px 3px #000}
+.grInput{border:2px solid rgba(238,232,214,.72)!important;border-radius:9px!important;background:rgba(0,0,0,.10)!important;color:#f4efe2!important;outline:0!important;font-weight:900!important;text-shadow:0 2px 3px #000!important;box-shadow:none!important}.grInput::placeholder{color:rgba(238,232,214,.40)!important}
+.grCreatePanel .grInput{width:100%;height:8.8%;font-size:clamp(15px,1.35vw,22px);padding:0 18px}
+.grCodeBox{width:100%;height:8.8%;display:flex;align-items:center;border:2px solid rgba(238,232,214,.78);border-radius:9px;background:rgba(0,0,0,.12);color:#f4efe2;text-shadow:0 2px 3px #000;font-size:clamp(21px,2.0vw,32px);font-weight:900;letter-spacing:1px;padding:0 14px}.grCodeBox span{flex:1}.grCodeBox button{width:12%;height:100%;border:0;background:transparent;color:#cda737;font-size:clamp(22px,2.0vw,30px);font-weight:900;text-shadow:0 2px 3px #000}
+.grCreateActions{position:absolute;left:5.2%;right:5.2%;bottom:6%;height:10%;display:flex;gap:7%}.grBtn{border:2px solid currentColor;border-radius:9px;background:rgba(0,0,0,.12);font-weight:900;text-shadow:0 2px 3px #000}.grSave{flex:1.12;color:#e0a900;font-size:clamp(11px,1.12vw,17px)}.grBack{flex:.88;color:#1684ff;font-size:clamp(12px,1.15vw,18px)}
+.grRefresh{position:absolute;right:7%;top:23.0%;height:6.5%;width:23%;border:2px solid #1684ff;border-radius:7px;background:rgba(0,0,0,.12);color:#1684ff;font-weight:900;font-size:clamp(9px,.9vw,14px);text-shadow:0 2px 3px #000}
+.grRoomsTitle{position:absolute;left:8%;right:8%;top:33.5%;text-align:center;color:#1684ff;font-size:clamp(13px,1.3vw,21px);font-weight:900;text-shadow:0 2px 3px #000;letter-spacing:.4px}
+.grRoomsList{position:absolute;left:6%;right:6%;top:40%;height:35%;overflow-y:auto;overflow-x:hidden;padding-right:3.5%;scrollbar-width:thin;scrollbar-color:#1684ff rgba(255,255,255,.16)}.grRoomsList::-webkit-scrollbar{width:7px}.grRoomsList::-webkit-scrollbar-track{background:rgba(255,255,255,.14);border-radius:10px}.grRoomsList::-webkit-scrollbar-thumb{background:#1684ff;border-radius:10px}
+.grRoomSlot{position:relative;width:100%;height:23%;min-height:23%;margin-bottom:2.0%;border:2px solid rgba(238,232,214,.62);border-radius:8px;background:rgba(0,0,0,.10);display:flex;align-items:center;color:#f4efe2;text-shadow:0 2px 3px #000}.grRoomSlot.grEmpty{opacity:.43;border-style:dashed}.grSlotIcon{width:13%;text-align:center;color:#1684ff;font-size:clamp(17px,1.45vw,24px);font-weight:900}.grRoomSlot.grEmpty .grSlotIcon{color:rgba(238,232,214,.55)}.grSlotText{width:58%;min-width:0;line-height:1.03}.grSlotName{font-size:clamp(13px,1.2vw,20px);font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.grSlotCode{font-size:clamp(10px,1.0vw,16px);font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.grSlotCode span{color:#1684ff}.grRoomSlot.grEmpty .grSlotText{color:rgba(238,232,214,.52);font-size:clamp(12px,1.1vw,18px);font-weight:800}.grJoinRoomBtn{position:absolute;right:2.8%;top:22%;width:22%;height:56%;border:2px solid #1684ff;border-radius:7px;background:rgba(0,0,0,.12);color:#1684ff;font-size:clamp(8px,.82vw,13px);font-weight:900;text-shadow:0 2px 3px #000}
+.grManualTitle{position:absolute;left:7%;right:7%;bottom:17.1%;text-align:center;color:#1684ff;font-size:clamp(12px,1.14vw,18px);font-weight:900;text-shadow:0 2px 3px #000;letter-spacing:.4px}.grManualJoin{position:absolute;left:6%;right:6%;bottom:6.2%;height:8.8%;display:flex;gap:3%}.grManualJoin .grInput{flex:1;font-size:clamp(12px,1.0vw,17px);padding:0 14px}.grJoinBlue{width:24%;color:#1684ff;font-size:clamp(9px,.95vw,15px)}
+.grLogout{position:absolute;left:30%;bottom:3.2%;width:40%;height:6.4%;border:2px solid rgba(238,232,214,.52);border-radius:9px;background:rgba(0,0,0,.10);color:rgba(238,232,214,.80);font-size:clamp(14px,1.6vw,25px);font-weight:900;text-shadow:0 3px 4px #000;z-index:7}
+.grRoomsScreen .version{z-index:8}
+/* hide all legacy room controls */
+.grRoomsScreen #createRoomBtn,.grRoomsScreen #joinCode:not(.grInput),.grRoomsScreen #joinRoomBtn:not(.grBtn),.grRoomsScreen .recentBtn,.grRoomsScreen .roomsHeader,.grRoomsScreen .roomsBoard,.grRoomsScreen .createPanel:not(.grCreatePanel),.grRoomsScreen .joinPanel:not(.grJoinPanel),.grRoomsScreen .roomRow,.grRoomsScreen .roomEmpty{display:none!important}
+@media (max-width:900px),(orientation:portrait){
+  .screen.rooms.grRoomsScreen{aspect-ratio:9/16!important;width:min(100vw,56.25vh)!important;max-height:100vh!important;background-size:cover!important;background-position:center!important}
+  .grHello{left:13%;top:2%;font-size:clamp(18px,7vw,30px)}.grPlayerCard{left:13%;top:11%;width:30%;height:7.5%}.grPlayerCard div{font-size:clamp(9px,3.2vw,13px)}.grPlayerCard strong{font-size:clamp(12px,4.3vw,18px)}
+  .grMainFrame{left:5.5%;top:20%;width:89%;height:70%;display:flex;flex-direction:column;gap:2.2%;padding:2.2%}.grPanel{height:50%;min-height:0}.grCreatePanel,.grJoinPanel{padding:3% 5%}.grIconTop{font-size:clamp(18px,5vw,28px);height:5%}.grCreatePanel h2,.grJoinPanel h2{font-size:clamp(22px,6vw,34px)}.grPanel p{font-size:clamp(10px,3.2vw,14px);margin-top:2%}.grCreatePanel label{font-size:clamp(10px,3.2vw,14px);margin:2.5% 0 1%}.grCreatePanel .grInput,.grCodeBox{height:12%;font-size:clamp(14px,4.2vw,19px)}.grCreateActions{bottom:4%;height:12%}
+  .grRefresh{top:23%;height:8%;font-size:clamp(8px,2.6vw,12px)}.grRoomsTitle{top:33%;font-size:clamp(11px,3.4vw,15px)}.grRoomsList{top:40%;height:34%}.grRoomSlot{height:23%;min-height:23%}.grSlotIcon{font-size:clamp(14px,4vw,19px)}.grSlotName{font-size:clamp(10px,3.5vw,15px)}.grSlotCode{font-size:clamp(9px,3vw,12px)}.grJoinRoomBtn{font-size:clamp(7px,2.5vw,10px)}.grManualTitle{bottom:17%;font-size:clamp(10px,3vw,13px)}.grManualJoin{height:10%;bottom:5%}.grLogout{left:12%;width:76%;height:5%;font-size:clamp(12px,4vw,18px);bottom:2%}
 }
