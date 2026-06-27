@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1023';
+const VERSION = 'GAME ROOM v1024';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
@@ -32,7 +32,9 @@ document.getElementById('backBtn').onclick=renderLogin;document.getElementById('
 function renderRooms(){
 const p=profile();if(!p)return renderLogin();
 const rooms=recentRooms();
-const rows=rooms.length?rooms.map((r,i)=>`<div class="roomRow"><span class="roomCode">${r.code}</span><span class="roomName">${r.name||'Pokój'}</span><button class="roomJoin" data-i="${i}">DOŁĄCZ</button></div>`).join(''):`<div class="roomEmpty">Brak zapisanych pokoi</div>`;
+const filled=rooms.map((r,i)=>`<div class="roomRow filled"><div class="roomIcon">♟</div><div class="roomInfo"><div class="roomName">${r.name||'Pokój'}</div><div class="roomCodeLine">Kod: <strong>${r.code}</strong></div></div><button class="roomJoin" data-i="${i}">DOŁĄCZ</button></div>`);
+while(filled.length<4)filled.push(`<div class="roomRow empty"><div class="roomIcon"></div><div class="roomInfo"><div class="roomName"></div><div class="roomCodeLine"></div></div></div>`);
+const rows=filled.join('');
 app.innerHTML=`<section class="screen rooms">
 <div class="roomGreeting">Witaj,<br><span>${p.name}</span></div>
 <div class="roomPlayerBox"><span>NR GRACZA:</span><strong>${p.playerId}</strong></div>
