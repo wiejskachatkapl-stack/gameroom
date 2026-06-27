@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1038';
+const VERSION = 'GAME ROOM v1039';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
@@ -83,12 +83,13 @@ function openSettings(){
     }
   };
 }
-function renderLogin(){const p=profile();app.innerHTML=`<section class="screen login">
+function renderLogin(){const p=profile();app.innerHTML=`<section class="screen login login-clean">
 <div class="loginText loginLabelId">${tr('loginLabel')}</div>
 <div class="loginText loginLabelPin">${tr('pin')}</div>
 <input class="hot loginField" id="loginId" autocomplete="username" value="${p?.playerId||''}" placeholder="" />
 <input class="hot loginField" id="loginPin" type="password" inputmode="numeric" maxlength="4" autocomplete="current-password" placeholder="" />
 <button class="btn" id="loginBtn">${tr('loginBtn')}</button><div class="loginBtnText loginBtnMain">${tr('loginBtn')}</div>
+<div class="loginOrText">${lang()==='en'?'OR':'LUB'}</div>
 <button class="btn" id="createProfileBtn">${tr('createProfile')}</button><div class="loginBtnText loginBtnCreate">${tr('createProfile')}</div>
 <button class="btn" id="helpBtn">${tr('settings')}</button><div class="loginSettingsText">${tr('settings')}</div>${version()}</section>`;
 document.getElementById('createProfileBtn').onclick=renderProfile;
