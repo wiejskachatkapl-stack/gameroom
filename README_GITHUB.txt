@@ -1,9 +1,3 @@
-GAME ROOM v1027
+GAME ROOM v1036
 
-Pliki do podmiany:
-- index.html
-- app.js
-- style.css
-
-Pliki do dodania: brak
-Pliki do usunięcia: brak
+Podmień wskazane pliki z paczki na GitHub Pages.

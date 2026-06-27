@@ -1,7 +1,15 @@
-const VERSION = 'GAME ROOM v1037';
+const VERSION = 'GAME ROOM v1038';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
+
+const I18N={
+  pl:{settings:'USTAWIENIA',settingsTitle:'USTAWIENIA',language:'JĘZYK',polish:'POLSKI',english:'ENGLISH',editProfile:'EDYTUJ PROFIL',nick:'Nick / nazwa',pin:'PIN',avatar:'Kapsel / avatar',saveChanges:'ZAPISZ ZMIANY',deleteProfile:'USUŃ PROFIL',back:'COFNIJ',about:'GAME ROOM — wspólny profil i pokoje dla wszystkich gier.',loginLabel:'Login/numer',loginBtn:'ZALOGUJ SIĘ',createProfile:'UTWÓRZ NOWY PROFIL',badLogin:'Zły numer gracza lub PIN.',createFirst:'Najpierw utwórz profil.',profileUpdated:'Profil zaktualizowany.',profileDeleted:'Profil usunięty.',noProfile:'Brak profilu do edycji.',nameMin:'Nick musi mieć minimum 2 znaki.',pin4:'PIN musi mieć 4 cyfry.',deleteConfirm:'Czy na pewno usunąć profil?'},
+  en:{settings:'SETTINGS',settingsTitle:'SETTINGS',language:'LANGUAGE',polish:'POLISH',english:'ENGLISH',editProfile:'EDIT PROFILE',nick:'Name / nick',pin:'PIN',avatar:'Cap / avatar',saveChanges:'SAVE CHANGES',deleteProfile:'DELETE PROFILE',back:'BACK',about:'GAME ROOM — one profile and rooms for all games.',loginLabel:'Login / ID',loginBtn:'LOGIN',createProfile:'CREATE NEW PROFILE',badLogin:'Wrong player number or PIN.',createFirst:'Create a profile first.',profileUpdated:'Profile updated.',profileDeleted:'Profile deleted.',noProfile:'No profile to edit.',nameMin:'Nick must have at least 2 characters.',pin4:'PIN must be 4 digits.',deleteConfirm:'Are you sure you want to delete this profile?'}
+};
+function lang(){return storage.get('gr_lang','pl')}
+function tr(k){return (I18N[lang()]&&I18N[lang()][k])||I18N.pl[k]||k}
+
 function digits(n=6){return Array.from({length:n},()=>Math.floor(Math.random()*10)).join('')}
 function id(code='PL'){return code+digits(6)}
 function roomCode(){const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';return Array.from({length:7},()=>chars[Math.floor(Math.random()*chars.length)]).join('')}
@@ -14,74 +22,78 @@ function version(){return `<div class="version">${VERSION}</div>`}
 function esc(v){return String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
 function openSettings(){
   const p=profile();
-  const currentLang=storage.get('gr_lang','pl');
+  const currentLang=lang();
   const modal=document.createElement('div');
   modal.className='settingsOverlay';
   modal.innerHTML=`<div class="settingsBox">
-    <h2>USTAWIENIA</h2>
+    <h2>${tr('settingsTitle')}</h2>
     <div class="settingsSection">
-      <div class="settingsTitle">JĘZYK</div>
-      <div class="settingsRow two"><button class="settingsChoice ${currentLang==='pl'?'active':''}" id="langPL">POLSKI</button><button class="settingsChoice ${currentLang==='en'?'active':''}" id="langEN">ENGLISH</button></div>
+      <div class="settingsTitle">${tr('language')}</div>
+      <div class="settingsRow two"><button class="settingsChoice ${currentLang==='pl'?'active':''}" id="langPL">${tr('polish')}</button><button class="settingsChoice ${currentLang==='en'?'active':''}" id="langEN">${tr('english')}</button></div>
     </div>
     <div class="settingsSection">
-      <div class="settingsTitle">EDYTUJ PROFIL</div>
-      <label>Nick / nazwa</label>
-      <input id="setName" maxlength="20" value="${esc(p?.name||'')}" placeholder="Nick" ${p?'':'disabled'} />
-      <label>PIN</label>
+      <div class="settingsTitle">${tr('editProfile')}</div>
+      <label>${tr('nick')}</label>
+      <input id="setName" maxlength="20" value="${esc(p?.name||'')}" placeholder="${tr('nick')}" ${p?'':'disabled'} />
+      <label>${tr('pin')}</label>
       <input id="setPin" maxlength="4" inputmode="numeric" value="${esc(p?.pin||'')}" placeholder="4 cyfry" ${p?'':'disabled'} />
-      <label>Kapsel / avatar</label>
+      <label>${tr('avatar')}</label>
       <select id="setAvatar" ${p?'':'disabled'}>
-        <option value="blue" ${p?.avatar==='blue'?'selected':''}>Niebieski kapsel</option>
-        <option value="red" ${p?.avatar==='red'?'selected':''}>Czerwony kapsel</option>
-        <option value="green" ${p?.avatar==='green'?'selected':''}>Zielony kapsel</option>
-        <option value="yellow" ${p?.avatar==='yellow'?'selected':''}>Żółty kapsel</option>
+        <option value="blue" ${p?.avatar==='blue'?'selected':''}>Blue cap</option>
+        <option value="red" ${p?.avatar==='red'?'selected':''}>Red cap</option>
+        <option value="green" ${p?.avatar==='green'?'selected':''}>Green cap</option>
+        <option value="yellow" ${p?.avatar==='yellow'?'selected':''}>Yellow cap</option>
       </select>
-      <button class="settingsMain" id="saveSettingsProfile" ${p?'':'disabled'}>ZAPISZ ZMIANY</button>
+      <button class="settingsMain" id="saveSettingsProfile" ${p?'':'disabled'}>${tr('saveChanges')}</button>
     </div>
     <div class="settingsRow">
-      <button class="settingsDanger" id="deleteProfileBtn" ${p?'':'disabled'}>USUŃ PROFIL</button>
-      <button class="settingsBack" id="closeSettingsBtn">COFNIJ</button>
+      <button class="settingsDanger" id="deleteProfileBtn" ${p?'':'disabled'}>${tr('deleteProfile')}</button>
+      <button class="settingsBack" id="closeSettingsBtn">${tr('back')}</button>
     </div>
-    <div class="settingsAbout">GAME ROOM — wspólny profil i pokoje dla wszystkich gier.</div>
+    <div class="settingsAbout">${tr('about')}</div>
   </div>`;
   document.querySelector('.screen')?.appendChild(modal);
   document.getElementById('closeSettingsBtn').onclick=()=>modal.remove();
-  document.getElementById('langPL').onclick=()=>{storage.set('gr_lang','pl');toast('Język: Polski');modal.remove();openSettings()};
-  document.getElementById('langEN').onclick=()=>{storage.set('gr_lang','en');toast('Language: English');modal.remove();openSettings()};
+  document.getElementById('langPL').onclick=()=>{storage.set('gr_lang','pl');modal.remove();renderLogin();setTimeout(openSettings,40)};
+  document.getElementById('langEN').onclick=()=>{storage.set('gr_lang','en');modal.remove();renderLogin();setTimeout(openSettings,40)};
   const pinEl=document.getElementById('setPin');
   if(pinEl)pinEl.oninput=e=>e.target.value=e.target.value.replace(/\D/g,'').slice(0,4);
   const saveBtn=document.getElementById('saveSettingsProfile');
   if(saveBtn)saveBtn.onclick=()=>{
-    const p=profile(); if(!p)return toast('Brak profilu do edycji.');
+    const p=profile(); if(!p)return toast(tr('noProfile'));
     const name=document.getElementById('setName').value.trim();
     const pin=document.getElementById('setPin').value.trim();
     const avatar=document.getElementById('setAvatar').value;
-    if(name.length<2)return toast('Nick musi mieć minimum 2 znaki.');
-    if(pin.length!==4)return toast('PIN musi mieć 4 cyfry.');
+    if(name.length<2)return toast(tr('nameMin'));
+    if(pin.length!==4)return toast(tr('pin4'));
     storage.set('gr_profile',{...p,name,pin,avatar,updatedAt:Date.now()});
-    toast('Profil zaktualizowany.');
+    toast(tr('profileUpdated'));
     modal.remove();
     renderLogin();
   };
   const delBtn=document.getElementById('deleteProfileBtn');
   if(delBtn)delBtn.onclick=()=>{
-    if(!profile())return toast('Brak profilu do usunięcia.');
-    if(confirm('Czy na pewno usunąć profil?')){
+    if(!profile())return toast(tr('noProfile'));
+    if(confirm(tr('deleteConfirm'))){
       storage.remove('gr_profile');
       storage.remove('gr_logged_in');
       storage.remove('gr_recent_rooms');
-      toast('Profil usunięty.');
+      toast(tr('profileDeleted'));
       setTimeout(renderLogin,500);
     }
   };
 }
 function renderLogin(){const p=profile();app.innerHTML=`<section class="screen login">
+<div class="loginText loginLabelId">${tr('loginLabel')}</div>
+<div class="loginText loginLabelPin">${tr('pin')}</div>
 <input class="hot loginField" id="loginId" autocomplete="username" value="${p?.playerId||''}" placeholder="" />
 <input class="hot loginField" id="loginPin" type="password" inputmode="numeric" maxlength="4" autocomplete="current-password" placeholder="" />
-<button class="btn" id="loginBtn">ZALOGUJ</button><button class="btn" id="createProfileBtn">UTWÓRZ PROFIL</button><button class="btn" id="helpBtn">POMOC</button>${version()}</section>`;
+<button class="btn" id="loginBtn">${tr('loginBtn')}</button><div class="loginBtnText loginBtnMain">${tr('loginBtn')}</div>
+<button class="btn" id="createProfileBtn">${tr('createProfile')}</button><div class="loginBtnText loginBtnCreate">${tr('createProfile')}</div>
+<button class="btn" id="helpBtn">${tr('settings')}</button><div class="loginSettingsText">${tr('settings')}</div>${version()}</section>`;
 document.getElementById('createProfileBtn').onclick=renderProfile;
 document.getElementById('helpBtn').onclick=openSettings;
-document.getElementById('loginBtn').onclick=()=>{const pid=document.getElementById('loginId').value.trim().toUpperCase();const pin=document.getElementById('loginPin').value.trim();const p=profile();if(!p)return toast('Najpierw utwórz profil.');if(pid!==p.playerId||pin!==p.pin)return toast('Zły numer gracza lub PIN.');storage.set('gr_logged_in',true);renderRooms()};}
+document.getElementById('loginBtn').onclick=()=>{const pid=document.getElementById('loginId').value.trim().toUpperCase();const pin=document.getElementById('loginPin').value.trim();const p=profile();if(!p)return toast(tr('createFirst'));if(pid!==p.playerId||pin!==p.pin)return toast(tr('badLogin'));storage.set('gr_logged_in',true);renderRooms()};}
 function renderProfile(){let currentId=id('PL');app.innerHTML=`<section class="screen profile"><button class="btn back" id="backBtn">COFNIJ</button>
 <label class="profileLabel countryLabel" for="country">KRAJ</label>
 <label class="profileLabel numberLabel">NUMER GRACZA</label>
