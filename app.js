@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1035';
+const VERSION = 'GAME ROOM v1036';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
@@ -31,7 +31,7 @@ const c=document.getElementById('country');c.onchange=()=>{currentId=id(c.value)
 document.getElementById('backBtn').onclick=renderLogin;document.getElementById('saveBtn').onclick=()=>{const name=document.getElementById('name').value.trim();const pin=[...document.querySelectorAll('.pin1,.pin2,.pin3,.pin4')].map(x=>x.value).join('');if(name.length<2)return toast('Wpisz imię lub nick.');if(pin.length!==4)return toast('PIN musi mieć 4 cyfry.');storage.set('gr_profile',{playerId:currentId,countryCode:c.value,country:countries[c.value],name,pin,createdAt:Date.now()});toast('Profil zapisany.');setTimeout(renderLogin,700)};}
 function renderRooms(){
 const p=profile();if(!p)return renderLogin();
-const rooms=recentRooms();
+const rooms=recentRooms().filter(r => r && (r.ownerId === p.playerId || r.joinedBy === p.playerId));
 const listCount=Math.max(4,rooms.length);
 const slots=Array.from({length:listCount},(_,i)=>{
   const r=rooms[i];
@@ -49,7 +49,6 @@ app.innerHTML=`<section class="screen rooms gr-clean-rooms">
     <div class="gr-panel gr-create-panel">
       <div class="gr-panel-icon">♟ ♟</div>
       <h2>UTWÓRZ POKÓJ</h2>
-      <p>Wpisz nazwę pokoju.<br>Kod pokoju zostanie wygenerowany automatycznie.</p>
       <label for="newRoomName">NAZWA POKOJU</label>
       <input id="newRoomName" class="gr-input" maxlength="24" autocomplete="off" placeholder="Wpisz nazwę pokoju" />
       <label>KOD POKOJU</label>
@@ -60,8 +59,6 @@ app.innerHTML=`<section class="screen rooms gr-clean-rooms">
     <div class="gr-panel gr-join-panel">
       <div class="gr-panel-icon blue">♟ ♟</div>
       <h2>DOŁĄCZ DO POKOJU</h2>
-      <p>Wybierz pokój z listy albo wpisz kod pokoju.</p>
-      <button id="refreshRoomsBtn" class="gr-refresh">↻ ODŚWIEŻ</button>
       <div class="gr-section-title">TWOJE POKOJE</div>
       <div class="gr-room-list">${slots}</div>
       <div class="gr-manual-title">LUB WPISZ KOD POKOJU</div>
@@ -73,13 +70,13 @@ app.innerHTML=`<section class="screen rooms gr-clean-rooms">
   ${version()}
 </section>`;
 const normalizeCode=(id)=>document.getElementById(id).value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
-const joinByCode=()=>{const code=normalizeCode('joinCode');if(code.length!==7)return toast('Wpisz 7-znakowy kod pokoju.');addRecent({code,name:'Pokój '+code,lastPlayed:'teraz'});toast('Dodano pokój '+code);renderRooms()};
+const joinByCode=()=>{const code=normalizeCode('joinCode');if(code.length!==7)return toast('Wpisz 7-znakowy kod pokoju.');addRecent({code,name:'Pokój '+code,lastPlayed:'teraz',joinedBy:p.playerId});toast('Dodano pokój '+code);renderRooms()};
 document.getElementById('joinRoomBtn').onclick=joinByCode;
 document.getElementById('joinCode').oninput=e=>{e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,7)};
 document.getElementById('regenRoomCode').onclick=()=>{document.getElementById('generatedRoomCode').textContent=roomCode()};
-document.getElementById('refreshRoomsBtn').onclick=()=>toast('Lista pokoi odświeżona.');
+const refreshBtn=document.getElementById('refreshRoomsBtn'); if(refreshBtn) refreshBtn.onclick=()=>toast('Lista pokoi odświeżona.');
 document.querySelectorAll('.gr-join-card').forEach(b=>b.onclick=()=>{const r=recentRooms()[Number(b.dataset.i)];if(r)toast('Dołączanie do pokoju '+r.code)});
-document.getElementById('saveRoomBtn').onclick=()=>{const name=document.getElementById('newRoomName').value.trim();const code=document.getElementById('generatedRoomCode').textContent.trim();if(name.length<2)return toast('Wpisz nazwę pokoju.');addRecent({code,name,lastPlayed:'teraz'});toast('Pokój zapisany: '+code);renderRooms()};
+document.getElementById('saveRoomBtn').onclick=()=>{const name=document.getElementById('newRoomName').value.trim();const code=document.getElementById('generatedRoomCode').textContent.trim();if(name.length<2)return toast('Wpisz nazwę pokoju.');addRecent({code,name,lastPlayed:'teraz',ownerId:p.playerId,pin:p.pin});toast('Pokój zapisany: '+code);renderRooms()};
 document.getElementById('clearRoomBtn').onclick=()=>{document.getElementById('newRoomName').value='';document.getElementById('generatedRoomCode').textContent=roomCode()};
 document.getElementById('logoutBtn').onclick=()=>{storage.remove('gr_logged_in');renderLogin()};
 }
