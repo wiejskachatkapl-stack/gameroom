@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1028';
+const VERSION = 'GAME ROOM v1029';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
@@ -32,59 +32,53 @@ document.getElementById('backBtn').onclick=renderLogin;document.getElementById('
 function renderRooms(){
 const p=profile();if(!p)return renderLogin();
 const rooms=recentRooms();
-const visible=rooms.map((r,i)=>`<div class="roomCard filled"><div class="roomCardIcon">♟</div><div class="roomCardText"><div class="roomCardName">${r.name||'Pokój'}</div><div class="roomCardCode"><span>Kod:</span> ${r.code}</div></div><button class="roomCardJoin" data-i="${i}">DOŁĄCZ</button></div>`).join('') + Array.from({length:Math.max(0,4-rooms.length)},()=>`<div class="roomCard empty"><div class="emptyLine"></div></div>`).join('');
+const visible=rooms.slice(0,Math.max(4,rooms.length));
+const slots=Array.from({length:Math.max(4,visible.length)},(_,i)=>{
+  const r=rooms[i];
+  if(!r)return `<div class="roomSlot empty"></div>`;
+  return `<div class="roomSlot filled"><div class="roomIcon">♟</div><div class="roomInfo"><div class="roomName">${r.name||'Pokój'}</div><div class="roomCodeLine"><span>Kod:</span> ${r.code}</div></div><button class="roomJoin" data-i="${i}">DOŁĄCZ</button></div>`;
+}).join('');
 const newCode=roomCode();
 app.innerHTML=`<section class="screen rooms">
   <div class="roomGreeting">Witaj,<br><span>${p.name}</span></div>
   <div class="roomPlayerBox"><span>NR GRACZA:</span><strong>${p.playerId}</strong></div>
 
   <div class="createPanel">
-    <div class="createPanelTitle">UTWÓRZ POKÓJ</div>
-    <div class="createPanelInfo">Wpisz nazwę pokoju.<br>Kod pokoju zostanie wygenerowany automatycznie.</div>
-    <label class="createLabel createNameLabel" for="newRoomName">NAZWA POKOJU</label>
-    <input class="createInput" id="newRoomName" maxlength="24" autocomplete="off" placeholder="" />
-    <label class="createLabel createCodeLabel">KOD POKOJU</label>
-    <div class="createCodeBox" id="newRoomCode">${newCode}</div>
+    <div class="createTitle">UTWÓRZ POKÓJ</div>
+    <div class="createHint">Wpisz nazwę pokoju.<br>Kod pokoju zostanie wygenerowany automatycznie.</div>
+    <label class="createLabel nameRoomLabel">NAZWA POKOJU</label>
+    <input class="hot createRoomName" id="newRoomName" maxlength="24" autocomplete="off" />
+    <label class="createLabel codeRoomLabel">KOD POKOJU</label>
+    <div class="generatedCodeInline" id="generatedRoomCode">${newCode}</div>
     <button class="createSaveBtn" id="saveRoomBtn">ZAPISZ POKÓJ</button>
-    <button class="createBackBtn" id="clearRoomBtn">WYCZYŚĆ</button>
+    <button class="createClearBtn" id="clearRoomBtn">COFNIJ</button>
   </div>
 
   <div class="joinPanel">
     <div class="joinTitle">DOŁĄCZ DO POKOJU</div>
     <div class="joinText">Wybierz pokój z listy albo wpisz kod pokoju.</div>
     <div class="topJoinBox">
-      <input class="roomCodeInput topCode" id="joinCodeTop" placeholder="Wpisz kod pokoju" autocomplete="off" />
+      <input class="hot roomCodeInput topCode" id="joinCodeTop" placeholder="Wpisz kod pokoju" autocomplete="off" />
       <button class="joinSmallBtn" id="joinRoomTop">DOŁĄCZ</button>
     </div>
     <div class="lastTitle">TWOJE POKOJE</div>
-    <div class="recentList">${visible}</div>
+    <div class="recentList">${slots}</div>
     <div class="manualTitle">LUB WPISZ KOD POKOJU</div>
     <div class="bottomJoinBox">
-      <input class="roomCodeInput bottomCode" id="joinCode" placeholder="np. KR4821" autocomplete="off" />
+      <input class="hot roomCodeInput bottomCode" id="joinCode" placeholder="np. KR4821" autocomplete="off" />
       <button class="joinSmallBtn" id="joinRoomBtn">DOŁĄCZ</button>
     </div>
   </div>
-
   <button class="btn" id="logoutBtn">WYLOGUJ</button>
   ${version()}
 </section>`;
 const joinByCode=(inputId)=>{const code=document.getElementById(inputId).value.trim().toUpperCase();if(!code)return toast('Wpisz kod pokoju.');addRecent({code,name:'Pokój '+code,lastPlayed:'teraz'});toast('Dodano pokój '+code);renderRooms()};
 document.getElementById('joinRoomBtn').onclick=()=>joinByCode('joinCode');
 document.getElementById('joinRoomTop').onclick=()=>joinByCode('joinCodeTop');
-document.querySelectorAll('.roomCardJoin').forEach(b=>b.onclick=()=>{const r=recentRooms()[Number(b.dataset.i)];if(r)toast('Dołączanie do pokoju '+r.code)});
-document.getElementById('saveRoomBtn').onclick=()=>{const name=document.getElementById('newRoomName').value.trim();if(name.length<2)return toast('Wpisz nazwę pokoju.');const code=document.getElementById('newRoomCode').textContent.trim();addRecent({code,name,lastPlayed:'teraz'});toast('Pokój zapisany: '+code);renderRooms()};
-document.getElementById('clearRoomBtn').onclick=()=>{document.getElementById('newRoomName').value=''};
+document.querySelectorAll('.roomJoin').forEach(b=>b.onclick=()=>{const r=recentRooms()[Number(b.dataset.i)];if(r)toast('Dołączanie do pokoju '+r.code)});
+document.getElementById('saveRoomBtn').onclick=()=>{const name=document.getElementById('newRoomName').value.trim();const code=document.getElementById('generatedRoomCode').textContent.trim();if(name.length<2)return toast('Wpisz nazwę pokoju.');addRecent({code,name,lastPlayed:'teraz'});toast('Pokój zapisany: '+code);renderRooms()};
+document.getElementById('clearRoomBtn').onclick=()=>{document.getElementById('newRoomName').value='';document.getElementById('generatedRoomCode').textContent=roomCode();};
 document.getElementById('logoutBtn').onclick=()=>{storage.remove('gr_logged_in');renderLogin()};
 }
-function openCreateRoom(){
-const code=roomCode();
-const screen=document.querySelector('.screen.rooms');
-const modal=document.createElement('div');
-modal.className='roomModal';
-modal.innerHTML=`<div class="roomModalBox"><div class="modalTitle">UTWÓRZ POKÓJ</div><label>NAZWA POKOJU</label><input id="newRoomName" maxlength="24" autocomplete="off" placeholder="np. Rodzina" /><label>KOD POKOJU</label><div class="generatedCode">${code}</div><button id="saveRoomBtn">ZAPISZ POKÓJ</button><button id="cancelRoomBtn">COFNIJ</button></div>`;
-screen.appendChild(modal);
-document.getElementById('cancelRoomBtn').onclick=()=>modal.remove();
-document.getElementById('saveRoomBtn').onclick=()=>{const name=document.getElementById('newRoomName').value.trim();if(name.length<2)return toast('Wpisz nazwę pokoju.');addRecent({code,name,lastPlayed:'teraz'});modal.remove();toast('Pokój zapisany: '+code);renderRooms()};
-setTimeout(()=>document.getElementById('newRoomName')?.focus(),50);
-}
+function openCreateRoom(){renderRooms()}
 function init(){storage.get('gr_logged_in')&&profile()?renderRooms():renderLogin()}init();
