@@ -1150,7 +1150,7 @@
 }
 
 
-/* ===== GAME ROOM v1047: dopasowanie loginu do ramki ===== */
+/* ===== GAME ROOM v1048: dopasowanie loginu do ramki ===== */
 .login-clean .login-shell{
   padding-top:6.6%!important;
 }
@@ -1232,7 +1232,7 @@
 }
 
 
-/* GAME ROOM v1047 — poprawka: stary pseudo-element USTAWIENIA nie może przykrywać całego ekranu */
+/* GAME ROOM v1048 — poprawka: stary pseudo-element USTAWIENIA nie może przykrywać całego ekranu */
 .login-clean #helpBtn::after,
 .login-clean .login-settings::after{
   content:none!important;
@@ -1253,3 +1253,137 @@
 .login-clean #helpBtn{z-index:21!important;}
 .login-clean .input-wrap{z-index:19!important;}
 .login-clean .login-card{pointer-events:auto!important;}
+
+/* v1048 – profil zbudowany od zera, bez starych hotspotów */
+.profile.profile-clean{
+  background-image:url('assets/screens/bg_profile.jpg?v=1048')!important;
+  background-size:cover!important;
+  background-position:center!important;
+  color:#fff;
+}
+.profile-clean .profile-shell{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:clamp(14px,3vw,34px);
+  box-sizing:border-box;
+}
+.profile-clean .profile-lang{
+  position:absolute;
+  top:4.2%;
+  right:7%;
+  display:flex;
+  gap:12px;
+  z-index:5;
+}
+.profile-clean .profile-card{
+  width:min(720px,64vw);
+  max-height:88%;
+  padding:clamp(20px,2.7vw,38px);
+  border-radius:22px;
+  border:2px solid rgba(255,208,68,.78);
+  background:linear-gradient(180deg,rgba(5,8,10,.84),rgba(5,8,10,.72));
+  box-shadow:0 22px 55px rgba(0,0,0,.58), inset 0 0 0 1px rgba(255,255,255,.07);
+  display:flex;
+  flex-direction:column;
+  gap:clamp(10px,1.45vw,18px);
+  box-sizing:border-box;
+}
+.profile-clean .profile-card h1{
+  margin:0 0 4px;
+  text-align:center;
+  font-weight:1000;
+  color:#f2b80f;
+  letter-spacing:1px;
+  font-size:clamp(28px,4vw,56px);
+  text-shadow:0 4px 6px #000;
+}
+.profile-clean .profile-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(10px,1.5vw,18px);
+}
+.profile-clean .profile-field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  color:#2ba2ff;
+  font-weight:1000;
+  letter-spacing:.7px;
+  font-size:clamp(13px,1.4vw,20px);
+  text-shadow:0 2px 4px #000;
+}
+.profile-clean .profile-control,
+.profile-clean .profile-id{
+  width:100%;
+  height:clamp(48px,5.2vw,68px);
+  border-radius:12px;
+  border:2px solid rgba(255,255,255,.64);
+  background:rgba(0,0,0,.42);
+  color:#fff;
+  font-size:clamp(18px,2.2vw,30px);
+  font-weight:900;
+  padding:0 18px;
+  box-sizing:border-box;
+  outline:0;
+  text-shadow:0 3px 4px #000;
+}
+.profile-clean .profile-control:focus{border-color:#21a3ff;box-shadow:0 0 14px rgba(33,163,255,.35)}
+.profile-clean select.profile-control{appearance:auto;color:#fff;background-color:rgba(0,0,0,.72)}
+.profile-clean .profile-id{display:flex;align-items:center;color:#f5f1df}
+.profile-clean .profile-pin-row{display:flex;gap:clamp(10px,1.2vw,18px)}
+.profile-clean .pinBox{
+  width:clamp(54px,6vw,76px)!important;
+  height:clamp(50px,5.4vw,70px)!important;
+  position:static!important;
+  border:2px solid rgba(255,255,255,.64)!important;
+  border-radius:12px!important;
+  background:rgba(0,0,0,.42)!important;
+  color:#fff!important;
+  text-align:center!important;
+  font-size:clamp(22px,3vw,38px)!important;
+  font-weight:1000!important;
+  text-shadow:0 3px 4px #000!important;
+  padding:0!important;
+}
+.profile-clean .avatarChoices{display:flex;gap:12px;flex-wrap:wrap}
+.profile-clean .avatarChoice{
+  width:clamp(56px,6vw,76px);
+  height:clamp(46px,5vw,62px);
+  border-radius:16px;
+  border:2px solid rgba(255,255,255,.42);
+  background:rgba(0,0,0,.45);
+  color:#fff;
+  font-weight:1000;
+  font-size:clamp(18px,2vw,26px);
+  cursor:pointer;
+}
+.profile-clean .avatarChoice.active{border-color:#80ff37;box-shadow:0 0 16px rgba(128,255,55,.45)}
+.profile-clean .avatarChoice.red{color:#ff4c3d}.profile-clean .avatarChoice.green{color:#35e77b}.profile-clean .avatarChoice.yellow{color:#ffd33d}
+.profile-clean .profile-actions{display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(12px,1.8vw,22px);margin-top:4px}
+.profile-clean .profile-save,
+.profile-clean .profile-back{
+  height:clamp(52px,5.4vw,72px);
+  border-radius:14px;
+  font-weight:1000;
+  font-size:clamp(17px,2vw,28px);
+  color:#fff;
+  text-shadow:0 3px 4px #000;
+  cursor:pointer;
+}
+.profile-clean .profile-save{border:2px solid #79ff37;background:linear-gradient(#65cf22,#237305);box-shadow:0 0 18px rgba(94,255,43,.35)}
+.profile-clean .profile-back{border:2px solid #1fa3ff;background:rgba(0,54,104,.55);box-shadow:0 0 16px rgba(31,163,255,.25)}
+@media (orientation:portrait){
+  .profile.profile-clean{aspect-ratio:2/3;width:min(100vw,66.666vh);max-height:100vh;background-position:center}
+  .profile-clean .profile-shell{padding:12px;align-items:flex-end}
+  .profile-clean .profile-card{width:92%;max-height:76%;padding:18px;gap:10px;border-radius:18px}
+  .profile-clean .profile-card h1{font-size:30px}
+  .profile-clean .profile-grid{grid-template-columns:1fr;gap:10px}
+  .profile-clean .profile-control,.profile-clean .profile-id{height:46px;font-size:18px}
+  .profile-clean .pinBox{width:48px!important;height:48px!important;font-size:24px!important}
+  .profile-clean .profile-actions{grid-template-columns:1fr;gap:10px}
+  .profile-clean .profile-save,.profile-clean .profile-back{height:48px;font-size:18px}
+  .profile-clean .profile-lang{top:2.5%;right:4%}
+}

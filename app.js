@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1047';
+const VERSION = 'GAME ROOM v1048';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
@@ -133,18 +133,41 @@ function renderLogin(){
     renderRooms();
   };
 }
-function renderProfile(){let currentId=id('PL');app.innerHTML=`<section class="screen profile"><button class="btn back" id="backBtn">COFNIJ</button>
-<label class="profileLabel countryLabel" for="country">KRAJ</label>
-<label class="profileLabel numberLabel">NUMER GRACZA</label>
-<label class="profileLabel nameLabel" for="name">IMIĘ / NICK</label>
-<label class="profileLabel pinLabel">PIN (4 CYFRY)</label>
-<div class="countryDisplay" id="countryDisplay">Polska (PL)</div>
-<select class="hot countrySelect" id="country"><option value="PL">Polska (PL)</option><option value="DE">Niemcy (DE)</option><option value="NL">Holandia (NL)</option><option value="GB">Wielka Brytania (GB)</option><option value="FR">Francja (FR)</option><option value="ES">Hiszpania (ES)</option><option value="IT">Włochy (IT)</option><option value="AT">Austria (AT)</option><option value="BE">Belgia (BE)</option><option value="CH">Szwajcaria (CH)</option><option value="SE">Szwecja (SE)</option><option value="NO">Norwegia (NO)</option><option value="DK">Dania (DK)</option><option value="FI">Finlandia (FI)</option><option value="IE">Irlandia (IE)</option><option value="PT">Portugalia (PT)</option><option value="CZ">Czechy (CZ)</option><option value="SK">Słowacja (SK)</option><option value="HU">Węgry (HU)</option><option value="RO">Rumunia (RO)</option><option value="BG">Bułgaria (BG)</option><option value="GR">Grecja (GR)</option><option value="TR">Turcja (TR)</option><option value="UA">Ukraina (UA)</option><option value="LT">Litwa (LT)</option><option value="LV">Łotwa (LV)</option><option value="EE">Estonia (EE)</option><option value="US">USA (US)</option><option value="CA">Kanada (CA)</option><option value="BR">Brazylia (BR)</option><option value="AR">Argentyna (AR)</option><option value="MX">Meksyk (MX)</option><option value="AU">Australia (AU)</option><option value="JP">Japonia (JP)</option><option value="KR">Korea Południowa (KR)</option><option value="CN">Chiny (CN)</option><option value="IN">Indie (IN)</option><option value="ZA">RPA (ZA)</option><option value="MA">Maroko (MA)</option><option value="EG">Egipt (EG)</option></select>
-<div class="playerText" id="playerText">${currentId}</div><input class="hot nameInput" id="name" maxlength="20" aria-label="Imię / nick" placeholder="" />
-<input class="hot pin1" maxlength="1" inputmode="numeric" aria-label="PIN 1"><input class="hot pin2" maxlength="1" inputmode="numeric" aria-label="PIN 2"><input class="hot pin3" maxlength="1" inputmode="numeric" aria-label="PIN 3"><input class="hot pin4" maxlength="1" inputmode="numeric" aria-label="PIN 4"><button class="btn saveProfile" id="saveBtn">ZAPISZ PROFIL</button>${version()}</section>`;
-const c=document.getElementById('country');c.onchange=()=>{currentId=id(c.value);document.getElementById('playerText').textContent=currentId;document.getElementById('countryDisplay').textContent=countries[c.value]};
-[...document.querySelectorAll('.pin1,.pin2,.pin3,.pin4')].forEach((el,i,arr)=>el.oninput=()=>{el.value=el.value.replace(/\D/g,'').slice(0,1);if(el.value&&arr[i+1])arr[i+1].focus()});
-document.getElementById('backBtn').onclick=renderLogin;document.getElementById('saveBtn').onclick=()=>{const name=document.getElementById('name').value.trim();const pin=[...document.querySelectorAll('.pin1,.pin2,.pin3,.pin4')].map(x=>x.value).join('');if(name.length<2)return toast('Wpisz imię lub nick.');if(pin.length!==4)return toast('PIN musi mieć 4 cyfry.');storage.set('gr_profile',{playerId:currentId,countryCode:c.value,country:countries[c.value],name,pin,createdAt:Date.now()});toast('Profil zapisany.');setTimeout(renderLogin,700)};}
+function profileT(pl,en){return lang()==='en'?en:pl}
+function renderProfile(){
+let currentCountry='PL';
+let currentId=id(currentCountry);
+let currentAvatar='blue';
+const countryOptions=Object.entries(countries).map(([code,name])=>`<option value="${code}" ${code==='PL'?'selected':''}>${name}</option>`).join('');
+app.innerHTML=`<section class="screen profile profile-clean">
+  <div class="profile-shell">
+    <div class="profile-lang">
+      <button id="profileLangPL" class="lang-btn ${lang()==='pl'?'active':''}" type="button">🇵🇱 PL</button>
+      <button id="profileLangEN" class="lang-btn ${lang()==='en'?'active':''}" type="button">🇬🇧 EN</button>
+    </div>
+    <form class="profile-card" id="profileForm" autocomplete="off">
+      <h1>${profileT('UTWÓRZ PROFIL','CREATE PROFILE')}</h1>
+      <div class="profile-grid">
+        <label class="profile-field"><span>${profileT('KRAJ','COUNTRY')}</span><select id="country" class="profile-control">${countryOptions}</select></label>
+        <label class="profile-field"><span>${profileT('NUMER GRACZA','PLAYER ID')}</span><div id="playerText" class="profile-id">${currentId}</div></label>
+      </div>
+      <label class="profile-field"><span>${profileT('IMIĘ / NICK','NAME / NICK')}</span><input id="name" class="profile-control" maxlength="20" placeholder="${profileT('Wpisz swoje imię lub nick','Enter name or nick')}" /></label>
+      <div class="profile-field"><span>PIN (4)</span><div class="profile-pin-row"><input class="pinBox pin1" maxlength="1" inputmode="numeric"><input class="pinBox pin2" maxlength="1" inputmode="numeric"><input class="pinBox pin3" maxlength="1" inputmode="numeric"><input class="pinBox pin4" maxlength="1" inputmode="numeric"></div></div>
+      <div class="profile-field"><span>${profileT('KAPSEL / AVATAR','CAP / AVATAR')}</span><div class="avatarChoices"><button type="button" class="avatarChoice active" data-avatar="blue">★</button><button type="button" class="avatarChoice red" data-avatar="red">10</button><button type="button" class="avatarChoice green" data-avatar="green">⚽</button><button type="button" class="avatarChoice yellow" data-avatar="yellow">7</button></div></div>
+      <div class="profile-actions"><button class="profile-save" id="saveBtn" type="submit">${profileT('ZAPISZ PROFIL','SAVE PROFILE')}</button><button class="profile-back" id="backBtn" type="button">${profileT('COFNIJ','BACK')}</button></div>
+    </form>
+  </div>
+  ${version()}
+</section>`;
+const c=document.getElementById('country');
+c.onchange=()=>{currentCountry=c.value;currentId=id(currentCountry);document.getElementById('playerText').textContent=currentId};
+document.getElementById('profileLangPL').onclick=()=>{storage.set('gr_lang','pl');renderProfile()};
+document.getElementById('profileLangEN').onclick=()=>{storage.set('gr_lang','en');renderProfile()};
+[...document.querySelectorAll('.pinBox')].forEach((el,i,arr)=>el.oninput=()=>{el.value=el.value.replace(/\D/g,'').slice(0,1);if(el.value&&arr[i+1])arr[i+1].focus()});
+document.querySelectorAll('.avatarChoice').forEach(btn=>btn.onclick=()=>{currentAvatar=btn.dataset.avatar;document.querySelectorAll('.avatarChoice').forEach(b=>b.classList.remove('active'));btn.classList.add('active')});
+document.getElementById('backBtn').onclick=renderLogin;
+document.getElementById('profileForm').onsubmit=(ev)=>{ev.preventDefault();const name=document.getElementById('name').value.trim();const pin=[...document.querySelectorAll('.pinBox')].map(x=>x.value).join('');if(name.length<2)return toast(profileT('Wpisz imię lub nick.','Enter name or nick.'));if(pin.length!==4)return toast(profileT('PIN musi mieć 4 cyfry.','PIN must have 4 digits.'));storage.set('gr_profile',{playerId:currentId,countryCode:c.value,country:countries[c.value],name,pin,avatar:currentAvatar,createdAt:Date.now()});toast(profileT('Profil zapisany.','Profile saved.'));setTimeout(renderLogin,700)};
+}
 function renderRooms(){
 const p=profile();if(!p)return renderLogin();
 const rooms=recentRooms().filter(r => r && (r.ownerId === p.playerId || r.joinedBy === p.playerId));
