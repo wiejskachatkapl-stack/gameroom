@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1048';
+const VERSION = 'GAME ROOM v1049';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
@@ -139,24 +139,28 @@ let currentCountry='PL';
 let currentId=id(currentCountry);
 let currentAvatar='blue';
 const countryOptions=Object.entries(countries).map(([code,name])=>`<option value="${code}" ${code==='PL'?'selected':''}>${name}</option>`).join('');
-app.innerHTML=`<section class="screen profile profile-clean">
-  <div class="profile-shell">
-    <div class="profile-lang">
-      <button id="profileLangPL" class="lang-btn ${lang()==='pl'?'active':''}" type="button">🇵🇱 PL</button>
-      <button id="profileLangEN" class="lang-btn ${lang()==='en'?'active':''}" type="button">🇬🇧 EN</button>
-    </div>
-    <form class="profile-card" id="profileForm" autocomplete="off">
-      <h1>${profileT('UTWÓRZ PROFIL','CREATE PROFILE')}</h1>
-      <div class="profile-grid">
-        <label class="profile-field"><span>${profileT('KRAJ','COUNTRY')}</span><select id="country" class="profile-control">${countryOptions}</select></label>
-        <label class="profile-field"><span>${profileT('NUMER GRACZA','PLAYER ID')}</span><div id="playerText" class="profile-id">${currentId}</div></label>
-      </div>
-      <label class="profile-field"><span>${profileT('IMIĘ / NICK','NAME / NICK')}</span><input id="name" class="profile-control" maxlength="20" placeholder="${profileT('Wpisz swoje imię lub nick','Enter name or nick')}" /></label>
-      <div class="profile-field"><span>PIN (4)</span><div class="profile-pin-row"><input class="pinBox pin1" maxlength="1" inputmode="numeric"><input class="pinBox pin2" maxlength="1" inputmode="numeric"><input class="pinBox pin3" maxlength="1" inputmode="numeric"><input class="pinBox pin4" maxlength="1" inputmode="numeric"></div></div>
-      <div class="profile-field"><span>${profileT('KAPSEL / AVATAR','CAP / AVATAR')}</span><div class="avatarChoices"><button type="button" class="avatarChoice active" data-avatar="blue">★</button><button type="button" class="avatarChoice red" data-avatar="red">10</button><button type="button" class="avatarChoice green" data-avatar="green">⚽</button><button type="button" class="avatarChoice yellow" data-avatar="yellow">7</button></div></div>
-      <div class="profile-actions"><button class="profile-save" id="saveBtn" type="submit">${profileT('ZAPISZ PROFIL','SAVE PROFILE')}</button><button class="profile-back" id="backBtn" type="button">${profileT('COFNIJ','BACK')}</button></div>
-    </form>
+app.innerHTML=`<section class="screen profile profile-v1049">
+  <div class="profile-lang-switch">
+    <button id="profileLangPL" class="lang-btn ${lang()==='pl'?'active':''}" type="button">🇵🇱 PL</button>
+    <button id="profileLangEN" class="lang-btn ${lang()==='en'?'active':''}" type="button">🇬🇧 EN</button>
   </div>
+
+  <form class="profile-panel-v1049" id="profileForm" autocomplete="off">
+    <h1>${profileT('UTWÓRZ PROFIL','CREATE PROFILE')}</h1>
+
+    <div class="profile-row two-cols">
+      <label class="clean-field"><span>${profileT('KRAJ','COUNTRY')}</span><select id="country" class="clean-input">${countryOptions}</select></label>
+      <label class="clean-field"><span>${profileT('NUMER GRACZA','PLAYER ID')}</span><div id="playerText" class="clean-input profile-readonly">${currentId}</div></label>
+    </div>
+
+    <label class="clean-field wide"><span>${profileT('IMIĘ / NICK','NAME / NICK')}</span><input id="name" class="clean-input" maxlength="20" placeholder="${profileT('Wpisz swoje imię lub nick','Enter name or nick')}" /></label>
+
+    <div class="clean-field wide"><span>${profileT('PIN (4 CYFRY)','PIN (4 DIGITS)')}</span><div class="clean-pin-row"><input class="pinBox" maxlength="1" inputmode="numeric"><input class="pinBox" maxlength="1" inputmode="numeric"><input class="pinBox" maxlength="1" inputmode="numeric"><input class="pinBox" maxlength="1" inputmode="numeric"></div></div>
+
+    <div class="clean-field wide"><span>${profileT('KAPSEL / AVATAR','CAP / AVATAR')}</span><div class="avatarChoices clean-avatar-row"><button type="button" class="avatarChoice active" data-avatar="blue">★</button><button type="button" class="avatarChoice red" data-avatar="red">10</button><button type="button" class="avatarChoice green" data-avatar="green">⚽</button><button type="button" class="avatarChoice yellow" data-avatar="yellow">7</button></div></div>
+
+    <div class="profile-actions-v1049"><button class="profile-save-v1049" id="saveBtn" type="submit">${profileT('ZAPISZ PROFIL','SAVE PROFILE')}</button><button class="profile-back-v1049" id="backBtn" type="button">${profileT('COFNIJ','BACK')}</button></div>
+  </form>
   ${version()}
 </section>`;
 const c=document.getElementById('country');

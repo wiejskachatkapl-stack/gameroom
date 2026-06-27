@@ -1,2 +1,2 @@
-GAME ROOM v1047
-Podmień pliki z katalogu "pliki do podmiany".
+GAME ROOM v1049
+Podmień pliki z paczki.
