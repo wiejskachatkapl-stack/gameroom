@@ -1,11 +1,11 @@
-const VERSION = 'GAME ROOM v1041';
+const VERSION = 'GAME ROOM v1042';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
 
 const I18N={
-  pl:{settings:'USTAWIENIA',settingsTitle:'USTAWIENIA',language:'JĘZYK',polish:'POLSKI',english:'ENGLISH',editProfile:'EDYTUJ PROFIL',nick:'Nick / nazwa',pin:'PIN',avatar:'Kapsel / avatar',saveChanges:'ZAPISZ ZMIANY',deleteProfile:'USUŃ PROFIL',back:'COFNIJ',about:'GAME ROOM — wspólny profil i pokoje dla wszystkich gier.',loginLabel:'Login/numer',loginBtn:'ZALOGUJ SIĘ',createProfile:'UTWÓRZ NOWY PROFIL',badLogin:'Zły numer gracza lub PIN.',createFirst:'Najpierw utwórz profil.',profileUpdated:'Profil zaktualizowany.',profileDeleted:'Profil usunięty.',noProfile:'Brak profilu do edycji.',nameMin:'Nick musi mieć minimum 2 znaki.',pin4:'PIN musi mieć 4 cyfry.',deleteConfirm:'Czy na pewno usunąć profil?'},
-  en:{settings:'SETTINGS',settingsTitle:'SETTINGS',language:'LANGUAGE',polish:'POLISH',english:'ENGLISH',editProfile:'EDIT PROFILE',nick:'Name / nick',pin:'PIN',avatar:'Cap / avatar',saveChanges:'SAVE CHANGES',deleteProfile:'DELETE PROFILE',back:'BACK',about:'GAME ROOM — one profile and rooms for all games.',loginLabel:'Login / ID',loginBtn:'LOGIN',createProfile:'CREATE NEW PROFILE',badLogin:'Wrong player number or PIN.',createFirst:'Create a profile first.',profileUpdated:'Profile updated.',profileDeleted:'Profile deleted.',noProfile:'No profile to edit.',nameMin:'Nick must have at least 2 characters.',pin4:'PIN must be 4 digits.',deleteConfirm:'Are you sure you want to delete this profile?'}
+  pl:{settings:'USTAWIENIA',settingsTitle:'USTAWIENIA',language:'JĘZYK',polish:'POLSKI',english:'ENGLISH',editProfile:'EDYTUJ PROFIL',nick:'Nick / nazwa',pin:'PIN',avatar:'Kapsel / avatar',saveChanges:'ZAPISZ ZMIANY',deleteProfile:'USUŃ PROFIL',back:'COFNIJ',about:'GAME ROOM — wspólny profil i pokoje dla wszystkich gier.',loginLabel:'Login/numer',loginBtn:'ZALOGUJ SIĘ',createProfile:'UTWÓRZ NOWY PROFIL',badLogin:'Zły numer gracza lub PIN.',createFirst:'Najpierw utwórz profil.',profileUpdated:'Profil zaktualizowany.',profileDeleted:'Profil usunięty.',noProfile:'Brak profilu do edycji.',nameMin:'Nick musi mieć minimum 2 znaki.',pin4:'PIN musi mieć 4 cyfry.',deleteConfirm:'Czy na pewno usunąć profil?',or:'LUB',loginPlaceholder:'Wpisz login lub numer',pinPlaceholder:'Wpisz PIN'},
+  en:{settings:'SETTINGS',settingsTitle:'SETTINGS',language:'LANGUAGE',polish:'POLISH',english:'ENGLISH',editProfile:'EDIT PROFILE',nick:'Name / nick',pin:'PIN',avatar:'Cap / avatar',saveChanges:'SAVE CHANGES',deleteProfile:'DELETE PROFILE',back:'BACK',about:'GAME ROOM — one profile and rooms for all games.',loginLabel:'Login / ID',loginBtn:'LOGIN',createProfile:'CREATE NEW PROFILE',badLogin:'Wrong player number or PIN.',createFirst:'Create a profile first.',profileUpdated:'Profile updated.',profileDeleted:'Profile deleted.',noProfile:'No profile to edit.',nameMin:'Nick must have at least 2 characters.',pin4:'PIN must be 4 digits.',deleteConfirm:'Are you sure you want to delete this profile?',or:'OR',loginPlaceholder:'Enter login or ID',pinPlaceholder:'Enter PIN'}
 };
 function lang(){return storage.get('gr_lang','pl')}
 function tr(k){return (I18N[lang()]&&I18N[lang()][k])||I18N.pl[k]||k}
@@ -83,17 +83,39 @@ function openSettings(){
     }
   };
 }
-function renderLogin(){const p=profile();const l=lang();app.innerHTML=`<section class="screen login login-${l}">
-<input class="loginHot loginIdField" id="loginId" autocomplete="username" value="${p?.playerId||''}" aria-label="${tr('loginLabel')}" />
-<input class="loginHot loginPinField" id="loginPin" type="password" inputmode="numeric" maxlength="4" autocomplete="current-password" aria-label="PIN" />
-<button class="loginClick loginSubmit" id="loginBtn" aria-label="${tr('loginBtn')}"></button>
-<button class="loginClick loginCreate" id="createProfileBtn" aria-label="${tr('createProfile')}"></button>
-<button class="loginClick loginSettings" id="helpBtn" aria-label="${tr('settings')}"></button>
-${version()}</section>`;
+function renderLogin(){
+const p=profile();
+const lang=storage.get('gr_lang') || 'pl';
+app.innerHTML=`<section class="screen login login-redone">
+  <div class="login-card">
+    <div class="login-lang-row">
+      <button class="langBtn ${lang==='pl'?'active':''}" id="langPL">🇵🇱 PL</button>
+      <button class="langBtn ${lang==='en'?'active':''}" id="langEN">🇬🇧 EN</button>
+    </div>
+    <div class="login-field-block">
+      <label for="loginId">${tr('loginLabel')}</label>
+      <div class="login-input-wrap user"><span>♙</span><input id="loginId" autocomplete="username" value="${p?.playerId||''}" placeholder="${tr('loginPlaceholder')||tr('loginLabel')}" /></div>
+    </div>
+    <div class="login-field-block">
+      <label for="loginPin">${tr('pin')}</label>
+      <div class="login-input-wrap lock"><span>▣</span><input id="loginPin" type="password" inputmode="numeric" maxlength="4" autocomplete="current-password" placeholder="${tr('pinPlaceholder')||tr('pin')}" /><button id="togglePin" class="eyeBtn" type="button">◉</button></div>
+    </div>
+    <button class="login-action login-green" id="loginBtn"><span>↪</span>${tr('loginBtn')}</button>
+    <div class="login-or"><span></span>${tr('or')}<span></span></div>
+    <button class="login-action login-yellow" id="createProfileBtn"><span>♙+</span>${tr('createProfile')}</button>
+    <button class="login-action login-blue" id="helpBtn"><span>⚙</span>${tr('settings')}</button>
+  </div>
+  ${version()}
+</section>`;
+const setLang=(l)=>{storage.set('gr_lang',l); renderLogin();};
+document.getElementById('langPL').onclick=()=>setLang('pl');
+document.getElementById('langEN').onclick=()=>setLang('en');
 document.getElementById('createProfileBtn').onclick=renderProfile;
 document.getElementById('helpBtn').onclick=openSettings;
+document.getElementById('togglePin').onclick=()=>{const inp=document.getElementById('loginPin'); inp.type=inp.type==='password'?'text':'password'};
 document.getElementById('loginPin').oninput=e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,4)};
-document.getElementById('loginBtn').onclick=()=>{const pid=document.getElementById('loginId').value.trim().toUpperCase();const pin=document.getElementById('loginPin').value.trim();const p=profile();if(!p)return toast(tr('createFirst'));if(pid!==p.playerId||pin!==p.pin)return toast(tr('badLogin'));storage.set('gr_logged_in',true);renderRooms()};}
+document.getElementById('loginBtn').onclick=()=>{const pid=document.getElementById('loginId').value.trim().toUpperCase();const pin=document.getElementById('loginPin').value.trim();const p=profile();if(!p)return toast(tr('createFirst'));if(pid!==p.playerId||pin!==p.pin)return toast(tr('badLogin'));storage.set('gr_logged_in',true);renderRooms()};
+} 
 function renderProfile(){let currentId=id('PL');app.innerHTML=`<section class="screen profile"><button class="btn back" id="backBtn">COFNIJ</button>
 <label class="profileLabel countryLabel" for="country">KRAJ</label>
 <label class="profileLabel numberLabel">NUMER GRACZA</label>
