@@ -3,8 +3,8 @@
 #app{display:flex;align-items:center;justify-content:center;background:#111}
 .screen{position:relative;overflow:hidden;background-size:100% 100%;background-position:center;background-repeat:no-repeat;box-shadow:0 0 0 9999px #111}
 .screen:not(.login){aspect-ratio:3/2;width:min(100vw,150vh);max-height:100vh}
-.login{aspect-ratio:16/9;width:min(100vw,177.777vh);max-height:100vh;background-image:url('assets/screens/bg_login_desktop.jpg?v=1038')}
-.profile{background-image:url('assets/screens/bg_profile.jpg?v=1038')}.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1038')}
+.login{aspect-ratio:16/9;width:min(100vw,177.777vh);max-height:100vh;background-image:url('assets/screens/bg_login_desktop.jpg?v=1043')}
+.profile{background-image:url('assets/screens/bg_profile.jpg?v=1043')}.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1043')}
 .hot{position:absolute;border:0;outline:0;background:transparent!important;color:#fff;font-weight:900;letter-spacing:.5px;padding:0 18px;text-shadow:0 2px 4px rgba(0,0,0,.9);-webkit-appearance:none;appearance:none}
 .hot::placeholder{color:transparent}.hot:focus{background:rgba(255,255,255,.02)!important;border-radius:8px;box-shadow:none}
 .btn{position:absolute;border:0;background:transparent;cursor:pointer;color:transparent;font-size:0}.btn:focus{outline:3px dashed rgba(255,255,255,.6);outline-offset:-4px;border-radius:10px}
@@ -29,7 +29,7 @@
 #createRoomBtn{left:16.8%;top:62.7%;width:26.2%;height:10.5%}#joinCode{left:54%;top:78.5%;width:22%;height:5.6%;font-size:20px}#joinRoomBtn{left:76%;top:78.5%;width:9.2%;height:5.6%}#logoutBtn{left:29%;top:88.5%;width:42%;height:7%}.recentBtn{position:absolute;left:76%;width:9%;height:4.5%;border:0;background:transparent;cursor:pointer;color:transparent}.r1{top:45.8%}.r2{top:56.2%}.r3{top:66.4%}
 .toast{position:absolute;left:50%;bottom:3%;transform:translateX(-50%);background:rgba(0,0,0,.78);color:#fff;padding:12px 20px;border-radius:10px;font-weight:700;z-index:10;max-width:90%;text-align:center}
 @media (orientation: portrait){
-  .login{aspect-ratio:2/3;width:min(100vw,66.666vh);max-height:100vh;background-image:url('assets/screens/bg_login_mobile.jpg?v=1038')}
+  .login{aspect-ratio:2/3;width:min(100vw,66.666vh);max-height:100vh;background-image:url('assets/screens/bg_login_mobile.jpg?v=1043')}
   .screen:not(.login){aspect-ratio:3/2;width:100vw;max-height:100vh}
   .loginField{font-size:clamp(17px,5vw,28px)}
   #loginId{left:24.5%;top:42.8%;width:54.6%;height:7.4%;padding-left:9.5%}
@@ -129,7 +129,7 @@
 
 
 /* v1027 – profil: nowa grafika z przeźroczystymi ramkami, dane wycentrowane w polach */
-.profile{background-image:url('assets/screens/bg_profile.jpg?v=1038')!important}
+.profile{background-image:url('assets/screens/bg_profile.jpg?v=1043')!important}
 .profile .hot,
 .profile input,
 .profile select{
@@ -219,7 +219,7 @@
 
 
 /* v1027 – pokoje: czyste pola, dane dynamiczne z HTML, bez przykładowych pokoi w grafice */
-.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1038')!important}
+.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1043')!important}
 .roomGreeting{position:absolute;left:15.0%;top:3.5%;font-size:clamp(18px,2.0vw,31px);font-weight:900;color:rgba(238,232,214,.92);line-height:1.05;text-shadow:0 3px 4px rgba(0,0,0,.9);z-index:6}
 .roomGreeting span{color:#4b9ce0;font-size:1.18em}
 .roomPlayerBox{position:absolute;left:15.0%;top:13.3%;width:14.7%;height:7.6%;display:flex;flex-direction:column;justify-content:center;align-items:center;color:rgba(238,232,214,.92);font-weight:900;text-shadow:0 3px 4px rgba(0,0,0,.9);z-index:6;pointer-events:none}
@@ -236,7 +236,7 @@
 
 
 /* v1027 – pokoje: lista tylko zapisanych pokoi + okno tworzenia pokoju */
-.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1038')!important}
+.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1043')!important}
 .recentList{left:54.5%!important;top:51.0%!important;width:30.5%!important;height:20.5%!important;overflow:hidden!important;z-index:8!important;color:rgba(238,232,214,.95)!important}
 .roomRow{height:25%!important;min-height:25%!important;display:flex!important;align-items:center!important;padding:0 22% 0 3%!important;border-bottom:1px solid rgba(238,232,214,.18);font-size:clamp(10px,1.0vw,16px)!important;line-height:1!important;position:relative!important;overflow:hidden!important}
 .roomCode{font-weight:900!important;margin-right:8px!important;color:rgba(238,232,214,.98)!important;white-space:nowrap!important}.roomName{font-weight:800!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.roomEmpty{height:100%;display:flex;align-items:center;justify-content:center;color:rgba(238,232,214,.65);font-weight:800;font-size:clamp(11px,1.05vw,17px);font-style:normal}.roomJoin{position:absolute!important;right:2.0%!important;top:18%!important;width:18%!important;height:64%!important;border:0!important;background:transparent!important;color:rgba(238,232,214,.95)!important;font-weight:900!important;font-size:clamp(8px,.85vw,14px)!important;cursor:pointer!important;text-shadow:0 2px 3px #000!important}
@@ -333,7 +333,7 @@
 
 
 /* v1027 – pokoje: układ jak zaakceptowany wzór, 4 ramki pokoi, reszta pusta, scroll tylko przy większej liczbie */
-.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1038')!important}
+.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1043')!important}
 .joinTitle{
   left:56.8%!important; top:30.2%!important; width:30.0%!important;
   text-align:center!important; font-size:clamp(20px,2.05vw,34px)!important;
@@ -402,7 +402,7 @@
 #logoutBtn{left:29%!important;top:88.5%!important;width:42%!important;height:7%!important;z-index:7!important}
 
 /* v1027 – ekran pokoi zrobiony od nowa: jeden czysty panel, 4 ramki, scroll od 5 pokoju */
-.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1038')!important}
+.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1043')!important}
 .rooms .joinPanel{
   position:absolute!important;
   left:52.6%!important;
@@ -601,7 +601,7 @@
 
 
 /* v1029 – ekran pokoi całkowicie przebudowany pod nowe tło i dwa panele */
-.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1038')!important;background-size:100% 100%!important}
+.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1043')!important;background-size:100% 100%!important}
 .rooms .btn,.rooms button{font-family:Arial,Helvetica,sans-serif}
 .roomGreeting{position:absolute!important;left:4.2%!important;top:3.0%!important;width:20%!important;font-size:clamp(18px,2.05vw,34px)!important;font-weight:900!important;line-height:1.05!important;color:rgba(238,232,214,.95)!important;text-shadow:0 3px 4px rgba(0,0,0,.9)!important;z-index:20!important}
 .roomGreeting span{color:#3292ff!important;font-size:1.15em!important}
@@ -624,7 +624,7 @@
 
 /* GAME ROOM v1036 — ekran pokoi od zera, czysty układ HTML/CSS */
 .rooms.gr-clean-rooms{
-  background-image:url('assets/screens/bg_rooms.jpg?v=1038')!important;
+  background-image:url('assets/screens/bg_rooms.jpg?v=1043')!important;
   background-size:100% 100%!important;
   background-position:center!important;
   color:#efe8d6;
@@ -657,7 +657,7 @@
 
 /* v1036 – GAME ROOM: poprawiony układ pokojów, bez tekstów pomocniczych i bez fikcyjnych pokoi */
 .rooms.gr-clean-rooms{
-  background-image:url('assets/screens/bg_rooms.jpg?v=1038')!important;
+  background-image:url('assets/screens/bg_rooms.jpg?v=1043')!important;
   background-size:100% 100%!important;
   background-position:center!important;
 }
@@ -751,7 +751,7 @@
 @media (orientation:portrait){#helpBtn::after{font-size:clamp(9px,2.7vw,13px)}.settingsBox{width:92%;padding:18px}.settingsBox h2{font-size:24px}.settingsBox input,.settingsBox select,.settingsBox button{height:40px;font-size:15px}.settingsRow{gap:8px}}
 
 
-/* v1038 — aktywny język na ekranie logowania + przycisk ustawień */
+/* v1043 — aktywny język na ekranie logowania + przycisk ustawień */
 .loginText,.loginBtnText,.loginSettingsText{
   position:absolute;
   z-index:6;
@@ -786,59 +786,74 @@
 .settingsRow{display:flex;gap:12px;justify-content:center;align-items:center;margin-top:12px}.settingsRow.two>*{flex:1}
 .settingsChoice,.settingsMain,.settingsDanger,.settingsBack{height:42px;border-radius:10px;background:transparent;color:#efe8d6;font-weight:900;border:2px solid rgba(239,232,214,.45);cursor:pointer;padding:0 14px}.settingsChoice.active{border-color:#3f91ff;color:#3f91ff}.settingsMain{width:100%;margin-top:14px;border-color:#75ad4a;color:#75ad4a}.settingsDanger{border-color:#c44;color:#ff6b6b}.settingsBack{border-color:#3f91ff;color:#3f91ff}.settingsAbout{text-align:center;color:rgba(239,232,214,.7);font-size:13px;margin-top:12px}
 
-/* v1042 — LOGIN przebudowany od zera: stabilny flex/grid zamiast absolute */
-.login.login-redone{
-  background-image:url('assets/screens/bg_login_desktop.jpg?v=1042')!important;
-  aspect-ratio:16/9!important;
-  width:min(100vw,177.777vh)!important;
-  max-height:100vh!important;
+
+/* v1043 — LOGIN od zera: czysty panel, bez absolute i bez starych warstw */
+.cleanLogin{
+  background-image:url('assets/screens/bg_login_mobile.jpg?v=1043')!important;
   display:flex!important;
   align-items:flex-end!important;
   justify-content:center!important;
-  padding-bottom:4.5vh!important;
+  padding:0 4.5% 4.8%!important;
 }
-.login-redone .btn,
-.login-redone .hot,
-.login-redone .loginText,
-.login-redone .loginBtnText,
-.login-redone .loginSettingsText,
-.login-redone #helpBtn::after{display:none!important;content:none!important;}
-.login-card{
+.cleanLogin .loginPanel{
   position:relative;
-  z-index:5;
-  width:min(41vw,560px);
-  min-width:380px;
-  padding:20px 24px 24px;
-  border:2px solid rgba(238,232,214,.40);
-  border-radius:18px;
-  background:linear-gradient(180deg,rgba(12,14,14,.88),rgba(8,10,9,.94));
-  box-shadow:0 18px 55px rgba(0,0,0,.68), inset 0 0 34px rgba(255,255,255,.03);
-  color:#efe8d6;
-  text-shadow:0 2px 4px rgba(0,0,0,.95);
+  width:min(88%, 520px);
+  padding:22px 22px 20px;
+  border:1.5px solid rgba(235,235,220,.34);
+  border-radius:20px;
+  background:linear-gradient(180deg,rgba(8,10,10,.92),rgba(5,6,6,.96));
+  box-shadow:0 18px 45px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.04);
+  backdrop-filter:blur(2px);
+  z-index:3;
 }
-.login-lang-row{display:flex;justify-content:center;gap:10px;margin-bottom:12px}
-.langBtn{height:34px;min-width:86px;border-radius:10px;border:2px solid rgba(238,232,214,.35);background:rgba(0,0,0,.35);color:#eee;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.4)}
-.langBtn.active{border-color:#75ad4a;color:#fff;background:rgba(63,134,188,.34)}
-.login-field-block{margin:10px 0 12px}
-.login-field-block label{display:block;color:#1d94ff;text-transform:uppercase;letter-spacing:.7px;font-size:15px;font-weight:900;margin:0 0 6px 16px}
-.login-input-wrap{height:56px;border:2px solid rgba(238,232,214,.40);border-radius:12px;background:rgba(0,0,0,.35);display:flex;align-items:center;overflow:hidden;box-shadow:inset 0 0 14px rgba(0,0,0,.35)}
-.login-input-wrap>span{width:66px;height:100%;display:flex;align-items:center;justify-content:center;border-right:2px solid rgba(238,232,214,.22);font-size:30px;font-weight:900;color:#168ce9}
-.login-input-wrap.lock>span{color:#d8a923;font-size:24px}
-.login-input-wrap input{flex:1;min-width:0;height:100%;border:0;background:transparent;color:#fff;font-size:23px;font-weight:900;padding:0 18px;outline:0;text-shadow:0 2px 4px rgba(0,0,0,.95)}
-.login-input-wrap input::placeholder{color:rgba(238,232,214,.45);font-weight:700}
-.eyeBtn{width:58px;height:100%;border:0;background:transparent;color:#efe8d6;font-size:24px;cursor:pointer}
-.login-action{width:100%;height:58px;border-radius:12px;margin-top:12px;border:2px solid rgba(238,232,214,.35);font-weight:900;letter-spacing:.6px;font-size:23px;color:#fff;text-shadow:0 2px 4px #000;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:16px;box-shadow:0 8px 18px rgba(0,0,0,.45), inset 0 0 16px rgba(255,255,255,.08)}
-.login-action span{font-size:25px}.login-green{background:linear-gradient(180deg,rgba(93,166,32,.92),rgba(42,103,16,.92));border-color:#75d13a}.login-yellow{background:linear-gradient(180deg,rgba(196,151,19,.92),rgba(116,83,5,.92));border-color:#e0b12b;color:#fff}.login-blue{background:linear-gradient(180deg,rgba(18,91,148,.92),rgba(7,47,82,.95));border-color:#178be5;color:#fff}
-.login-or{display:flex;align-items:center;gap:14px;justify-content:center;color:#efe8d6;font-size:18px;font-weight:900;margin:10px 0 0}.login-or span{height:2px;flex:1;background:rgba(238,232,214,.34)}
-.login-redone .version{z-index:6;color:rgba(255,255,255,.45)}
-@media (orientation:portrait){
-  .login.login-redone{background-image:url('assets/screens/bg_login_mobile.jpg?v=1042')!important;aspect-ratio:2/3!important;width:min(100vw,66.666vh)!important;align-items:flex-end!important;padding-bottom:3.4vh!important;}
-  .login-card{width:76%;min-width:0;padding:14px 16px 16px;border-radius:15px;}
-  .login-lang-row{margin-bottom:8px}.langBtn{height:30px;min-width:72px;font-size:13px}
-  .login-field-block{margin:8px 0 10px}.login-field-block label{font-size:clamp(12px,3.2vw,15px);margin-left:10px;margin-bottom:5px}
-  .login-input-wrap{height:48px;border-radius:10px}.login-input-wrap>span{width:52px;font-size:24px}.login-input-wrap.lock>span{font-size:20px}.login-input-wrap input{font-size:clamp(17px,4.8vw,23px);padding:0 12px}.eyeBtn{width:48px;font-size:21px}
-  .login-action{height:50px;border-radius:10px;margin-top:10px;font-size:clamp(15px,4.3vw,22px);gap:10px}.login-action span{font-size:20px}.login-or{font-size:15px;margin-top:8px}
+.cleanLogin .langSwitch{display:flex;gap:12px;justify-content:center;margin:0 0 18px}
+.cleanLogin .langBtn{
+  min-width:86px;height:38px;border-radius:11px;border:1px solid rgba(255,255,255,.26);
+  background:rgba(0,0,0,.58);color:#eee;font-weight:900;font-size:15px;letter-spacing:.3px;cursor:pointer;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.04);
 }
-@media (max-height:650px) and (orientation:landscape){
-  .login.login-redone{padding-bottom:2vh!important}.login-card{transform:scale(.86);transform-origin:bottom center;}
+.cleanLogin .langBtn.active{border-color:#75d64b;box-shadow:0 0 10px rgba(117,214,75,.42);background:rgba(40,90,30,.62)}
+.cleanLogin .loginLabel{display:block;margin:10px 0 7px;color:#1f91ff;font-weight:900;font-size:18px;letter-spacing:.8px;text-transform:uppercase;text-shadow:0 2px 3px #000}
+.cleanLogin .fieldWrap{display:flex;align-items:center;height:64px;border:2px solid rgba(235,235,220,.58);border-radius:11px;background:rgba(0,0,0,.42);overflow:hidden;margin-bottom:13px}
+.cleanLogin .fieldIcon{width:68px;align-self:stretch;display:flex;align-items:center;justify-content:center;color:#0b8cff;font-size:30px;border-right:2px solid rgba(235,235,220,.28);text-shadow:0 2px 3px #000}
+.cleanLogin .fieldIcon.lock{color:#ffc41a;font-size:25px}
+.cleanLogin .loginInput{
+  position:static!important;flex:1;height:100%;min-width:0;border:0;outline:0;background:transparent;color:#fff;
+  padding:0 18px;font-size:24px;font-weight:900;letter-spacing:.4px;text-shadow:0 2px 4px #000;
+}
+.cleanLogin .loginInput::placeholder{color:rgba(235,235,220,.42);font-weight:700;text-shadow:none}
+.cleanLogin .eyeBtn{width:64px;height:100%;border:0;background:transparent;color:#eee;font-size:24px;cursor:pointer}
+.cleanLogin .loginAction{
+  position:static!important;width:100%;height:64px;margin:14px 0 0;border-radius:13px;border:2px solid rgba(255,255,255,.25);
+  color:#fff;font-size:25px;font-weight:1000;letter-spacing:.6px;text-shadow:0 2px 3px #000;display:flex;align-items:center;justify-content:center;gap:18px;cursor:pointer;
+}
+.cleanLogin .loginGreen{background:linear-gradient(180deg,#6db51f,#214f13);border-color:#7ee338;box-shadow:0 0 16px rgba(95,190,35,.35), inset 0 0 18px rgba(255,255,255,.08)}
+.cleanLogin .loginYellow{background:linear-gradient(180deg,#c29600,#4d3600);border-color:#ffc814;box-shadow:0 0 14px rgba(255,196,20,.28), inset 0 0 18px rgba(255,255,255,.08)}
+.cleanLogin .loginBlue{background:linear-gradient(180deg,#0e5b96,#07243d);border-color:#23a4ff;box-shadow:0 0 14px rgba(35,164,255,.25), inset 0 0 18px rgba(255,255,255,.08)}
+.cleanLogin .loginAction span{font-size:30px;min-width:36px;text-align:center}
+.cleanLogin .orLine{display:flex;align-items:center;gap:16px;margin:13px 0 0;color:#eee;font-weight:900;font-size:22px;text-shadow:0 2px 3px #000;justify-content:center}
+.cleanLogin .orLine:before,.cleanLogin .orLine:after{content:"";height:1.5px;background:rgba(235,235,220,.38);flex:1}
+.cleanLogin .version{z-index:5}
+@media (orientation:landscape){
+  .cleanLogin{
+    background-image:url('assets/screens/bg_login_desktop.jpg?v=1043')!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    padding:0 0 0 18%!important;
+  }
+  .cleanLogin .loginPanel{width:min(38vw,520px);padding:24px 24px 22px;margin-top:13vh}
+}
+@media (max-height:760px) and (orientation:landscape){
+  .cleanLogin .loginPanel{transform:scale(.86);transform-origin:left center;margin-top:10vh}
+}
+@media (max-width:520px) and (orientation:portrait){
+  .cleanLogin{padding:0 3.5% 3.8%!important}
+  .cleanLogin .loginPanel{width:94%;padding:16px 16px 15px;border-radius:17px}
+  .cleanLogin .langSwitch{margin-bottom:12px}
+  .cleanLogin .fieldWrap{height:56px;margin-bottom:10px}
+  .cleanLogin .fieldIcon{width:58px;font-size:25px}
+  .cleanLogin .loginInput{font-size:20px;padding:0 13px}
+  .cleanLogin .loginLabel{font-size:15px;margin:8px 0 6px}
+  .cleanLogin .loginAction{height:56px;font-size:20px;margin-top:10px}
+  .cleanLogin .orLine{font-size:18px;margin-top:9px}
 }
