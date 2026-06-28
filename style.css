@@ -1391,7 +1391,7 @@
 
 /* v1049 — czysty ekran profilu: czysta kartka + aktywne przyciski HTML/CSS */
 .profile.profile-v1049{
-  background-image:url('assets/screens/bg_profile.jpg?v=1049')!important;
+  background-image:url('assets/screens/bg_profile.jpg?v=1050')!important;
   background-size:cover!important;
   background-position:center!important;
   overflow:hidden;
@@ -1456,4 +1456,73 @@ select.clean-input{appearance:auto;color:#fff;background-color:rgba(0,0,0,.55)}
   .profile.profile-v1049{aspect-ratio:2/3!important;width:min(100vw,66.666vh)!important;height:auto!important;}
   .profile-panel-v1049{top:55%;width:82%;max-height:78%;padding:18px 18px;gap:10px;}
   .profile-row.two-cols{grid-template-columns:1fr;gap:10px}.profile-panel-v1049 h1{font-size:32px}.clean-input{height:44px;font-size:18px}.clean-pin-row{gap:10px}.clean-pin-row .pinBox{width:52px!important;height:46px!important}.profile-actions-v1049{gap:10px}.profile-save-v1049,.profile-back-v1049{height:52px!important}.profile-lang-switch{right:4%;top:2.5%}
+}
+
+
+/* v1050 — korekta profilu: panel mieści się w kartce, ramki kraju i nicku */
+.profile.profile-v1049{
+  background-image:url('assets/screens/bg_profile.jpg?v=1050')!important;
+}
+.profile-panel-v1049{
+  left:50%!important;
+  top:53%!important;
+  transform:translate(-50%,-50%)!important;
+  width:min(700px,51.5vw)!important;
+  max-height:68%!important;
+  padding:22px 28px 20px!important;
+  gap:12px!important;
+  overflow:hidden!important;
+}
+.profile-panel-v1049 h1{
+  font-size:clamp(30px,3.55vw,50px)!important;
+  margin-bottom:0!important;
+}
+.profile-row.two-cols{gap:16px!important;}
+.clean-field{gap:7px!important;}
+.clean-field span{font-size:clamp(13px,1.05vw,18px)!important;}
+.clean-input,
+select.clean-input,
+.profile-readonly,
+#name.clean-input{
+  height:48px!important;
+  min-height:48px!important;
+  border:2px solid rgba(255,255,255,.72)!important;
+  border-radius:10px!important;
+  background:rgba(0,0,0,.50)!important;
+  box-shadow:inset 0 0 16px rgba(0,0,0,.52),0 0 0 1px rgba(255,255,255,.10)!important;
+}
+#country.clean-input,
+#name.clean-input{
+  outline:2px solid rgba(255,255,255,.18)!important;
+  outline-offset:-5px!important;
+}
+.clean-input{font-size:clamp(17px,1.45vw,24px)!important;}
+.clean-pin-row{gap:12px!important;}
+.clean-pin-row .pinBox{
+  width:58px!important;height:52px!important;font-size:30px!important;
+}
+.clean-avatar-row .avatarChoice{
+  width:58px!important;height:50px!important;font-size:23px!important;
+}
+.profile-actions-v1049{gap:18px!important;margin-top:2px!important;}
+.profile-save-v1049,.profile-back-v1049{
+  height:58px!important;font-size:clamp(18px,1.55vw,25px)!important;
+}
+@media (max-width:900px){
+  .profile-panel-v1049{top:53%!important;width:57vw!important;max-height:68%!important;padding:14px 18px!important;gap:8px!important;}
+  .profile-panel-v1049 h1{font-size:28px!important;}
+  .clean-input,select.clean-input,.profile-readonly,#name.clean-input{height:36px!important;min-height:36px!important;font-size:16px!important;}
+  .clean-field span{font-size:12px!important;}
+  .clean-pin-row .pinBox{width:42px!important;height:38px!important;font-size:20px!important;}
+  .clean-avatar-row .avatarChoice{width:42px!important;height:36px!important;font-size:18px!important;}
+  .profile-save-v1049,.profile-back-v1049{height:40px!important;font-size:16px!important;}
+}
+@media (orientation:portrait){
+  .profile-panel-v1049{top:53%!important;width:78%!important;max-height:70%!important;padding:16px!important;gap:8px!important;}
+  .profile-row.two-cols{grid-template-columns:1fr!important;gap:8px!important;}
+  .profile-panel-v1049 h1{font-size:30px!important;}
+  .clean-input,select.clean-input,.profile-readonly,#name.clean-input{height:40px!important;min-height:40px!important;}
+  .clean-pin-row .pinBox{width:46px!important;height:42px!important;}
+  .profile-actions-v1049{grid-template-columns:1fr!important;gap:8px!important;}
+  .profile-save-v1049,.profile-back-v1049{height:46px!important;}
 }
