@@ -1563,7 +1563,7 @@ select.profile-input-v1051{appearance:auto;background-color:rgba(0,0,0,.68)}
 
 /* === v1052: PROFIL - mniejszy panel i transparentne ramki, bez zmian mechaniki === */
 .profile.profile-v1051{
-  background-image:url('assets/screens/bg_login_desktop.jpg?v=1052')!important;
+  background-image:url('assets/screens/bg_login_desktop.jpg?v=1055')!important;
 }
 .profile-card-v1051{
   width:min(700px,54vw)!important;
@@ -1674,7 +1674,7 @@ select.profile-input-v1051:focus{
 }
 @media (orientation:portrait){
   .profile.profile-v1051{
-    background-image:url('assets/screens/bg_login_mobile.jpg?v=1052')!important;
+    background-image:url('assets/screens/bg_login_mobile.jpg?v=1055')!important;
   }
   .profile-card-v1051{
     width:86%!important;
@@ -1769,9 +1769,9 @@ select.profile-input-v1051,
 }
 
 
-/* === v1054: PROFIL - poszerzenie panelu i obniżenie zgodnie ze strzałkami === */
+/* === v1055: PROFIL - poszerzenie panelu i obniżenie zgodnie ze strzałkami === */
 .profile.profile-v1051{
-  background-image:url('assets/screens/bg_login_desktop.jpg?v=1054')!important;
+  background-image:url('assets/screens/bg_login_desktop.jpg?v=1055')!important;
 }
 .profile-card-v1051{
   width:min(760px,60vw)!important;
@@ -1792,8 +1792,20 @@ select.profile-input-v1051,
   .cap-row-v1051{grid-template-columns:90px 1fr!important;gap:8px!important;}
 }
 @media (orientation:portrait){
-  .profile.profile-v1051{background-image:url('assets/screens/bg_login_mobile.jpg?v=1054')!important;}
+  .profile.profile-v1051{background-image:url('assets/screens/bg_login_mobile.jpg?v=1055')!important;}
   .profile-card-v1051{width:88%!important;max-height:72vh!important;top:58%!important;padding:14px!important;gap:7px!important;}
   .profile-grid-v1051{grid-template-columns:1fr!important;gap:7px!important;}
   .cap-row-v1051{grid-template-columns:1fr!important;gap:7px!important;}
+}
+
+
+/* === v1055: PROFIL - minimalne obniżenie okna, nic więcej === */
+.profile-card-v1051{
+  top:63%!important;
+}
+@media (max-width:900px){
+  .profile-card-v1051{top:62%!important;}
+}
+@media (orientation:portrait){
+  .profile-card-v1051{top:60%!important;}
 }
