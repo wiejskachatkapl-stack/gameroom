@@ -1559,3 +1559,137 @@ select.profile-input-v1051{appearance:auto;background-color:rgba(0,0,0,.68)}
 .capCreatorOverlay{position:absolute;inset:0;background:rgba(0,0,0,.62);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px;box-sizing:border-box}.capCreatorBox{width:min(760px,92vw);max-height:92vh;overflow:auto;border:1px solid rgba(255,255,255,.25);border-radius:24px;background:linear-gradient(180deg,rgba(8,13,16,.94),rgba(5,8,10,.88));box-shadow:0 20px 60px rgba(0,0,0,.75),0 0 25px rgba(31,167,255,.22);padding:24px;box-sizing:border-box;color:#fff}.capCreatorBox h2{margin:0 0 14px;text-align:center;color:#1fa7ff;font-size:34px;font-weight:1000;text-shadow:0 3px 3px #000}.capCreatorPreview{display:flex;justify-content:center;margin:8px 0 16px}.capCreatorPreview .capPreview{width:96px;height:96px;font-size:38px}.capCreatorGrid{display:grid;grid-template-columns:1fr;gap:14px}.capCreatorSection{border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:14px;background:rgba(255,255,255,.04)}.capCreatorSection h3{margin:0 0 10px;color:#ffc400;font-size:18px}.capChoiceRow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.capPick,.uploadCapBtn{min-height:42px;border-radius:11px;border:2px solid rgba(255,255,255,.25);background:rgba(0,0,0,.45);color:#fff;font-weight:900;padding:0 14px;cursor:pointer;display:flex;align-items:center;justify-content:center}.capPick.active{border-color:#75ff49;box-shadow:0 0 14px rgba(117,255,73,.45)}.capPick.color{width:46px;padding:0}.capPick.blue{background:#1f84ff}.capPick.red{background:#d72f2f}.capPick.green{background:#1fb354}.capPick.yellow{background:#d6a500}.capPick.black{background:#222}.capPick.symbol{font-size:24px}.customColorLabel{display:flex;align-items:center;gap:8px;color:#fff;font-weight:900}.customColorLabel input{width:48px;height:38px;border:0;background:transparent}.uploadCapBtn input{display:none}.capCreatorActions{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;margin-top:18px}
 @media (max-width:900px){.profile-card-v1051{width:70vw;top:55%;padding:18px 22px;gap:9px}.profile-card-v1051 h1{font-size:32px}.profile-input-v1051{height:40px;font-size:16px}.profile-field-v1051{font-size:12px}.profile-v1051 .pinBox{width:44px!important;height:40px!important;font-size:21px!important}.cap-row-v1051{grid-template-columns:120px 1fr}.capPreview{width:48px;height:48px;font-size:20px}#capPreviewSlot{height:56px}.cap-create-btn{height:44px;font-size:14px}.profile-save-v1051,.profile-back-v1051{height:44px;font-size:16px}.profile-v1051-lang{right:5%;top:3%}.profile-v1051 .lang-btn{min-width:58px!important;height:32px!important;font-size:12px!important}}
 @media (orientation:portrait){.profile.profile-v1051{aspect-ratio:2/3!important;width:min(100vw,66.666vh)!important;max-height:100vh!important;background-image:url('assets/screens/bg_login_mobile.jpg?v=1051')!important}.profile-card-v1051{width:88%;top:55%;max-height:78vh;padding:18px;gap:10px}.profile-grid-v1051{grid-template-columns:1fr;gap:10px}.profile-card-v1051 h1{font-size:30px}.profile-input-v1051{height:42px}.pin-row-v1051{gap:9px}.profile-v1051 .pinBox{width:46px!important;height:42px!important}.cap-row-v1051{grid-template-columns:1fr;gap:10px;align-items:stretch}.profile-actions-v1051{grid-template-columns:1fr;gap:9px}.profile-save-v1051,.profile-back-v1051{height:46px}.capCreatorBox{padding:16px}.capCreatorBox h2{font-size:26px}.capCreatorActions{grid-template-columns:1fr}}
+
+
+/* === v1052: PROFIL - mniejszy panel i transparentne ramki, bez zmian mechaniki === */
+.profile.profile-v1051{
+  background-image:url('assets/screens/bg_login_desktop.jpg?v=1052')!important;
+}
+.profile-card-v1051{
+  width:min(700px,54vw)!important;
+  max-height:68vh!important;
+  top:54%!important;
+  padding:20px 26px 20px!important;
+  gap:9px!important;
+  background:linear-gradient(180deg,rgba(4,9,12,.58),rgba(4,8,10,.42))!important;
+  border:1px solid rgba(255,255,255,.22)!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.58), inset 0 0 34px rgba(0,0,0,.35)!important;
+  backdrop-filter:blur(7px)!important;
+}
+.profile-card-v1051 h1{
+  font-size:clamp(28px,3.2vw,46px)!important;
+  margin:0 0 2px!important;
+}
+.profile-grid-v1051{
+  gap:14px!important;
+}
+.profile-field-v1051{
+  gap:5px!important;
+  font-size:clamp(12px,0.95vw,16px)!important;
+}
+.profile-input-v1051,
+select.profile-input-v1051,
+.profile-input-v1051.readonly{
+  height:43px!important;
+  min-height:43px!important;
+  background:rgba(255,255,255,.035)!important;
+  border:2px solid rgba(255,255,255,.38)!important;
+  border-radius:10px!important;
+  box-shadow:0 0 10px rgba(35,169,255,.14), inset 0 0 14px rgba(0,0,0,.35)!important;
+  font-size:clamp(15px,1.25vw,22px)!important;
+  padding:0 14px!important;
+}
+.profile-input-v1051:focus,
+select.profile-input-v1051:focus{
+  border-color:rgba(35,169,255,.92)!important;
+  box-shadow:0 0 16px rgba(35,169,255,.28), inset 0 0 14px rgba(0,0,0,.35)!important;
+}
+.profile-input-v1051::placeholder{
+  color:rgba(255,255,255,.48)!important;
+}
+.profile-v1051 .pinBox{
+  width:52px!important;
+  height:48px!important;
+  min-height:48px!important;
+  background:rgba(255,255,255,.035)!important;
+  border:2px solid rgba(255,255,255,.40)!important;
+  border-radius:10px!important;
+  font-size:24px!important;
+  box-shadow:0 0 10px rgba(35,169,255,.12), inset 0 0 14px rgba(0,0,0,.35)!important;
+}
+.pin-row-v1051{
+  gap:12px!important;
+}
+.cap-row-v1051{
+  grid-template-columns:140px 1fr!important;
+  gap:14px!important;
+  margin-top:0!important;
+}
+#capPreviewSlot{
+  height:62px!important;
+  background:rgba(255,255,255,.035)!important;
+  border:2px solid rgba(255,255,255,.34)!important;
+  border-radius:12px!important;
+  box-shadow:inset 0 0 14px rgba(0,0,0,.35)!important;
+}
+.capPreview{
+  width:52px!important;
+  height:52px!important;
+  font-size:22px!important;
+}
+.cap-create-btn{
+  height:52px!important;
+  font-size:clamp(14px,1.2vw,20px)!important;
+  background:linear-gradient(180deg,rgba(238,184,0,.86),rgba(93,67,0,.62))!important;
+}
+.profile-actions-v1051{
+  gap:14px!important;
+  margin-top:2px!important;
+}
+.profile-save-v1051,
+.profile-back-v1051{
+  height:52px!important;
+  font-size:clamp(16px,1.35vw,22px)!important;
+}
+.profile-v1051-lang{
+  right:8.5%!important;
+  top:5.2%!important;
+}
+@media (max-width:900px){
+  .profile-card-v1051{
+    width:66vw!important;
+    max-height:67vh!important;
+    top:54%!important;
+    padding:14px 18px!important;
+    gap:7px!important;
+  }
+  .profile-card-v1051 h1{font-size:28px!important;}
+  .profile-input-v1051,select.profile-input-v1051,.profile-input-v1051.readonly{height:34px!important;min-height:34px!important;font-size:14px!important;}
+  .profile-field-v1051{font-size:11px!important;gap:4px!important;}
+  .profile-v1051 .pinBox{width:40px!important;height:36px!important;min-height:36px!important;font-size:18px!important;}
+  .cap-row-v1051{grid-template-columns:105px 1fr!important;gap:10px!important;}
+  #capPreviewSlot{height:48px!important;}
+  .capPreview{width:40px!important;height:40px!important;font-size:18px!important;}
+  .cap-create-btn,.profile-save-v1051,.profile-back-v1051{height:40px!important;font-size:13px!important;}
+}
+@media (orientation:portrait){
+  .profile.profile-v1051{
+    background-image:url('assets/screens/bg_login_mobile.jpg?v=1052')!important;
+  }
+  .profile-card-v1051{
+    width:86%!important;
+    max-height:76vh!important;
+    top:55%!important;
+    padding:16px!important;
+    gap:8px!important;
+  }
+  .profile-grid-v1051{grid-template-columns:1fr!important;gap:8px!important;}
+  .profile-card-v1051 h1{font-size:28px!important;}
+  .profile-input-v1051,select.profile-input-v1051,.profile-input-v1051.readonly{height:40px!important;min-height:40px!important;font-size:16px!important;}
+  .pin-row-v1051{gap:8px!important;}
+  .profile-v1051 .pinBox{width:44px!important;height:40px!important;min-height:40px!important;}
+  .cap-row-v1051{grid-template-columns:1fr!important;gap:8px!important;}
+  #capPreviewSlot{height:54px!important;}
+  .profile-actions-v1051{grid-template-columns:1fr!important;gap:8px!important;}
+  .profile-save-v1051,.profile-back-v1051,.cap-create-btn{height:44px!important;font-size:16px!important;}
+}
