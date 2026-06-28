@@ -1563,7 +1563,7 @@ select.profile-input-v1051{appearance:auto;background-color:rgba(0,0,0,.68)}
 
 /* === v1052: PROFIL - mniejszy panel i transparentne ramki, bez zmian mechaniki === */
 .profile.profile-v1051{
-  background-image:url('assets/screens/bg_login_desktop.jpg?v=1057')!important;
+  background-image:url('assets/screens/bg_login_desktop.jpg?v=1056')!important;
 }
 .profile-card-v1051{
   width:min(700px,54vw)!important;
@@ -1674,7 +1674,7 @@ select.profile-input-v1051:focus{
 }
 @media (orientation:portrait){
   .profile.profile-v1051{
-    background-image:url('assets/screens/bg_login_mobile.jpg?v=1057')!important;
+    background-image:url('assets/screens/bg_login_mobile.jpg?v=1056')!important;
   }
   .profile-card-v1051{
     width:86%!important;
@@ -1769,9 +1769,9 @@ select.profile-input-v1051,
 }
 
 
-/* === v1057: PROFIL - poszerzenie panelu i obniżenie zgodnie ze strzałkami === */
+/* === v1056: PROFIL - poszerzenie panelu i obniżenie zgodnie ze strzałkami === */
 .profile.profile-v1051{
-  background-image:url('assets/screens/bg_login_desktop.jpg?v=1057')!important;
+  background-image:url('assets/screens/bg_login_desktop.jpg?v=1056')!important;
 }
 .profile-card-v1051{
   width:min(760px,60vw)!important;
@@ -1792,14 +1792,14 @@ select.profile-input-v1051,
   .cap-row-v1051{grid-template-columns:90px 1fr!important;gap:8px!important;}
 }
 @media (orientation:portrait){
-  .profile.profile-v1051{background-image:url('assets/screens/bg_login_mobile.jpg?v=1057')!important;}
+  .profile.profile-v1051{background-image:url('assets/screens/bg_login_mobile.jpg?v=1056')!important;}
   .profile-card-v1051{width:88%!important;max-height:72vh!important;top:58%!important;padding:14px!important;gap:7px!important;}
   .profile-grid-v1051{grid-template-columns:1fr!important;gap:7px!important;}
   .cap-row-v1051{grid-template-columns:1fr!important;gap:7px!important;}
 }
 
 
-/* === v1057: PROFIL - minimalne obniżenie okna, nic więcej === */
+/* === v1056: PROFIL - minimalne obniżenie okna, nic więcej === */
 .profile-card-v1051{
   top:63%!important;
 }
@@ -1811,7 +1811,7 @@ select.profile-input-v1051,
 }
 
 
-/* === GAME ROOM v1057: czytelna lista rozwijana kraju (tylko rozwinięty combobox) === */
+/* === GAME ROOM v1056: czytelna lista rozwijana kraju (tylko rozwinięty combobox) === */
 .profile-input-v1051 option,
 select.profile-input-v1051 option,
 .profile select option,
@@ -1833,36 +1833,182 @@ select.profile-input-v1051,
   color-scheme: light;
 }
 
-
-/* === v1057: kreator kapsla - nowe grafiki avatarów, bez zmian reszty === */
-.capPick.symbol{
+/* === GAME ROOM v1058: prawdziwy kapsel 3D jako avatar — tylko kapsle === */
+.capPreview.cap3d{
+  --cap-color:#1f84ff;
+  width:78px!important;
+  height:78px!important;
+  min-width:78px!important;
+  min-height:78px!important;
+  border-radius:50%!important;
+  position:relative!important;
+  display:grid!important;
+  place-items:center!important;
+  overflow:hidden!important;
+  border:0!important;
+  padding:0!important;
+  isolation:isolate!important;
+  background:
+    radial-gradient(circle at 32% 22%,rgba(255,255,255,.86) 0 8%,rgba(255,255,255,.16) 9% 18%,transparent 19%),
+    conic-gradient(from 7deg,
+      rgba(8,15,24,.95) 0deg 6deg,
+      var(--cap-color) 6deg 13deg,
+      rgba(255,255,255,.25) 13deg 15deg,
+      var(--cap-color) 15deg 22deg,
+      rgba(8,15,24,.95) 22deg 28deg,
+      var(--cap-color) 28deg 35deg,
+      rgba(255,255,255,.18) 35deg 37deg,
+      var(--cap-color) 37deg 44deg,
+      rgba(8,15,24,.95) 44deg 50deg,
+      var(--cap-color) 50deg 57deg,
+      rgba(255,255,255,.20) 57deg 59deg,
+      var(--cap-color) 59deg 66deg,
+      rgba(8,15,24,.95) 66deg 72deg,
+      var(--cap-color) 72deg 79deg,
+      rgba(255,255,255,.20) 79deg 81deg,
+      var(--cap-color) 81deg 88deg,
+      rgba(8,15,24,.95) 88deg 94deg,
+      var(--cap-color) 94deg 101deg,
+      rgba(255,255,255,.22) 101deg 103deg,
+      var(--cap-color) 103deg 110deg,
+      rgba(8,15,24,.95) 110deg 116deg,
+      var(--cap-color) 116deg 123deg,
+      rgba(255,255,255,.18) 123deg 125deg,
+      var(--cap-color) 125deg 132deg,
+      rgba(8,15,24,.95) 132deg 138deg,
+      var(--cap-color) 138deg 145deg,
+      rgba(255,255,255,.18) 145deg 147deg,
+      var(--cap-color) 147deg 154deg,
+      rgba(8,15,24,.95) 154deg 160deg,
+      var(--cap-color) 160deg 167deg,
+      rgba(255,255,255,.18) 167deg 169deg,
+      var(--cap-color) 169deg 176deg,
+      rgba(8,15,24,.95) 176deg 182deg,
+      var(--cap-color) 182deg 189deg,
+      rgba(255,255,255,.18) 189deg 191deg,
+      var(--cap-color) 191deg 198deg,
+      rgba(8,15,24,.95) 198deg 204deg,
+      var(--cap-color) 204deg 211deg,
+      rgba(255,255,255,.18) 211deg 213deg,
+      var(--cap-color) 213deg 220deg,
+      rgba(8,15,24,.95) 220deg 226deg,
+      var(--cap-color) 226deg 233deg,
+      rgba(255,255,255,.18) 233deg 235deg,
+      var(--cap-color) 235deg 242deg,
+      rgba(8,15,24,.95) 242deg 248deg,
+      var(--cap-color) 248deg 255deg,
+      rgba(255,255,255,.18) 255deg 257deg,
+      var(--cap-color) 257deg 264deg,
+      rgba(8,15,24,.95) 264deg 270deg,
+      var(--cap-color) 270deg 277deg,
+      rgba(255,255,255,.18) 277deg 279deg,
+      var(--cap-color) 279deg 286deg,
+      rgba(8,15,24,.95) 286deg 292deg,
+      var(--cap-color) 292deg 299deg,
+      rgba(255,255,255,.18) 299deg 301deg,
+      var(--cap-color) 301deg 308deg,
+      rgba(8,15,24,.95) 308deg 314deg,
+      var(--cap-color) 314deg 321deg,
+      rgba(255,255,255,.18) 321deg 323deg,
+      var(--cap-color) 323deg 330deg,
+      rgba(8,15,24,.95) 330deg 336deg,
+      var(--cap-color) 336deg 343deg,
+      rgba(255,255,255,.18) 343deg 345deg,
+      var(--cap-color) 345deg 352deg,
+      rgba(8,15,24,.95) 352deg 360deg),
+    radial-gradient(circle at 50% 52%,var(--cap-color),#07101a 76%);
+  box-shadow:
+    0 10px 18px rgba(0,0,0,.66),
+    0 0 15px color-mix(in srgb,var(--cap-color) 50%,transparent),
+    inset 0 5px 8px rgba(255,255,255,.28),
+    inset 0 -8px 12px rgba(0,0,0,.62)!important;
+}
+.capPreview.cap3d::before{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border-radius:50%;
+  z-index:0;
+  background:
+    radial-gradient(circle at 35% 25%,rgba(255,255,255,.7),transparent 20%),
+    radial-gradient(circle at 50% 55%,color-mix(in srgb,var(--cap-color) 72%,#ffffff 10%),color-mix(in srgb,var(--cap-color) 55%,#000 45%) 66%,#071016 100%);
+  border:3px solid rgba(255,255,255,.65);
+  box-shadow:inset 0 0 16px rgba(0,0,0,.7),0 0 0 4px rgba(0,0,0,.34);
+}
+.capPreview.cap3d::after{
+  content:"";
+  position:absolute;
+  inset:6px;
+  border-radius:50%;
+  z-index:1;
+  pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.28),transparent 28%,transparent 62%,rgba(0,0,0,.24));
+  mix-blend-mode:screen;
+}
+.capPreview.cap3d .capFace{
+  position:relative;
+  z-index:2;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-size:30px;
+  font-weight:1000;
+  text-shadow:0 2px 4px #000,0 0 10px rgba(255,255,255,.45);
+}
+.capPreview.cap3d .capFace img{
+  width:82%!important;
+  height:82%!important;
+  object-fit:cover!important;
+  border-radius:50%!important;
+  box-shadow:0 2px 8px rgba(0,0,0,.7);
+}
+.capPreview.cap3d .capShine{
+  position:absolute;
+  left:16px;
+  top:10px;
+  width:24px;
+  height:12px;
+  border-radius:50%;
+  background:rgba(255,255,255,.42);
+  filter:blur(2px);
+  z-index:3;
+  transform:rotate(-25deg);
+}
+.capPreview.cap-blue{--cap-color:#0b57b7!important}.capPreview.cap-red{--cap-color:#be2323!important}.capPreview.cap-green{--cap-color:#14924d!important}.capPreview.cap-yellow{--cap-color:#cfa000!important}.capPreview.cap-black{--cap-color:#24272d!important}.capPreview.cap-custom{--cap-color:var(--cap-color)!important}
+#capPreviewSlot{
+  min-height:96px!important;
+  height:96px!important;
+}
+.capCreatorPreview .capPreview.cap3d{
+  width:128px!important;
+  height:128px!important;
+  min-width:128px!important;
+  min-height:128px!important;
+}
+.capCreatorPreview .capPreview.cap3d::before{inset:18px!important}
+.capCreatorPreview .capPreview.cap3d .capFace{width:78px;height:78px;font-size:48px}
+.capChoiceRow[data-group="symbol"] .capPick.symbol{
   min-width:86px!important;
   min-height:58px!important;
-  padding:6px 8px!important;
   flex-direction:column!important;
-  gap:2px!important;
-  line-height:1.05!important;
-}
-.capPick.symbol b{
+  gap:3px!important;
+  padding:6px 8px!important;
   font-size:24px!important;
-  line-height:1!important;
-  display:block!important;
 }
-.capPick.symbol small{
-  font-size:10px!important;
-  line-height:1.05!important;
-  color:rgba(255,255,255,.85)!important;
-  text-align:center!important;
-  max-width:82px!important;
-  white-space:normal!important;
+.capChoiceRow[data-group="symbol"] .capPick.symbol b{font-size:26px;line-height:1}
+.capChoiceRow[data-group="symbol"] .capPick.symbol small{font-size:10px;line-height:1.05;color:rgba(255,255,255,.82);font-weight:900;text-transform:uppercase}
+@media (max-width:900px){
+  #capPreviewSlot{min-height:66px!important;height:66px!important}
+  .capPreview.cap3d{width:54px!important;height:54px!important;min-width:54px!important;min-height:54px!important}
+  .capPreview.cap3d::before{inset:9px!important;border-width:2px!important}
+  .capPreview.cap3d .capFace{width:34px;height:34px;font-size:21px}
 }
-.capChoiceRow[data-group="symbol"]{
-  gap:8px!important;
-}
-.capCreatorBox{
-  max-width:820px!important;
-}
-.capPreview span{
-  display:flex!important;align-items:center!important;justify-content:center!important;
-  width:100%!important;height:100%!important;
+@media (orientation:portrait){
+  #capPreviewSlot{min-height:72px!important;height:72px!important}
+  .capPreview.cap3d{width:62px!important;height:62px!important;min-width:62px!important;min-height:62px!important}
+  .capPreview.cap3d::before{inset:10px!important}
+  .capPreview.cap3d .capFace{width:40px;height:40px;font-size:24px}
 }
