@@ -1693,3 +1693,77 @@ select.profile-input-v1051:focus{
   .profile-actions-v1051{grid-template-columns:1fr!important;gap:8px!important;}
   .profile-save-v1051,.profile-back-v1051,.cap-create-btn{height:44px!important;font-size:16px!important;}
 }
+
+
+/* === v1053: PROFIL - mniejszy panel dopasowany do ramki tła === */
+.profile.profile-v1051{
+  background-image:url('assets/screens/bg_login_desktop.jpg?v=1053')!important;
+}
+.profile-card-v1051{
+  width:min(600px,47vw)!important;
+  max-height:58vh!important;
+  top:57%!important;
+  padding:16px 22px 16px!important;
+  gap:7px!important;
+  border-radius:18px!important;
+}
+.profile-card-v1051 h1{
+  font-size:clamp(24px,2.8vw,38px)!important;
+  margin:0!important;
+  line-height:1.05!important;
+}
+.profile-grid-v1051{gap:10px!important;}
+.profile-field-v1051{gap:4px!important;font-size:clamp(11px,.85vw,14px)!important;}
+.profile-input-v1051,
+select.profile-input-v1051,
+.profile-input-v1051.readonly{
+  height:36px!important;
+  min-height:36px!important;
+  font-size:clamp(14px,1.1vw,18px)!important;
+  padding:0 12px!important;
+  background:rgba(255,255,255,.025)!important;
+  border-color:rgba(255,255,255,.36)!important;
+}
+.profile-v1051 .pinBox{
+  width:42px!important;
+  height:38px!important;
+  min-height:38px!important;
+  font-size:19px!important;
+}
+.pin-row-v1051{gap:9px!important;}
+.cap-row-v1051{grid-template-columns:105px 1fr!important;gap:10px!important;}
+#capPreviewSlot{height:44px!important;background:rgba(255,255,255,.025)!important;}
+.capPreview{width:36px!important;height:36px!important;font-size:16px!important;}
+.cap-create-btn{height:42px!important;font-size:clamp(12px,1vw,16px)!important;border-radius:11px!important;}
+.profile-actions-v1051{gap:10px!important;margin-top:0!important;}
+.profile-save-v1051,.profile-back-v1051{
+  height:42px!important;
+  font-size:clamp(13px,1.1vw,17px)!important;
+  border-radius:11px!important;
+}
+.profile-v1051-lang{right:8.5%!important;top:4.4%!important;transform:scale(.9);transform-origin:right top;}
+@media (max-width:900px){
+  .profile-card-v1051{width:58vw!important;max-height:60vh!important;top:57%!important;padding:10px 14px!important;gap:5px!important;}
+  .profile-card-v1051 h1{font-size:22px!important;}
+  .profile-grid-v1051{gap:7px!important;}
+  .profile-field-v1051{font-size:10px!important;gap:3px!important;}
+  .profile-input-v1051,select.profile-input-v1051,.profile-input-v1051.readonly{height:30px!important;min-height:30px!important;font-size:12px!important;}
+  .profile-v1051 .pinBox{width:34px!important;height:30px!important;min-height:30px!important;font-size:15px!important;}
+  .pin-row-v1051{gap:7px!important;}
+  .cap-row-v1051{grid-template-columns:82px 1fr!important;gap:8px!important;}
+  #capPreviewSlot{height:34px!important;}
+  .capPreview{width:28px!important;height:28px!important;font-size:13px!important;}
+  .cap-create-btn,.profile-save-v1051,.profile-back-v1051{height:34px!important;font-size:11px!important;}
+}
+@media (orientation:portrait){
+  .profile.profile-v1051{background-image:url('assets/screens/bg_login_mobile.jpg?v=1053')!important;}
+  .profile-card-v1051{width:82%!important;max-height:72vh!important;top:56%!important;padding:14px!important;gap:7px!important;}
+  .profile-grid-v1051{grid-template-columns:1fr!important;gap:7px!important;}
+  .profile-card-v1051 h1{font-size:26px!important;}
+  .profile-input-v1051,select.profile-input-v1051,.profile-input-v1051.readonly{height:38px!important;min-height:38px!important;font-size:15px!important;}
+  .profile-v1051 .pinBox{width:40px!important;height:36px!important;min-height:36px!important;}
+  .cap-row-v1051{grid-template-columns:1fr!important;gap:7px!important;}
+  #capPreviewSlot{height:48px!important;}
+  .profile-actions-v1051{grid-template-columns:1fr!important;gap:7px!important;}
+  .profile-save-v1051,.profile-back-v1051,.cap-create-btn{height:42px!important;font-size:15px!important;}
+}
