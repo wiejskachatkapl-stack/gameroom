@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1050';
+const VERSION = 'GAME ROOM v1051';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
@@ -134,32 +134,42 @@ function renderLogin(){
   };
 }
 function profileT(pl,en){return lang()==='en'?en:pl}
+function profileT(pl,en){return lang()==='en'?en:pl}
+function renderCapPreview(cap){
+  const c=cap||{};
+  const shape=c.shape||'classic', color=c.color||'blue', symbol=c.symbol||'★', img=c.image||'';
+  const style=`--cap-color:${c.customColor||color}`;
+  return `<div class="capPreview cap-${shape} cap-${color}" style="${style}">${img?`<img src="${img}" alt="cap"/>`:`<span>${esc(symbol)}</span>`}</div>`;
+}
 function renderProfile(){
 let currentCountry='PL';
 let currentId=id(currentCountry);
-let currentAvatar='blue';
+let currentCap={shape:'classic',color:'blue',symbol:'★',image:''};
 const countryOptions=Object.entries(countries).map(([code,name])=>`<option value="${code}" ${code==='PL'?'selected':''}>${name}</option>`).join('');
-app.innerHTML=`<section class="screen profile profile-v1049">
-  <div class="profile-lang-switch">
+app.innerHTML=`<section class="screen profile profile-v1051">
+  <div class="profile-v1051-lang">
     <button id="profileLangPL" class="lang-btn ${lang()==='pl'?'active':''}" type="button">🇵🇱 PL</button>
     <button id="profileLangEN" class="lang-btn ${lang()==='en'?'active':''}" type="button">🇬🇧 EN</button>
   </div>
 
-  <form class="profile-panel-v1049" id="profileForm" autocomplete="off">
+  <form class="profile-card-v1051" id="profileForm" autocomplete="off">
     <h1>${profileT('UTWÓRZ PROFIL','CREATE PROFILE')}</h1>
 
-    <div class="profile-row two-cols">
-      <label class="clean-field"><span>${profileT('KRAJ','COUNTRY')}</span><select id="country" class="clean-input">${countryOptions}</select></label>
-      <label class="clean-field"><span>${profileT('NUMER GRACZA','PLAYER ID')}</span><div id="playerText" class="clean-input profile-readonly">${currentId}</div></label>
+    <div class="profile-grid-v1051">
+      <label class="profile-field-v1051"><span>${profileT('KRAJ','COUNTRY')}</span><select id="country" class="profile-input-v1051">${countryOptions}</select></label>
+      <label class="profile-field-v1051"><span>${profileT('NUMER GRACZA','PLAYER ID')}</span><div id="playerText" class="profile-input-v1051 readonly">${currentId}</div></label>
     </div>
 
-    <label class="clean-field wide"><span>${profileT('IMIĘ / NICK','NAME / NICK')}</span><input id="name" class="clean-input" maxlength="20" placeholder="${profileT('Wpisz swoje imię lub nick','Enter name or nick')}" /></label>
+    <label class="profile-field-v1051"><span>${profileT('IMIĘ / NICK','NAME / NICK')}</span><input id="name" class="profile-input-v1051" maxlength="20" placeholder="${profileT('Wpisz swoje imię lub nick','Enter name or nick')}" /></label>
 
-    <div class="clean-field wide"><span>${profileT('PIN (4 CYFRY)','PIN (4 DIGITS)')}</span><div class="clean-pin-row"><input class="pinBox" maxlength="1" inputmode="numeric"><input class="pinBox" maxlength="1" inputmode="numeric"><input class="pinBox" maxlength="1" inputmode="numeric"><input class="pinBox" maxlength="1" inputmode="numeric"></div></div>
+    <div class="profile-field-v1051"><span>${profileT('PIN (4 CYFRY)','PIN (4 DIGITS)')}</span><div class="pin-row-v1051"><input class="pinBox" maxlength="1" inputmode="numeric"><input class="pinBox" maxlength="1" inputmode="numeric"><input class="pinBox" maxlength="1" inputmode="numeric"><input class="pinBox" maxlength="1" inputmode="numeric"></div></div>
 
-    <div class="clean-field wide"><span>${profileT('KAPSEL / AVATAR','CAP / AVATAR')}</span><div class="avatarChoices clean-avatar-row"><button type="button" class="avatarChoice active" data-avatar="blue">★</button><button type="button" class="avatarChoice red" data-avatar="red">10</button><button type="button" class="avatarChoice green" data-avatar="green">⚽</button><button type="button" class="avatarChoice yellow" data-avatar="yellow">7</button></div></div>
+    <div class="cap-row-v1051">
+      <div class="cap-preview-holder"><span>${profileT('KAPSEL / AVATAR','CAP / AVATAR')}</span><div id="capPreviewSlot">${renderCapPreview(currentCap)}</div></div>
+      <button id="openCapCreator" class="cap-create-btn" type="button">${profileT('WYBIERZ / STWÓRZ KAPSEL','CHOOSE / CREATE CAP')}</button>
+    </div>
 
-    <div class="profile-actions-v1049"><button class="profile-save-v1049" id="saveBtn" type="submit">${profileT('ZAPISZ PROFIL','SAVE PROFILE')}</button><button class="profile-back-v1049" id="backBtn" type="button">${profileT('COFNIJ','BACK')}</button></div>
+    <div class="profile-actions-v1051"><button class="profile-save-v1051" id="saveBtn" type="submit">${profileT('ZAPISZ PROFIL','SAVE PROFILE')}</button><button class="profile-back-v1051" id="backBtn" type="button">${profileT('COFNIJ','BACK')}</button></div>
   </form>
   ${version()}
 </section>`;
@@ -167,10 +177,76 @@ const c=document.getElementById('country');
 c.onchange=()=>{currentCountry=c.value;currentId=id(currentCountry);document.getElementById('playerText').textContent=currentId};
 document.getElementById('profileLangPL').onclick=()=>{storage.set('gr_lang','pl');renderProfile()};
 document.getElementById('profileLangEN').onclick=()=>{storage.set('gr_lang','en');renderProfile()};
-[...document.querySelectorAll('.pinBox')].forEach((el,i,arr)=>el.oninput=()=>{el.value=el.value.replace(/\D/g,'').slice(0,1);if(el.value&&arr[i+1])arr[i+1].focus()});
-document.querySelectorAll('.avatarChoice').forEach(btn=>btn.onclick=()=>{currentAvatar=btn.dataset.avatar;document.querySelectorAll('.avatarChoice').forEach(b=>b.classList.remove('active'));btn.classList.add('active')});
+[...document.querySelectorAll('.pinBox')].forEach((el,i,arr)=>{
+  el.oninput=()=>{el.value=el.value.replace(/\D/g,'').slice(0,1);if(el.value&&arr[i+1])arr[i+1].focus()};
+  el.onkeydown=(e)=>{if(e.key==='Backspace'&&!el.value&&arr[i-1])arr[i-1].focus()};
+});
+function refreshCap(){document.getElementById('capPreviewSlot').innerHTML=renderCapPreview(currentCap)}
+function openCapCreator(){
+  const modal=document.createElement('div');
+  modal.className='capCreatorOverlay';
+  modal.innerHTML=`<div class="capCreatorBox">
+    <h2>${profileT('KREATOR KAPSLA','CAP CREATOR')}</h2>
+    <div class="capCreatorPreview" id="creatorPreview">${renderCapPreview(currentCap)}</div>
+    <div class="capCreatorGrid">
+      <div class="capCreatorSection"><h3>${profileT('KSZTAŁT','SHAPE')}</h3>
+        <div class="capChoiceRow" data-group="shape">
+          <button data-value="classic" class="capPick ${currentCap.shape==='classic'?'active':''}">${profileT('Kapsel','Cap')}</button>
+          <button data-value="medal" class="capPick ${currentCap.shape==='medal'?'active':''}">${profileT('Medal','Medal')}</button>
+          <button data-value="shield" class="capPick ${currentCap.shape==='shield'?'active':''}">${profileT('Tarcza','Shield')}</button>
+          <button data-value="ball" class="capPick ${currentCap.shape==='ball'?'active':''}">${profileT('Piłka','Ball')}</button>
+        </div>
+      </div>
+      <div class="capCreatorSection"><h3>${profileT('KOLOR','COLOR')}</h3>
+        <div class="capChoiceRow" data-group="color">
+          <button data-value="blue" class="capPick color blue ${currentCap.color==='blue'?'active':''}"></button>
+          <button data-value="red" class="capPick color red ${currentCap.color==='red'?'active':''}"></button>
+          <button data-value="green" class="capPick color green ${currentCap.color==='green'?'active':''}"></button>
+          <button data-value="yellow" class="capPick color yellow ${currentCap.color==='yellow'?'active':''}"></button>
+          <button data-value="black" class="capPick color black ${currentCap.color==='black'?'active':''}"></button>
+          <label class="customColorLabel">${profileT('Własny','Custom')}<input id="customCapColor" type="color" value="${currentCap.customColor||'#1e9bff'}"></label>
+        </div>
+      </div>
+      <div class="capCreatorSection"><h3>${profileT('GRAFIKA','GRAPHIC')}</h3>
+        <div class="capChoiceRow" data-group="symbol">
+          <button data-value="★" class="capPick symbol ${currentCap.symbol==='★'&&!currentCap.image?'active':''}">★</button>
+          <button data-value="⚽" class="capPick symbol ${currentCap.symbol==='⚽'&&!currentCap.image?'active':''}">⚽</button>
+          <button data-value="7" class="capPick symbol ${currentCap.symbol==='7'&&!currentCap.image?'active':''}">7</button>
+          <button data-value="10" class="capPick symbol ${currentCap.symbol==='10'&&!currentCap.image?'active':''}">10</button>
+          <button data-value="🚲" class="capPick symbol ${currentCap.symbol==='🚲'&&!currentCap.image?'active':''}">🚲</button>
+        </div>
+        <label class="uploadCapBtn">${profileT('DODAJ ZDJĘCIE / GRAFIKĘ','ADD IMAGE')}<input id="capFileInput" type="file" accept="image/*"></label>
+      </div>
+    </div>
+    <div class="capCreatorActions"><button id="saveCapBtn" class="profile-save-v1051" type="button">${profileT('ZAPISZ KAPSEL','SAVE CAP')}</button><button id="closeCapBtn" class="profile-back-v1051" type="button">${profileT('COFNIJ','BACK')}</button></div>
+  </div>`;
+  document.querySelector('.screen').appendChild(modal);
+  const updateCreator=()=>{document.getElementById('creatorPreview').innerHTML=renderCapPreview(currentCap)};
+  modal.querySelectorAll('.capChoiceRow').forEach(row=>{
+    const group=row.dataset.group;
+    row.querySelectorAll('.capPick').forEach(btn=>btn.onclick=()=>{
+      if(group==='shape') currentCap.shape=btn.dataset.value;
+      if(group==='color'){currentCap.color=btn.dataset.value; delete currentCap.customColor;}
+      if(group==='symbol'){currentCap.symbol=btn.dataset.value; currentCap.image='';}
+      row.querySelectorAll('.capPick').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+      updateCreator();
+    });
+  });
+  const colorInput=document.getElementById('customCapColor');
+  colorInput.oninput=()=>{currentCap.color='custom';currentCap.customColor=colorInput.value;updateCreator()};
+  const fileInput=document.getElementById('capFileInput');
+  fileInput.onchange=()=>{
+    const file=fileInput.files&&fileInput.files[0]; if(!file)return;
+    const reader=new FileReader();
+    reader.onload=()=>{currentCap.image=reader.result;updateCreator()};
+    reader.readAsDataURL(file);
+  };
+  document.getElementById('closeCapBtn').onclick=()=>modal.remove();
+  document.getElementById('saveCapBtn').onclick=()=>{refreshCap();modal.remove();toast(profileT('Kapsel zapisany.','Cap saved.'))};
+}
+document.getElementById('openCapCreator').onclick=openCapCreator;
 document.getElementById('backBtn').onclick=renderLogin;
-document.getElementById('profileForm').onsubmit=(ev)=>{ev.preventDefault();const name=document.getElementById('name').value.trim();const pin=[...document.querySelectorAll('.pinBox')].map(x=>x.value).join('');if(name.length<2)return toast(profileT('Wpisz imię lub nick.','Enter name or nick.'));if(pin.length!==4)return toast(profileT('PIN musi mieć 4 cyfry.','PIN must have 4 digits.'));storage.set('gr_profile',{playerId:currentId,countryCode:c.value,country:countries[c.value],name,pin,avatar:currentAvatar,createdAt:Date.now()});toast(profileT('Profil zapisany.','Profile saved.'));setTimeout(renderLogin,700)};
+document.getElementById('profileForm').onsubmit=(ev)=>{ev.preventDefault();const name=document.getElementById('name').value.trim();const pin=[...document.querySelectorAll('.pinBox')].map(x=>x.value).join('');if(name.length<2)return toast(profileT('Wpisz imię lub nick.','Enter name or nick.'));if(pin.length!==4)return toast(profileT('PIN musi mieć 4 cyfry.','PIN must have 4 digits.'));storage.set('gr_profile',{playerId:currentId,countryCode:c.value,country:countries[c.value],name,pin,avatar:currentCap.color||'blue',cap:currentCap,createdAt:Date.now()});toast(profileT('Profil zapisany.','Profile saved.'));setTimeout(renderLogin,700)};
 }
 function renderRooms(){
 const p=profile();if(!p)return renderLogin();
