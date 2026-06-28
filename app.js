@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1056';
+const VERSION = 'GAME ROOM v1057';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
@@ -144,7 +144,7 @@ function renderCapPreview(cap){
 function renderProfile(){
 let currentCountry='PL';
 let currentId=id(currentCountry);
-let currentCap={shape:'classic',color:'blue',symbol:'★',image:''};
+let currentCap={shape:'classic',color:'blue',symbol:'⚽',symbolName:'Piłka',image:''};
 const countryOptions=Object.entries(countries).map(([code,name])=>`<option value="${code}" ${code==='PL'?'selected':''}>${name}</option>`).join('');
 app.innerHTML=`<section class="screen profile profile-v1051">
   <div class="profile-v1051-lang">
@@ -209,11 +209,15 @@ function openCapCreator(){
       </div>
       <div class="capCreatorSection"><h3>${profileT('GRAFIKA','GRAPHIC')}</h3>
         <div class="capChoiceRow" data-group="symbol">
-          <button data-value="★" class="capPick symbol ${currentCap.symbol==='★'&&!currentCap.image?'active':''}">★</button>
-          <button data-value="⚽" class="capPick symbol ${currentCap.symbol==='⚽'&&!currentCap.image?'active':''}">⚽</button>
-          <button data-value="7" class="capPick symbol ${currentCap.symbol==='7'&&!currentCap.image?'active':''}">7</button>
-          <button data-value="10" class="capPick symbol ${currentCap.symbol==='10'&&!currentCap.image?'active':''}">10</button>
-          <button data-value="🚲" class="capPick symbol ${currentCap.symbol==='🚲'&&!currentCap.image?'active':''}">🚲</button>
+          <button data-value="⚽" data-name="${profileT('Piłka','Ball')}" class="capPick symbol ${currentCap.symbol==='⚽'&&!currentCap.image?'active':''}"><b>⚽</b><small>${profileT('Piłka','Ball')}</small></button>
+          <button data-value="🐱" data-name="${profileT('Kot brytyjski','British cat')}" class="capPick symbol ${currentCap.symbol==='🐱'&&!currentCap.image?'active':''}"><b>🐱</b><small>${profileT('Kot brytyjski','British cat')}</small></button>
+          <button data-value="🐕" data-name="${profileT('Pies jamnik','Dachshund')}" class="capPick symbol ${currentCap.symbol==='🐕'&&!currentCap.image?'active':''}"><b>🐕</b><small>${profileT('Jamnik','Dachshund')}</small></button>
+          <button data-value="🌹" data-name="${profileT('Róża','Rose')}" class="capPick symbol ${currentCap.symbol==='🌹'&&!currentCap.image?'active':''}"><b>🌹</b><small>${profileT('Róża','Rose')}</small></button>
+          <button data-value="⛺" data-name="${profileT('Namiot','Tent')}" class="capPick symbol ${currentCap.symbol==='⛺'&&!currentCap.image?'active':''}"><b>⛺</b><small>${profileT('Namiot','Tent')}</small></button>
+          <button data-value="🐟" data-name="${profileT('Ryba','Fish')}" class="capPick symbol ${currentCap.symbol==='🐟'&&!currentCap.image?'active':''}"><b>🐟</b><small>${profileT('Ryba','Fish')}</small></button>
+          <button data-value="🦂" data-name="${profileT('Skorpion','Scorpion')}" class="capPick symbol ${currentCap.symbol==='🦂'&&!currentCap.image?'active':''}"><b>🦂</b><small>${profileT('Skorpion','Scorpion')}</small></button>
+          <button data-value="🚗" data-name="${profileT('Samochód','Car')}" class="capPick symbol ${currentCap.symbol==='🚗'&&!currentCap.image?'active':''}"><b>🚗</b><small>${profileT('Samochód','Car')}</small></button>
+          <button data-value="🕊️" data-name="${profileT('Gołąb','Dove')}" class="capPick symbol ${currentCap.symbol==='🕊️'&&!currentCap.image?'active':''}"><b>🕊️</b><small>${profileT('Gołąb','Dove')}</small></button>
         </div>
         <label class="uploadCapBtn">${profileT('DODAJ ZDJĘCIE / GRAFIKĘ','ADD IMAGE')}<input id="capFileInput" type="file" accept="image/*"></label>
       </div>
@@ -227,7 +231,7 @@ function openCapCreator(){
     row.querySelectorAll('.capPick').forEach(btn=>btn.onclick=()=>{
       if(group==='shape') currentCap.shape=btn.dataset.value;
       if(group==='color'){currentCap.color=btn.dataset.value; delete currentCap.customColor;}
-      if(group==='symbol'){currentCap.symbol=btn.dataset.value; currentCap.image='';}
+      if(group==='symbol'){currentCap.symbol=btn.dataset.value; currentCap.symbolName=btn.dataset.name||btn.dataset.value; currentCap.image='';}
       row.querySelectorAll('.capPick').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
       updateCreator();
     });

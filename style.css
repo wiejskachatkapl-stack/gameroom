@@ -1563,7 +1563,7 @@ select.profile-input-v1051{appearance:auto;background-color:rgba(0,0,0,.68)}
 
 /* === v1052: PROFIL - mniejszy panel i transparentne ramki, bez zmian mechaniki === */
 .profile.profile-v1051{
-  background-image:url('assets/screens/bg_login_desktop.jpg?v=1056')!important;
+  background-image:url('assets/screens/bg_login_desktop.jpg?v=1057')!important;
 }
 .profile-card-v1051{
   width:min(700px,54vw)!important;
@@ -1674,7 +1674,7 @@ select.profile-input-v1051:focus{
 }
 @media (orientation:portrait){
   .profile.profile-v1051{
-    background-image:url('assets/screens/bg_login_mobile.jpg?v=1056')!important;
+    background-image:url('assets/screens/bg_login_mobile.jpg?v=1057')!important;
   }
   .profile-card-v1051{
     width:86%!important;
@@ -1769,9 +1769,9 @@ select.profile-input-v1051,
 }
 
 
-/* === v1056: PROFIL - poszerzenie panelu i obniżenie zgodnie ze strzałkami === */
+/* === v1057: PROFIL - poszerzenie panelu i obniżenie zgodnie ze strzałkami === */
 .profile.profile-v1051{
-  background-image:url('assets/screens/bg_login_desktop.jpg?v=1056')!important;
+  background-image:url('assets/screens/bg_login_desktop.jpg?v=1057')!important;
 }
 .profile-card-v1051{
   width:min(760px,60vw)!important;
@@ -1792,14 +1792,14 @@ select.profile-input-v1051,
   .cap-row-v1051{grid-template-columns:90px 1fr!important;gap:8px!important;}
 }
 @media (orientation:portrait){
-  .profile.profile-v1051{background-image:url('assets/screens/bg_login_mobile.jpg?v=1056')!important;}
+  .profile.profile-v1051{background-image:url('assets/screens/bg_login_mobile.jpg?v=1057')!important;}
   .profile-card-v1051{width:88%!important;max-height:72vh!important;top:58%!important;padding:14px!important;gap:7px!important;}
   .profile-grid-v1051{grid-template-columns:1fr!important;gap:7px!important;}
   .cap-row-v1051{grid-template-columns:1fr!important;gap:7px!important;}
 }
 
 
-/* === v1056: PROFIL - minimalne obniżenie okna, nic więcej === */
+/* === v1057: PROFIL - minimalne obniżenie okna, nic więcej === */
 .profile-card-v1051{
   top:63%!important;
 }
@@ -1811,7 +1811,7 @@ select.profile-input-v1051,
 }
 
 
-/* === GAME ROOM v1056: czytelna lista rozwijana kraju (tylko rozwinięty combobox) === */
+/* === GAME ROOM v1057: czytelna lista rozwijana kraju (tylko rozwinięty combobox) === */
 .profile-input-v1051 option,
 select.profile-input-v1051 option,
 .profile select option,
@@ -1831,4 +1831,38 @@ select.profile-input-v1051,
 .profile select,
 .profile-clean select.profile-control {
   color-scheme: light;
+}
+
+
+/* === v1057: kreator kapsla - nowe grafiki avatarów, bez zmian reszty === */
+.capPick.symbol{
+  min-width:86px!important;
+  min-height:58px!important;
+  padding:6px 8px!important;
+  flex-direction:column!important;
+  gap:2px!important;
+  line-height:1.05!important;
+}
+.capPick.symbol b{
+  font-size:24px!important;
+  line-height:1!important;
+  display:block!important;
+}
+.capPick.symbol small{
+  font-size:10px!important;
+  line-height:1.05!important;
+  color:rgba(255,255,255,.85)!important;
+  text-align:center!important;
+  max-width:82px!important;
+  white-space:normal!important;
+}
+.capChoiceRow[data-group="symbol"]{
+  gap:8px!important;
+}
+.capCreatorBox{
+  max-width:820px!important;
+}
+.capPreview span{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  width:100%!important;height:100%!important;
 }
