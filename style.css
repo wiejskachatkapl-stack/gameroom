@@ -2231,3 +2231,37 @@ select.profile-input-v1051,
   .game-graphic-btn{max-width:165px !important}
   .game-graphic-back{width:26% !important;max-width:140px !important;min-width:88px !important;margin-top:8px !important}
 }
+
+
+/* === GAME ROOM v1064: większy przycisk Cofnij + nowa pozycja nazwy pokoju === */
+.games-room-title{
+  left:32.5% !important;
+  top:34.0% !important;
+  width:35% !important;
+  padding:3px 12px !important;
+  text-transform:uppercase !important;
+  font-size:18px !important;
+  font-weight:1000 !important;
+  letter-spacing:1.3px !important;
+  color:#f5f7fb !important;
+  background:rgba(0,0,0,.36) !important;
+  border:1px solid rgba(90,180,255,.30) !important;
+  border-radius:999px !important;
+  text-shadow:0 2px 4px rgba(0,0,0,.98),0 0 8px rgba(30,170,255,.35) !important;
+  box-shadow:0 0 10px rgba(0,0,0,.18) !important;
+  z-index:7 !important;
+}
+.game-graphic-back{
+  width:26% !important;
+  max-width:250px !important;
+  min-width:160px !important;
+  margin-top:14px !important;
+}
+@media (max-width:1100px){
+  .games-room-title{left:31.5% !important;top:33.8% !important;width:37% !important;font-size:15px !important}
+  .game-graphic-back{width:24% !important;max-width:210px !important;min-width:130px !important;margin-top:12px !important}
+}
+@media (orientation: portrait){
+  .games-room-title{left:24% !important;top:29.8% !important;width:52% !important;font-size:12px !important;padding:2px 8px !important}
+  .game-graphic-back{width:34% !important;max-width:165px !important;min-width:98px !important;margin-top:10px !important}
+}
