@@ -2596,3 +2596,111 @@ select.profile-input-v1051,
   }
   .gr-clean-rooms .version{font-size:10px !important;right:2.0% !important;bottom:1.0% !important;}
 }
+
+/* === GAME ROOM v1071: pełne dopasowanie ekranu gier PC/telefon === */
+.games,
+.screen.games,
+.games-pl,
+.games-en{
+  aspect-ratio:3/2 !important;
+  width:min(100vw,150vh) !important;
+  height:auto !important;
+  max-width:100vw !important;
+  max-height:100vh !important;
+  background-size:100% 100% !important;
+  background-position:center center !important;
+  background-repeat:no-repeat !important;
+  overflow:hidden !important;
+}
+
+.games-pl,.games-en{
+  background-image:url('assets/screens/bg_login.jpg?v=1071') !important;
+}
+
+/* przyciski i ramka są ustawione procentowo względem całej sceny */
+.games-graphic-panel{
+  left:21.0% !important;
+  top:30.5% !important;
+  width:58.0% !important;
+  height:58.0% !important;
+  padding:0 !important;
+}
+.games-grid{
+  width:88% !important;
+  max-width:none !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:8px !important;
+}
+.game-graphic-btn{
+  width:100% !important;
+  max-width:205px !important;
+}
+.game-graphic-back{
+  width:20% !important;
+  max-width:150px !important;
+  min-width:95px !important;
+  margin-top:8px !important;
+}
+
+/* telefon w poziomie: tło zawsze całe, bez obcinania ramek */
+@media (pointer:coarse) and (orientation:landscape){
+  .games,
+  .screen.games,
+  .games-pl,
+  .games-en{
+    aspect-ratio:3/2 !important;
+    width:min(100vw,150vh) !important;
+    height:auto !important;
+    max-height:100vh !important;
+    background-size:100% 100% !important;
+    background-position:center center !important;
+  }
+  .games-player-head{
+    left:2.5% !important;
+    top:2.0% !important;
+    width:20% !important;
+    height:25% !important;
+    transform:scale(.64) !important;
+    transform-origin:left top !important;
+  }
+  .games-welcome{font-size:22px !important;line-height:.98 !important;}
+  .games-player-no{left:88px !important;top:96px !important;padding:5px 8px !important;}
+  .games-player-no span{font-size:10px !important;}
+  .games-player-no strong{font-size:16px !important;}
+  .games-room-title{
+    left:88px !important;
+    top:44px !important;
+    width:170px !important;
+    min-height:42px !important;
+    padding:4px 6px !important;
+    border-radius:12px !important;
+  }
+  .games-room-title span{font-size:9px !important;}
+  .games-room-title strong{font-size:12px !important;}
+  .games-room-title em{font-size:9px !important;}
+  .games-graphic-panel{
+    left:21.0% !important;
+    top:30.5% !important;
+    width:58.0% !important;
+    height:58.0% !important;
+  }
+  .games-grid{width:88% !important;gap:6px !important;}
+  .game-graphic-btn{max-width:118px !important;}
+  .game-graphic-back{width:18% !important;max-width:110px !important;min-width:80px !important;margin-top:6px !important;}
+  .games .version{font-size:10px !important;right:1.6% !important;bottom:.7% !important;}
+}
+
+/* telefon w pionie: również pełna scena, bez cropowania */
+@media (pointer:coarse) and (orientation:portrait){
+  .games,
+  .screen.games,
+  .games-pl,
+  .games-en{
+    aspect-ratio:3/2 !important;
+    width:100vw !important;
+    height:auto !important;
+    max-height:100vh !important;
+    background-size:100% 100% !important;
+    background-position:center center !important;
+  }
+}
