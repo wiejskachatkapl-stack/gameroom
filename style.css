@@ -2307,3 +2307,76 @@ select.profile-input-v1051,
   .games-room-title strong{font-size:13px !important}
   .games-room-title em{font-size:10px !important}
 }
+
+
+/* === GAME ROOM v1067: dopasowanie ekranu pokoi na telefonie === */
+@media (pointer:coarse) and (orientation:landscape){
+  .rooms.gr-clean-rooms{
+    width:100vw !important;
+    height:100vh !important;
+    max-height:100vh !important;
+    aspect-ratio:auto !important;
+    background-size:cover !important;
+    background-position:center !important;
+  }
+  .gr-profile-head{
+    left:5.0% !important;
+    top:2.0% !important;
+    width:23% !important;
+    height:18% !important;
+    transform:none !important;
+  }
+  .gr-welcome{font-size:clamp(18px,2.2vh,28px) !important;line-height:1.0 !important}
+  .gr-welcome span{font-size:1.0em !important}
+  .gr-player-no{width:78% !important;min-width:145px !important;padding:6px 8px !important;margin-top:6px !important}
+  .gr-player-no span{font-size:11px !important}
+  .gr-player-no strong{font-size:18px !important}
+  .gr-stage{
+    left:16.2% !important;
+    top:22.5% !important;
+    width:70.2% !important;
+    height:70.8% !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:1.5% !important;
+  }
+  .gr-panel{border-radius:18px !important}
+  .gr-panel-icon{top:4.8% !important;font-size:16px !important}
+  .gr-panel h2{top:12.2% !important;font-size:clamp(18px,3.3vh,34px) !important;line-height:.95 !important}
+  .gr-join-panel h2{font-size:clamp(17px,3.1vh,30px) !important}
+  .gr-panel label,.gr-section-title,.gr-manual-title{font-size:clamp(11px,1.8vh,17px) !important;line-height:1.1 !important}
+  .gr-create-panel label:nth-of-type(1){top:31.5% !important}
+  .gr-create-panel label:nth-of-type(2){top:50.5% !important}
+  .gr-create-panel .gr-input{top:37.0% !important;height:9.2% !important;font-size:clamp(13px,2.4vh,19px) !important;padding:0 14px !important}
+  .gr-code-row{top:56.5% !important;height:9.8% !important}
+  .gr-generated{font-size:clamp(17px,3.0vh,28px) !important;padding:0 14px !important}
+  .gr-regenerate{width:14% !important;font-size:clamp(18px,3.0vh,28px) !important}
+  .gr-actions{bottom:7.2% !important;height:10.6% !important;gap:5% !important}
+  .gr-save,.gr-back{font-size:clamp(10px,1.8vh,15px) !important;padding:0 6px !important}
+  .gr-section-title{top:26.0% !important;font-size:clamp(12px,2.0vh,18px) !important}
+  .gr-room-list{top:33.0% !important;height:44.0% !important;width:88% !important}
+  .gr-room-card{height:calc((100% - 16px)/4) !important;min-height:calc((100% - 16px)/4) !important;margin-bottom:5px !important}
+  .gr-room-icon{font-size:15px !important}
+  .gr-room-name{font-size:clamp(10px,1.7vh,15px) !important}
+  .gr-room-code{font-size:clamp(9px,1.45vh,13px) !important}
+  .gr-join-card{width:23% !important;height:58% !important;top:21% !important;font-size:clamp(8px,1.35vh,12px) !important}
+  .gr-manual-title{bottom:16.2% !important;font-size:clamp(10px,1.7vh,16px) !important}
+  .gr-manual{bottom:6.5% !important;height:9.4% !important;gap:3% !important}
+  .gr-manual .gr-input{font-size:clamp(11px,1.8vh,16px) !important;padding:0 10px !important}
+  .gr-join-manual{width:28% !important;font-size:clamp(9px,1.55vh,13px) !important;padding:0 4px !important}
+  .gr-logout{left:28.5% !important;bottom:1.6% !important;width:43% !important;height:6.6% !important;font-size:clamp(12px,2.0vh,18px) !important}
+  .gr-clean-rooms .version{right:2.0% !important;bottom:1.0% !important;font-size:12px !important}
+}
+@media (pointer:coarse) and (orientation:portrait){
+  .rooms.gr-clean-rooms{width:100vw !important;height:100vh !important;max-height:100vh !important;aspect-ratio:auto !important;background-size:cover !important;background-position:center !important}
+  .gr-profile-head{left:4.5% !important;top:2.2% !important;width:34% !important;height:16% !important;transform:none !important}
+  .gr-welcome{font-size:clamp(18px,2.5vh,28px) !important}
+  .gr-player-no{width:72% !important;min-width:120px !important}
+  .gr-stage{left:5% !important;top:18% !important;width:90% !important;height:72% !important;grid-template-columns:1fr !important;grid-auto-rows:1fr !important;gap:2% !important}
+  .gr-panel{border-radius:16px !important}
+  .gr-panel h2{font-size:clamp(22px,3vh,30px) !important}
+  .gr-section-title{top:28% !important}
+  .gr-room-list{top:34% !important;height:42% !important}
+  .gr-manual-title{bottom:15% !important}
+  .gr-manual{bottom:6.5% !important;height:9.5% !important}
+  .gr-logout{left:14% !important;width:72% !important;bottom:1.8% !important;height:5.8% !important;font-size:clamp(12px,1.9vh,18px) !important}
+}
