@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1061';
+const VERSION = 'GAME ROOM v1062';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
@@ -317,7 +317,7 @@ function renderGames(room){
   const dir=l==='en'?'en':'pl';
   const games=[
     {id:'typer',pl:'TYPER',en:'TYPER',img:'typer'},
-    {id:'caps',pl:'WYŚCIGI KAPSLI',en:'BOTTLECAP RACING',img:'caps'},
+    {id:'caps',pl:'KAPSLE',en:'BOTTLE CAPS',img:'caps'},
     {id:'zombie',pl:'ZOMBIE HANGMAN',en:'ZOMBIE HANGMAN',img:'zombie'},
     {id:'bingo',pl:'BINGO',en:'BINGO',img:'bingo'},
     {id:'ships',pl:'STATKI',en:'BATTLESHIPS',img:'ships'},
@@ -336,9 +336,9 @@ function renderGames(room){
       <div class="games-title">${l==='en'?'CHOOSE A GAME':'WYBIERZ GRĘ'}</div>
       <div class="games-subtitle">${l==='en'?'PLAY WITH US!':'GRAJ Z NAMI!'}</div>
       <div class="games-grid">
-        ${games.map(g=>`<button class="game-graphic-btn" data-game="${g.id}" aria-label="${l==='en'?g.en:g.pl}"><img src="assets/buttons/games/${dir}/${g.img}.png?v=1061" alt="${l==='en'?g.en:g.pl}"></button>`).join('')}
+        ${games.map(g=>`<button class="game-graphic-btn" data-game="${g.id}" aria-label="${l==='en'?g.en:g.pl}"><img src="assets/buttons/games/${dir}/${g.img}.png?v=1062" alt="${l==='en'?g.en:g.pl}"></button>`).join('')}
       </div>
-      <button id="gamesBackBtn" class="game-graphic-back" aria-label="${l==='en'?'Back':'Cofnij'}"><img src="assets/buttons/games/${dir}/back.png?v=1061" alt="${l==='en'?'Back':'Cofnij'}"></button>
+      <button id="gamesBackBtn" class="game-graphic-back" aria-label="${l==='en'?'Back':'Cofnij'}"><img src="assets/buttons/games/${dir}/back.png?v=1062" alt="${l==='en'?'Back':'Cofnij'}"></button>
     </div>
     ${version()}
   </section>`;
