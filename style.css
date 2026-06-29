@@ -2597,7 +2597,7 @@ select.profile-input-v1051,
   .gr-clean-rooms .version{font-size:10px !important;right:2.0% !important;bottom:1.0% !important;}
 }
 
-/* === GAME ROOM v1071: pełne dopasowanie ekranu gier PC/telefon === */
+/* === GAME ROOM v1072: pełne dopasowanie ekranu gier PC/telefon === */
 .games,
 .screen.games,
 .games-pl,
@@ -2614,7 +2614,7 @@ select.profile-input-v1051,
 }
 
 .games-pl,.games-en{
-  background-image:url('assets/screens/bg_login.jpg?v=1071') !important;
+  background-image:url('assets/screens/bg_login.jpg?v=1072') !important;
 }
 
 /* przyciski i ramka są ustawione procentowo względem całej sceny */
@@ -2703,4 +2703,33 @@ select.profile-input-v1051,
     background-size:100% 100% !important;
     background-position:center center !important;
   }
+}
+
+
+/* === GAME ROOM v1072: przyciski niżej, COFNIJ na linii dolnej ramki === */
+.games-graphic-panel{
+  top:32.8% !important;
+  height:59.5% !important;
+}
+.games-grid{
+  transform:translateY(3.5%) !important;
+}
+.game-graphic-back{
+  margin-top:10px !important;
+  transform:translateY(4px) !important;
+}
+@media (pointer:coarse) and (orientation:landscape){
+  .games-graphic-panel{
+    top:32.8% !important;
+    height:59.5% !important;
+  }
+  .games-grid{transform:translateY(3.5%) !important;}
+  .game-graphic-back{margin-top:7px !important;transform:translateY(3px) !important;}
+}
+@media (pointer:coarse) and (orientation:portrait){
+  .games-graphic-panel{
+    top:32.8% !important;
+    height:59.5% !important;
+  }
+  .games-grid{transform:translateY(3.5%) !important;}
 }
