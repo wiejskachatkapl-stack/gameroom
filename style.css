@@ -2530,3 +2530,69 @@ select.profile-input-v1051,
   .game-graphic-back{width:18% !important;max-width:110px !important;min-width:80px !important;margin-top:6px !important;}
   .games .version{font-size:10px !important;right:1.6% !important;bottom:.7% !important;}
 }
+
+
+/* === GAME ROOM v1070: telefon - mniejsze tło pokoi i dopasowanie paneli do ramki === */
+@media (pointer:coarse) and (orientation:landscape){
+  .rooms.gr-clean-rooms{
+    width:min(94vw,150vh) !important;
+    height:auto !important;
+    max-height:100vh !important;
+    aspect-ratio:3/2 !important;
+    background-size:100% 100% !important;
+    background-position:center center !important;
+  }
+  .gr-profile-head{
+    left:2.8% !important;
+    top:1.9% !important;
+    width:17.5% !important;
+    height:15.5% !important;
+    transform:scale(.62) !important;
+    transform-origin:left top !important;
+  }
+  .gr-welcome{font-size:20px !important;line-height:.95 !important;}
+  .gr-player-no{margin-top:4px !important;width:74% !important;min-width:112px !important;padding:4px 6px !important;}
+  .gr-player-no span{font-size:9px !important;}
+  .gr-player-no strong{font-size:15px !important;}
+  .gr-stage{
+    left:17.2% !important;
+    top:23.2% !important;
+    width:66.2% !important;
+    height:60.6% !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:2.0% !important;
+    padding:0 !important;
+  }
+  .gr-panel{border-radius:16px !important;}
+  .gr-panel-icon{top:4.2% !important;font-size:12px !important;}
+  .gr-panel h2{top:11.2% !important;font-size:22px !important;line-height:.95 !important;}
+  .gr-join-panel h2{font-size:21px !important;}
+  .gr-panel label,.gr-section-title,.gr-manual-title{font-size:12px !important;line-height:1.04 !important;}
+  .gr-create-panel label:nth-of-type(1){top:28.5% !important;}
+  .gr-create-panel label:nth-of-type(2){top:46.6% !important;}
+  .gr-create-panel .gr-input{top:33.5% !important;height:9.3% !important;font-size:16px !important;padding:0 10px !important;}
+  .gr-code-row{top:52.0% !important;height:9.7% !important;}
+  .gr-generated{font-size:17px !important;padding:0 10px !important;}
+  .gr-regenerate{font-size:21px !important;width:14% !important;}
+  .gr-actions{bottom:7.0% !important;height:10.0% !important;gap:4.2% !important;}
+  .gr-save,.gr-back{font-size:11px !important;padding:0 5px !important;}
+  .gr-section-title{top:24.0% !important;font-size:12px !important;}
+  .gr-room-list{left:6.0% !important;top:29.6% !important;width:88.3% !important;height:46.2% !important;padding-right:3.0% !important;}
+  .gr-room-card{height:calc((100% - 15px)/4) !important;min-height:calc((100% - 15px)/4) !important;margin-bottom:5px !important;}
+  .gr-room-icon{font-size:13px !important;}
+  .gr-room-name{font-size:11px !important;}
+  .gr-room-code{font-size:10px !important;}
+  .gr-join-card{right:2.0% !important;top:20% !important;width:23% !important;height:58% !important;font-size:10px !important;}
+  .gr-manual-title{bottom:17.0% !important;font-size:11px !important;}
+  .gr-manual{left:6.0% !important;bottom:6.0% !important;width:88.3% !important;height:9.2% !important;gap:3.0% !important;}
+  .gr-manual .gr-input{font-size:12px !important;padding:0 10px !important;}
+  .gr-join-manual{width:27% !important;font-size:10px !important;}
+  .gr-logout{
+    left:31.0% !important;
+    bottom:1.2% !important;
+    width:38.0% !important;
+    height:5.4% !important;
+    font-size:14px !important;
+  }
+  .gr-clean-rooms .version{font-size:10px !important;right:2.0% !important;bottom:1.0% !important;}
+}
