@@ -4,7 +4,7 @@
 .screen{position:relative;overflow:hidden;background-size:100% 100%;background-position:center;background-repeat:no-repeat;box-shadow:0 0 0 9999px #111}
 .screen:not(.login){aspect-ratio:3/2;width:min(100vw,150vh);max-height:100vh}
 .login{aspect-ratio:16/9;width:min(100vw,177.777vh);max-height:100vh;background-image:url('assets/screens/bg_login_desktop.jpg?v=1047')}
-.profile{background-image:url('assets/screens/bg_profile.jpg?v=1047')}.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1047')}.games-pl{background-image:url('assets/screens/bg_games_pl.jpg?v=1062')}.games-en{background-image:url('assets/screens/bg_games_en.jpg?v=1062')}
+.profile{background-image:url('assets/screens/bg_profile.jpg?v=1047')}.rooms{background-image:url('assets/screens/bg_rooms.jpg?v=1047')}.games-pl{background-image:url('assets/screens/bg_login.jpg?v=1063')}.games-en{background-image:url('assets/screens/bg_login.jpg?v=1063')}
 .hot{position:absolute;border:0;outline:0;background:transparent!important;color:#fff;font-weight:900;letter-spacing:.5px;padding:0 18px;text-shadow:0 2px 4px rgba(0,0,0,.9);-webkit-appearance:none;appearance:none}
 .hot::placeholder{color:transparent}.hot:focus{background:rgba(255,255,255,.02)!important;border-radius:8px;box-shadow:none}
 .btn{position:absolute;border:0;background:transparent;cursor:pointer;color:transparent;font-size:0}.btn:focus{outline:3px dashed rgba(255,255,255,.6);outline-offset:-4px;border-radius:10px}
@@ -2087,8 +2087,8 @@ select.profile-input-v1051,
 @media (orientation: portrait){.games{aspect-ratio:3/2;width:100vw;max-height:100vh}.games-player-head{transform:scale(.72);transform-origin:left top;left:1.5%;top:2.5%}.games-room-title{font-size:10px}}
 
 /* === GAME ROOM v1061: game selection buttons only === */
-.games-pl{background-image:url('assets/screens/bg_games_pl.jpg?v=1062') !important}
-.games-en{background-image:url('assets/screens/bg_games_en.jpg?v=1062') !important}
+.games-pl{background-image:url('assets/screens/bg_login.jpg?v=1063') !important}
+.games-en{background-image:url('assets/screens/bg_login.jpg?v=1063') !important}
 .games-graphic-panel{
   position:absolute;left:10%;top:31%;width:80%;height:61%;z-index:5;
   display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
@@ -2171,4 +2171,63 @@ select.profile-input-v1051,
   .game-graphic-btn{max-width:none !important}
   .game-graphic-back{width:30% !important;min-width:105px !important;margin-top:6px !important}
   .games-room-title{top:20.7% !important}
+}
+
+
+/* === GAME ROOM v1063: tło bg_login + mniejsze przyciski w ramce === */
+.games-pl,.games-en{background-image:url('assets/screens/bg_login.jpg?v=1063') !important}
+.games-graphic-panel{
+  left:16% !important;
+  top:35.5% !important;
+  width:68% !important;
+  height:47% !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  border:0 !important;
+  padding:0 !important;
+  justify-content:flex-start !important;
+}
+.games-title,.games-subtitle{display:none !important}
+.games-room-title{
+  left:34% !important;
+  top:31.3% !important;
+  width:32% !important;
+  font-size:14px !important;
+  color:rgba(255,255,255,.92) !important;
+  text-shadow:0 2px 4px rgba(0,0,0,.95) !important;
+  z-index:6 !important;
+}
+.games-grid{
+  width:86% !important;
+  max-width:760px !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:14px !important;
+  align-items:center !important;
+  justify-items:center !important;
+}
+.game-graphic-btn{
+  width:100% !important;
+  max-width:215px !important;
+  aspect-ratio:1/1 !important;
+  border-radius:0 !important;
+  overflow:hidden !important;
+  filter:drop-shadow(0 5px 8px rgba(0,0,0,.68)) !important;
+}
+.game-graphic-btn img{width:100% !important;height:100% !important;object-fit:cover !important}
+.game-graphic-back{width:18% !important;max-width:180px !important;min-width:110px !important;margin-top:14px !important}
+.game-graphic-btn:hover,.game-graphic-back:hover,.game-graphic-btn:focus,.game-graphic-back:focus{transform:translateY(-1px) scale(1.01) !important;filter:drop-shadow(0 0 10px rgba(255,255,255,.20)) drop-shadow(0 6px 8px rgba(0,0,0,.7)) !important}
+@media (max-width:1100px){
+  .games-graphic-panel{left:15% !important;top:35% !important;width:70% !important;height:49% !important}
+  .games-grid{width:90% !important;gap:10px !important;max-width:680px !important}
+  .game-graphic-btn{max-width:185px !important}
+  .game-graphic-back{width:19% !important;max-width:155px !important;min-width:95px !important;margin-top:10px !important}
+}
+@media (orientation: portrait){
+  .games{aspect-ratio:3/2;width:100vw;max-height:100vh}
+  .games-player-head{transform:scale(.66) !important;transform-origin:left top;left:1.2% !important;top:2.2% !important}
+  .games-room-title{left:31% !important;top:28.5% !important;width:38% !important;font-size:11px !important}
+  .games-graphic-panel{left:11% !important;top:31.5% !important;width:78% !important;height:56% !important}
+  .games-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;width:86% !important;gap:8px !important;max-width:none !important}
+  .game-graphic-btn{max-width:165px !important}
+  .game-graphic-back{width:26% !important;max-width:140px !important;min-width:88px !important;margin-top:8px !important}
 }
