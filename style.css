@@ -2265,3 +2265,66 @@ select.profile-input-v1051,
   .games-room-title{left:24% !important;top:29.8% !important;width:52% !important;font-size:12px !important;padding:2px 8px !important}
   .game-graphic-back{width:34% !important;max-width:165px !important;min-width:98px !important;margin-top:10px !important}
 }
+
+
+/* === GAME ROOM v1065: korekta telefonu poziomo === */
+@media (orientation: landscape) and (max-height: 760px){
+  #app{align-items:center !important;justify-content:center !important;overflow:hidden !important}
+  .screen:not(.login),.games,.rooms{
+    height:100vh !important;
+    width:min(100vw,150vh) !important;
+    max-width:100vw !important;
+    max-height:100vh !important;
+    aspect-ratio:3/2 !important;
+  }
+  .login{
+    height:100vh !important;
+    width:min(100vw,177.777vh) !important;
+    max-width:100vw !important;
+    max-height:100vh !important;
+    aspect-ratio:16/9 !important;
+  }
+  .login-clean .login-shell{top:16.5% !important;transform:translateX(-50%) scale(.88) !important;transform-origin:top center !important}
+  .login-clean .lang-switch{top:24.2% !important;transform:translateX(-50%) scale(.80) !important;transform-origin:center !important}
+  .login-clean .welcome-side{transform:scale(.72) !important;transform-origin:left top !important;left:4.0% !important;top:3.8% !important}
+  .login-clean .version,.version{font-size:11px !important;right:10px !important;bottom:7px !important}
+
+  .rooms .gr-profile-head,.gr-profile-head{transform:scale(.64) !important;transform-origin:left top !important;left:3.0% !important;top:3.0% !important}
+  .rooms .gr-stage,.gr-stage{left:14.5% !important;top:25.0% !important;width:72.0% !important;height:63.0% !important;gap:1.2% !important}
+  .rooms .gr-logout,.gr-logout{bottom:2.3% !important;height:6.3% !important;width:43% !important;left:28.5% !important}
+
+  .games-player-head{transform:scale(.48) !important;transform-origin:left top !important;left:2.2% !important;top:4.0% !important;z-index:6 !important}
+  .games-room-title{
+    left:29.5% !important;
+    top:32.0% !important;
+    width:41% !important;
+    font-size:12px !important;
+    padding:2px 8px !important;
+    letter-spacing:.7px !important;
+    z-index:7 !important;
+  }
+  .games-graphic-panel{
+    left:18.0% !important;
+    top:38.0% !important;
+    width:64.0% !important;
+    height:48.0% !important;
+    padding:0 !important;
+    background:transparent !important;
+  }
+  .games-grid{
+    width:84% !important;
+    max-width:610px !important;
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:8px !important;
+  }
+  .game-graphic-btn{max-width:155px !important;width:100% !important;aspect-ratio:1/1 !important}
+  .game-graphic-back{width:27% !important;max-width:170px !important;min-width:110px !important;margin-top:8px !important}
+}
+
+@media (orientation: landscape) and (max-height: 640px){
+  .games-room-title{top:31.2% !important;font-size:11px !important}
+  .games-graphic-panel{top:37.5% !important;height:49.5% !important}
+  .game-graphic-btn{max-width:140px !important}
+  .game-graphic-back{max-width:150px !important;min-width:96px !important;margin-top:6px !important}
+  .login-clean .login-shell{transform:translateX(-50%) scale(.80) !important;top:17.0% !important}
+}
