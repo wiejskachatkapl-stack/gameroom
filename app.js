@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1059';
+const VERSION = 'GAME ROOM v1060';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
@@ -300,15 +300,51 @@ app.innerHTML=`<section class="screen rooms gr-clean-rooms">
   ${version()}
 </section>`;
 const normalizeCode=(id)=>document.getElementById(id).value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
-const joinByCode=()=>{const code=normalizeCode('joinCode');if(code.length!==7)return toast('Wpisz 7-znakowy kod pokoju.');addRecent({code,name:'Pokój '+code,lastPlayed:'teraz',joinedBy:p.playerId});toast('Dodano pokój '+code);renderRooms()};
+const joinByCode=()=>{const code=normalizeCode('joinCode');if(code.length!==7)return toast(lang()==='en'?'Enter a 7-character room code.':'Wpisz 7-znakowy kod pokoju.');const r={code,name:(lang()==='en'?'Room ':'Pokój ')+code,lastPlayed:'teraz',joinedBy:p.playerId};addRecent(r);renderGames(r)};
 document.getElementById('joinRoomBtn').onclick=joinByCode;
 document.getElementById('joinCode').oninput=e=>{e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,7)};
 document.getElementById('regenRoomCode').onclick=()=>{document.getElementById('generatedRoomCode').textContent=roomCode()};
 const refreshBtn=document.getElementById('refreshRoomsBtn'); if(refreshBtn) refreshBtn.onclick=()=>toast('Lista pokoi odświeżona.');
-document.querySelectorAll('.gr-join-card').forEach(b=>b.onclick=()=>{const r=recentRooms()[Number(b.dataset.i)];if(r)toast('Dołączanie do pokoju '+r.code)});
+document.querySelectorAll('.gr-join-card').forEach(b=>b.onclick=()=>{const r=rooms[Number(b.dataset.i)];if(r)renderGames(r)});
 document.getElementById('saveRoomBtn').onclick=()=>{const name=document.getElementById('newRoomName').value.trim();const code=document.getElementById('generatedRoomCode').textContent.trim();if(name.length<2)return toast('Wpisz nazwę pokoju.');addRecent({code,name,lastPlayed:'teraz',ownerId:p.playerId,pin:p.pin});toast('Pokój zapisany: '+code);renderRooms()};
 document.getElementById('clearRoomBtn').onclick=()=>{document.getElementById('newRoomName').value='';document.getElementById('generatedRoomCode').textContent=roomCode()};
 document.getElementById('logoutBtn').onclick=()=>{storage.remove('gr_logged_in');renderLogin()};
 }
+
+function renderGames(room){
+  const p=profile(); if(!p)return renderLogin();
+  const l=lang();
+  const games=[
+    {id:'typer',pl:'TYPER',en:'TIPSTER'},
+    {id:'caps',pl:'WYŚCIGI KAPSLI',en:'CAP RACE'},
+    {id:'zombie',pl:'ZOMBIE HANGMAN',en:'ZOMBIE HANGMAN'},
+    {id:'bingo',pl:'BINGO',en:'BINGO'},
+    {id:'ships',pl:'STATKI',en:'BATTLESHIPS'},
+    {id:'word',pl:'ZGADNIJ HASŁO',en:'GUESS THE WORD'}
+  ];
+  app.innerHTML=`<section class="screen games games-${l}">
+    <button id="gamesLangPL" class="games-hot games-lang-pl" type="button" aria-label="PL"></button>
+    <button id="gamesLangEN" class="games-hot games-lang-en" type="button" aria-label="EN"></button>
+    <div class="games-player-head">
+      <div class="games-cap">${renderCapPreview(p.cap || {color:p.avatar||'blue',symbol:'★'})}</div>
+      <div class="games-welcome">${l==='en'?'Hi,':'Witaj,'}<br><span>${esc(p.name)}</span></div>
+      <div class="games-player-no"><span>${l==='en'?'PLAYER ID:':'NR GRACZA:'}</span><strong>${esc(p.playerId)}</strong></div>
+    </div>
+    <div class="games-room-title">${esc(room?.name||'Pokój')} · ${esc(room?.code||'')}</div>
+    <div class="games-buttons">
+      ${games.map((g,i)=>`<button class="game-tile-hit game-${i}" data-game="${g.id}" aria-label="${l==='en'?g.en:g.pl}"></button>`).join('')}
+      <button id="gamesBackBtn" class="game-back-hit" aria-label="${l==='en'?'Back':'Cofnij'}"></button>
+    </div>
+    ${version()}
+  </section>`;
+  document.getElementById('gamesLangPL').onclick=()=>{storage.set('gr_lang','pl');renderGames(room)};
+  document.getElementById('gamesLangEN').onclick=()=>{storage.set('gr_lang','en');renderGames(room)};
+  document.getElementById('gamesBackBtn').onclick=renderRooms;
+  document.querySelectorAll('.game-tile-hit').forEach(btn=>btn.onclick=()=>{
+    const g=games.find(x=>x.id===btn.dataset.game);
+    toast((l==='en'?'Selected: ':'Wybrano: ')+(l==='en'?g.en:g.pl));
+  });
+}
+
 function openCreateRoom(){renderRooms()}
 function init(){storage.get('gr_logged_in')&&profile()?renderRooms():renderLogin()}init();
