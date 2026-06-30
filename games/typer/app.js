@@ -1,5 +1,5 @@
 // BUILD number shown under the logo (cache-bust + version label)
-const BUILD = 2116; // zintegrowany w GAME ROOM v1076
+const BUILD = 2116; // zintegrowany w GAME ROOM v1077
 const SEASON_ROUNDS = 12;
 const KEY_SEEN_EVENT_PREFIX = "typer_seen_event_v1";
 
@@ -8435,7 +8435,7 @@ async function startFromGameRoom(ctx){
       currentRoundNo: 1,
       currentSeasonNo: 1,
       archiveCount: 0,
-      source: "game_room_v1076"
+      source: "game_room_v1077"
     }, { merge:true });
   }else if(ctx.admin){
     // Nie nadpisujemy istniejącego admina, tylko dopisujemy dane źródłowe GAME ROOM.
