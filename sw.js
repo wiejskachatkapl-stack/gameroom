@@ -1,68 +1,33 @@
-// Typer PWA Service Worker (BUILD 2116)
-const CACHE_NAME = 'typer-cache-2116';
-
-// Core assets to pre-cache (keep minimal to avoid stale UI)
-const CORE = [
+const CACHE_NAME = 'bingo-v1009-cache';
+const FILES = [
   './',
-  './index.html',
-  './app.js?v=2116',
+  './index.html?v=1009',
+  './style.css?v=1009',
+  './app.js?v=1009',
   './manifest.json',
-  './data/leagues.json'
+  './assets/images/bingo_start.png',
+  './assets/images/bingo_game_bg.png',
+  './assets/icons/icon.svg'
 ];
 
-self.addEventListener('install', (event) => {
+self.addEventListener('install', event => {
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(FILES)).catch(()=>{}));
   self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE)).catch(() => {})
+    caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k))))
   );
+  self.clients.claim();
 });
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil((async () => {
-    try{
-      const keys = await caches.keys();
-      await Promise.all(keys.map(k => (k !== CACHE_NAME) ? caches.delete(k) : Promise.resolve()));
-    }catch(e){}
-    await self.clients.claim();
-  })());
-});
-
-// Network-first for HTML/JS to avoid stale UI; cache-fallback for others
-self.addEventListener('fetch', (event) => {
-  const req = event.request;
-  const url = new URL(req.url);
-
-  // Only handle same-origin
-  if (url.origin !== self.location.origin) return;
-
-  const isHTML = req.mode === 'navigate' || (req.headers.get('accept')||'').includes('text/html');
-  const isJS = url.pathname.endsWith('.js');
-
-  if (isHTML || isJS) {
-    event.respondWith((async () => {
-      try{
-        const fresh = await fetch(req, { cache: 'no-store' });
-        const cache = await caches.open(CACHE_NAME);
-        cache.put(req, fresh.clone());
-        return fresh;
-      }catch(e){
-        const cached = await caches.match(req);
-        return cached || caches.match('./index.html') || Response.error();
-      }
-    })());
-    return;
-  }
-
-  event.respondWith((async () => {
-    const cached = await caches.match(req);
-    if (cached) return cached;
-    try{
-      const fresh = await fetch(req);
-      const cache = await caches.open(CACHE_NAME);
-      cache.put(req, fresh.clone());
-      return fresh;
-    }catch(e){
-      return cached || Response.error();
-    }
-  })());
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    fetch(event.request).then(response => {
+      const copy = response.clone();
+      caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy)).catch(()=>{});
+      return response;
+    }).catch(() => caches.match(event.request))
+  );
 });

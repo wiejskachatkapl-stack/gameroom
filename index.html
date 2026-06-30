@@ -3,24 +3,55 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#1c1a16" />
-  <title>GAME ROOM v1078</title>
-  <link rel="manifest" href="manifest.json?v=1078" />
-  <link rel="stylesheet" href="style.css?v=1078" />
+  <meta name="theme-color" content="#070018" />
+  <title>BINGO v1009</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css?v=1009" />
 </head>
 <body>
-  <main id="app"></main>
+  <main id="app" class="app" aria-label="BINGO v1009">
+    <section id="screenStart" class="screen screen-start is-active" aria-label="Ekran startowy BINGO">
+      <div class="stage stage-start">
+        <button id="btnPlay" class="hit-btn hit-play" type="button" aria-label="Graj">GRAJ</button>
+        <button id="btnExitStart" class="hit-btn hit-exit-start" type="button" aria-label="Wyjście">WYJŚCIE</button>
+      </div>
+    </section>
 
-  <script>
-    // v1078: czyszczenie starego cache/PWA, żeby nie odpalał się zapamiętany Typer.
-    try {
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(regs){ regs.forEach(function(r){ r.unregister(); }); });
-      }
-      if (window.caches) { caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }); }
-    } catch(e) {}
-  </script>
-  <script src="firebase.js?v=1078"></script>
-  <script src="app.js?v=1078"></script>
+    <section id="screenGame" class="screen screen-game" aria-label="Ekran gry BINGO">
+      <div class="stage stage-game">
+        <div class="left-info" aria-label="Dane pokoju">
+          <div class="info-card info-card-nick">
+            <span class="info-label">NICK</span>
+            <strong id="playerNick" class="info-value nick-value">Mariusz</strong>
+          </div>
+          <div class="info-card info-card-room">
+            <span class="info-label">KOD POKOJU</span>
+            <strong id="roomCode" class="info-value room-value">PWG5N2D</strong>
+          </div>
+        </div>
+
+        <div id="drawMachine" class="draw-machine" aria-label="Maszyna losująca">
+          <div id="drawBall" class="draw-ball">?</div>
+        </div>
+
+        <div id="bingoBoard" class="bingo-board" aria-label="Karta BINGO"></div>
+
+        <div id="drawnNumbers" class="drawn-numbers" aria-label="Wylosowane liczby"></div>
+
+        <aside id="playersPanel" class="players-panel" aria-label="Gracze w pokoju"></aside>
+
+        <div id="gameControls" class="game-controls" aria-label="Sterowanie grą">
+          <button id="btnStartDraw" class="game-action-btn btn-start-draw" type="button">START</button>
+          <button id="btnStopDraw" class="game-action-btn btn-stop-draw" type="button">STOP</button>
+          <button id="btnBingo" class="game-action-btn btn-bingo" type="button">BINGO</button>
+        </div>
+
+        <div id="bingoWinMessage" class="bingo-win-message" aria-live="polite"></div>
+
+        <button id="btnExitGame" class="hit-btn hit-exit-game" type="button" aria-label="Wyjście">WYJŚCIE</button>
+      </div>
+    </section>
+  </main>
+  <script src="app.js?v=1009"></script>
 </body>
 </html>
