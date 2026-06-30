@@ -687,8 +687,12 @@
   }
 
   function exitToGameRoom(){
-    const fallback = '../../index.html?open=games&room=' + encodeURIComponent(state.roomCode || '');
-    const target = window.BINGO_EXIT_URL || fallback;
+    let savedReturn = '';
+    try {
+      savedReturn = params.get('return') || localStorage.getItem('bingoReturnUrl') || '';
+    } catch(e) {}
+    const fallback = new URL('../../index.html', window.location.href).href + '?open=games&room=' + encodeURIComponent(state.roomCode || '');
+    const target = window.BINGO_EXIT_URL || savedReturn || fallback;
     try {
       if(window.parent && window.parent !== window){
         window.parent.postMessage({type:'BINGO_EXIT', version: VERSION, target:'games', room: state.roomCode}, '*');
