@@ -2733,3 +2733,51 @@ select.profile-input-v1051,
   }
   .games-grid{transform:translateY(3.5%) !important;}
 }
+
+
+/* === GAME ROOM v1074: ekran testowy aktywnej gry HUB === */
+.game-stage{
+  aspect-ratio:3/2;
+  width:min(100vw,150vh);
+  max-height:100vh;
+  background-image:url('assets/screens/bg_login.jpg?v=1074');
+  background-size:100% 100%;
+  background-position:center;
+  background-repeat:no-repeat;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+.stage-card{
+  width:min(78%,820px);
+  min-height:45%;
+  border:3px solid rgba(255,255,255,.55);
+  border-radius:28px;
+  background:linear-gradient(180deg,rgba(3,9,20,.88),rgba(2,6,14,.72));
+  box-shadow:0 0 36px rgba(0,160,255,.42), inset 0 0 24px rgba(255,255,255,.08);
+  color:#fff;
+  text-align:center;
+  padding:34px 42px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-shadow:0 3px 4px #000;
+}
+.stage-small{font-size:clamp(18px,2.4vw,34px);font-weight:1000;letter-spacing:2px;color:#4fc3ff;margin-bottom:6px}
+.stage-card h1{font-size:clamp(58px,8vw,118px);line-height:.9;margin:0 0 12px;color:#ffc400;text-shadow:0 5px 0 #000,0 0 22px rgba(255,196,0,.72)}
+.stage-status{font-size:clamp(22px,3vw,42px);font-weight:1000;color:#fff;margin-bottom:18px}
+.stage-room{font-size:clamp(16px,2vw,26px);font-weight:900;display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap;color:#dff7ff;margin-bottom:6px}
+.stage-room span{color:#fff;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:6px 12px}
+.stage-player{font-size:clamp(14px,1.8vw,23px);font-weight:900;color:#b8e8ff;margin-bottom:24px}
+.stage-back{border:0;border-radius:18px;padding:14px 30px;background:linear-gradient(180deg,#ffd24d,#ff9c00);color:#241000;font-weight:1000;font-size:clamp(16px,2vw,28px);cursor:pointer;box-shadow:0 6px 0 #7a3300,0 0 18px rgba(255,180,0,.55);text-shadow:none}
+.stage-back:active{transform:translateY(3px);box-shadow:0 3px 0 #7a3300}
+@media (pointer:coarse){
+  .game-stage{width:100vw;max-height:100vh;aspect-ratio:3/2}
+  .stage-card{width:76%;min-height:48%;padding:18px 22px;border-radius:20px}
+}
+@media (pointer:coarse) and (orientation:portrait){
+  .stage-card{width:82%;min-height:44%;padding:16px}
+}

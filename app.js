@@ -1,9 +1,9 @@
-const VERSION = 'GAME ROOM v1073';
+const VERSION = 'GAME ROOM v1074';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 
 
-// GAME ROOM HUB v1073 — wspólne dane dla wszystkich gier.
+// GAME ROOM HUB v1074 — wspólne dane dla wszystkich gier.
 // Na tym etapie zapis jest bezpieczny: lokalny fallback + gotowy kształt pod Firebase.
 const HUB_KEYS={profiles:'gr_hub_profiles',rooms:'gr_hub_rooms',active:'gr_hub_active_room'};
 const HUB_PATHS={profiles:'profiles',rooms:'rooms',games:'games'};
@@ -398,9 +398,62 @@ function renderGames(room){
     setHubActiveGame(room,g.id);
     const ctx=buildGameContext(room,g.id);
     storage.set('gr_last_game_context',{game:g.id,query:ctx,roomCode:room?.code||'',playerId:p.playerId,createdAt:Date.now()});
-    toast((l==='en'?'Prepared game: ':'Przygotowano grę: ')+(l==='en'?g.en:g.pl));
+    renderGameStage(room,g);
   });
 }
 
+function getHubRoomByCode(code){
+  const rooms=hubGet(HUB_KEYS.rooms,{});
+  return rooms?.[code]||null;
+}
+function localRoomFromHub(hubRoom){
+  if(!hubRoom)return null;
+  return {code:hubRoom.code||hubRoom.roomId,name:hubRoom.name||hubRoom.roomName||'Pokój',ownerId:hubRoom.admin,activeGame:hubRoom.activeGame||'lobby'};
+}
+function gameLabel(gameId){
+  const l=lang();
+  const labels={
+    typer:{pl:'TYPER',en:'TYPER'},
+    caps:{pl:'KAPSLE',en:'BOTTLE CAPS'},
+    zombie:{pl:'ZOMBIE HANGMAN',en:'ZOMBIE HANGMAN'},
+    bingo:{pl:'BINGO',en:'BINGO'},
+    ships:{pl:'STATKI',en:'BATTLESHIPS'},
+    word:{pl:'ZGADNIJ HASŁO',en:'GUESS THE WORD'}
+  };
+  return labels[gameId]?.[l]||String(gameId||'').toUpperCase();
+}
+function renderGameStage(room,game){
+  const p=profile(); if(!p)return renderLogin();
+  const l=lang();
+  const gameId=typeof game==='string'?game:game?.id;
+  const label=typeof game==='object'?(l==='en'?game.en:game.pl):gameLabel(gameId);
+  const roomName=room?.name||room?.roomName||(l==='en'?'Room':'Pokój');
+  const roomCode=room?.code||room?.roomId||'';
+  app.innerHTML=`<section class="screen game-stage game-stage-${esc(gameId)}">
+    <div class="stage-card">
+      <div class="stage-small">${l==='en'?'SELECTED GAME':'WYBRANO GRĘ'}</div>
+      <h1>${esc(label)}</h1>
+      <div class="stage-status">${l==='en'?'Game preparation':'Przygotowanie gry'}</div>
+      <div class="stage-room"><strong>${esc(roomName)}</strong><span>${l==='en'?'CODE:':'KOD:'} ${esc(roomCode)}</span></div>
+      <div class="stage-player">${esc(p.name)} · ${esc(p.playerId)}</div>
+      <button id="stageBackBtn" class="stage-back" type="button">${l==='en'?'BACK TO GAME ROOM':'WRÓĆ DO GAME ROOM'}</button>
+    </div>
+    ${version()}
+  </section>`;
+  document.getElementById('stageBackBtn').onclick=()=>{
+    setHubActiveGame(room,'lobby');
+    renderGames(room);
+  };
+}
+
 function openCreateRoom(){renderRooms()}
-function init(){storage.get('gr_logged_in')&&profile()?renderRooms():renderLogin()}init();
+function init(){
+  if(storage.get('gr_logged_in')&&profile()){
+    const activeCode=hubGet(HUB_KEYS.active,'');
+    const hubRoom=getHubRoomByCode(activeCode);
+    if(hubRoom&&hubRoom.activeGame&&hubRoom.activeGame!=='lobby') return renderGameStage(localRoomFromHub(hubRoom),hubRoom.activeGame);
+    return renderRooms();
+  }
+  renderLogin();
+}
+init();
