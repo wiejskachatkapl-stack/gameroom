@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#1c1a16" />
   <title>GAME ROOM v1078</title>
   <link rel="manifest" href="manifest.json?v=1078" />
-  <link rel="stylesheet" href="style.css?v=1081" />
+  <link rel="stylesheet" href="style.css?v=1082" />
 </head>
 <body>
   <main id="app"></main>
@@ -21,7 +21,7 @@
     } catch(e) {}
   </script>
   <script src="firebase.js?v=1078"></script>
-  <script src="app.js?v=1081"></script>
+  <script src="app.js?v=1082"></script>
 
 <script>
 (function(){
@@ -45,7 +45,8 @@
   document.addEventListener("click", function(e){
     var el = e.target && e.target.closest ? e.target.closest("button,a,[data-game],[data-target],[data-action]") : null;
     if(!el) return;
-    var text = (el.textContent || el.alt || el.title || el.getAttribute("aria-label") || "").toUpperCase();
+    var img = el.querySelector ? el.querySelector("img") : null;
+    var text = (el.textContent || el.alt || (img && (img.alt || img.title || img.src)) || el.title || el.getAttribute("aria-label") || "").toUpperCase();
     var data = ((el.dataset && (el.dataset.game || el.dataset.target || el.dataset.action)) || "").toUpperCase();
     var href = (el.getAttribute("href") || "").toUpperCase();
     var idc = ((el.id || "") + " " + (el.className || "")).toUpperCase();

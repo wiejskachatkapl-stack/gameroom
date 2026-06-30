@@ -420,6 +420,10 @@ function renderGames(room){
       window.location.href='games/typer/index.html?'+ctx;
       return;
     }
+    if(g.id==='bingo'){
+      window.location.href='games/bingo/index.html?'+ctx;
+      return;
+    }
     renderGameStage(room,g);
   });
 }
@@ -505,6 +509,7 @@ function renderGameStage(room,game){
   const l=lang();
   const gameId=typeof game==='string'?game:game?.id;
   if(gameId==='typer'){ window.location.href='games/typer/index.html?'+buildGameContext(room,'typer'); return; }
+  if(gameId==='bingo'){ window.location.href='games/bingo/index.html?'+buildGameContext(room,'bingo'); return; }
   const label=typeof game==='object'?(l==='en'?game.en:game.pl):gameLabel(gameId);
   const roomName=room?.name||room?.roomName||(l==='en'?'Room':'Pokój');
   const roomCode=room?.code||room?.roomId||'';
