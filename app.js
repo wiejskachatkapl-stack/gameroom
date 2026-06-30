@@ -1,9 +1,9 @@
-const VERSION = 'GAME ROOM v1076';
+const VERSION = 'GAME ROOM v1078';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 
 
-// GAME ROOM HUB v1076 — wspólne dane dla wszystkich gier.
+// GAME ROOM HUB v1077 — wspólne dane dla wszystkich gier.
 // Na tym etapie zapis jest bezpieczny: lokalny fallback + gotowy kształt pod Firebase.
 const HUB_KEYS={profiles:'gr_hub_profiles',rooms:'gr_hub_rooms',active:'gr_hub_active_room'};
 const HUB_PATHS={profiles:'profiles',rooms:'rooms',games:'games'};
@@ -356,6 +356,7 @@ document.getElementById('logoutBtn').onclick=()=>{storage.remove('gr_logged_in')
 
 function renderGames(room){
   const p=profile(); if(!p)return renderLogin();
+  room = {...(room||{}), activeGame:'lobby'};
   saveHubRoom(room,p);
   const l=lang();
   const dir=l==='en'?'en':'pl';
@@ -512,7 +513,9 @@ function init(){
   if(storage.get('gr_logged_in')&&profile()){
     const activeCode=hubGet(HUB_KEYS.active,'');
     const hubRoom=getHubRoomByCode(activeCode);
-    if(hubRoom&&hubRoom.activeGame&&hubRoom.activeGame!=='lobby') return renderGameStage(localRoomFromHub(hubRoom),hubRoom.activeGame);
+    if(hubRoom && hubRoom.activeGame && hubRoom.activeGame !== 'lobby'){
+      try{ setHubActiveGame(localRoomFromHub(hubRoom), 'lobby'); }catch(e){}
+    }
     return renderRooms();
   }
   renderLogin();
