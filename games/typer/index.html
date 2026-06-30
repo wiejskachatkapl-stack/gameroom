@@ -2,10 +2,25 @@
 
 <html lang="pl">
 <head>
+<script>
+  // GAME ROOM v1078: Typer może startować tylko przez kliknięcie kafelka TYPER w GAME ROOM.
+  (function(){
+    var p = new URLSearchParams(location.search);
+    var ok = p.get('game') === 'typer' && p.get('room') && p.get('player');
+    if(!ok){ location.replace('../../index.html?forceLobby=1&v=1078'); }
+    try {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(regs){ regs.forEach(function(r){ r.unregister(); }); });
+      }
+      if (window.caches) { caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }); }
+    } catch(e) {}
+  })();
+</script>
+
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
 <meta content="#08122a" name="theme-color"/>
-    <title>TYPER v2116 — GAME ROOM v1076</title>
+    <title>TYPER v2118 — GAME ROOM v1078</title>
 <link href="manifest.json" rel="manifest"/>
 <style>
 .roomCodeRow{display:flex;gap:10px;align-items:center;flex-wrap:nowrap;}
@@ -2042,7 +2057,7 @@
 
 
 
-/* ===== BUILD 2116: mobile join-room buttons final size ===== */
+/* ===== BUILD 2118: mobile join-room buttons final size ===== */
 @media (max-width: 980px){
   .joinRoom .rowRight{
     justify-content:center !important;
@@ -2565,7 +2580,7 @@ Gdy obrócisz ekran, wrócisz do typowania.</div>
       showErr("unhandledrejection", String(e?.reason?.message || e?.reason || e));
     });
   </script>
-<script src="./app.js?v=2116" type="module"></script>
+<script src="./app.js?v=2118" type="module"></script>
 <script>
   // BUILD 7024: usuń placeholdery reklam ("dummyAdOne"/"dummyAdTwo") jeśli gdziekolwiek się pojawią
   document.addEventListener('DOMContentLoaded', () => {
@@ -2585,14 +2600,14 @@ Gdy obrócisz ekran, wrócisz do typowania.</div>
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js?v=2020').catch(() => {});
+      /* GAME ROOM v1078: SW wyłączony podczas integracji */
     });
   }
 </script>
 <!-- BUILD corner -->
 <div aria-hidden="true" id="buildCorner">
 <img alt="" id="buildCornerLogo" src="ui/logo/logo_RNAPP.png"/>
-<div id="buildCornerText">Mariusz Gębka v.2.116</div>
+<div id="buildCornerText">Mariusz Gębka v.2.117</div>
 </div>
 </body>
 </html>

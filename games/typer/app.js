@@ -1,5 +1,5 @@
 // BUILD number shown under the logo (cache-bust + version label)
-const BUILD = 2116; // zintegrowany w GAME ROOM v1076
+const BUILD = 2118; // zintegrowany w GAME ROOM v1080
 const SEASON_ROUNDS = 12;
 const KEY_SEEN_EVENT_PREFIX = "typer_seen_event_v1";
 
@@ -5058,7 +5058,7 @@ function bindUI(){
   };
 
   const __btnHomeExit = el("btnHomeExit");
-  if(__btnHomeExit) __btnHomeExit.onclick = ()=> showToast(getLang()==="en" ? "You can close the browser tab." : "Możesz zamknąć kartę przeglądarki.");
+  if(__btnHomeExit) __btnHomeExit.onclick = ()=>{ if(isGameRoomMode()) returnToGameRoom(); else showToast(getLang()==="en" ? "You can close the browser tab." : "Możesz zamknąć kartę przeglądarki."); };
 
   // CONTINUE
   el("btnContYes").onclick = async ()=>{
@@ -5096,7 +5096,7 @@ function bindUI(){
   // ROOM
   // Back-from-room action is now attached to the right-bottom "Wyjście" button.
   // (Leaving the room is handled by the "Opuść" button under the room code.)
-  const __goHomeFromRoom = ()=> showScreen("home");
+  const __goHomeFromRoom = ()=>{ if(isGameRoomMode()) returnToGameRoom(); else showScreen("home"); };
   const __btnBackFromRoom = el("btnBackFromRoom");
   if(__btnBackFromRoom) __btnBackFromRoom.onclick = __goHomeFromRoom;
 
@@ -8398,19 +8398,71 @@ document.addEventListener('visibilitychange', ()=>{ if(!document.hidden){ try{ u
 function getGameRoomContext(){
   try{
     const q = new URLSearchParams(window.location.search || "");
-    if((q.get("game")||"").toLowerCase() !== "typer") return null;
-    const room = String(q.get("room")||"").trim().toUpperCase();
-    const nick = String(q.get("nick")||"").trim();
-    const playerNo = String(q.get("player")||"").trim().toUpperCase();
-    const roomName = String(q.get("roomName")||"").trim() || room;
-    const lang = String(q.get("lang")||"pl").trim().toLowerCase()==="en" ? "en" : "pl";
-    const admin = String(q.get("admin")||"") === "1";
-    if(!room || !nick || !playerNo) return null;
-    return {room,nick,playerNo,roomName,lang,admin};
+    let ctx = null;
+    if((q.get("game")||"").toLowerCase() === "typer"){
+      const room = String(q.get("room")||"").trim().toUpperCase();
+      const nick = String(q.get("nick")||"").trim();
+      const playerNo = String(q.get("player")||"").trim().toUpperCase();
+      const roomName = String(q.get("roomName")||"").trim() || room;
+      const lang = String(q.get("lang")||"pl").trim().toLowerCase()==="en" ? "en" : "pl";
+      const admin = String(q.get("admin")||"") === "1";
+      if(room && nick && playerNo) ctx = {room,nick,playerNo,roomName,lang,admin};
+    }
+    if(!ctx){
+      // v1080: fallback, bo po odświeżeniu/cache URL potrafił stracić query i Wyjście wracało do starego ekranu Typera.
+      const raw = sessionStorage.getItem('typer_game_room_ctx') || localStorage.getItem('typer_game_room_ctx') || '';
+      if(raw){
+        const saved = JSON.parse(raw);
+        if(saved && saved.room && saved.nick && saved.playerNo) ctx = saved;
+      }
+    }
+    return ctx;
   }catch(e){ return null; }
 }
 
+function isGameRoomMode(){
+  return !!getGameRoomContext();
+}
+function returnToGameRoom(){
+  const ctx = getGameRoomContext() || {};
+  const room = encodeURIComponent(String(ctx.room || localStorage.getItem(KEY_ACTIVE_ROOM) || '').toUpperCase());
+  try{
+    localStorage.setItem('gr_return_from_typer', JSON.stringify({room:ctx.room||'', at: Date.now()}));
+    localStorage.setItem('gr_force_lobby', '1');
+  }catch(e){}
+  const target = new URL('../../index.html', window.location.href);
+  target.searchParams.set('open','games');
+  if(room) target.searchParams.set('room', room);
+  window.location.replace(target.toString());
+}
+
+function bindGameRoomExitGuards(){
+  // v1080: twardy przechwyt Wyjścia z pokoju Typera. Nie pokazujemy już ekranu startowego Typera.
+  const ids = ['btnExitFromRoomRight','btnBackFromRoom','btnHomeExit'];
+  const go = (e)=>{
+    if(!isGameRoomMode()) return;
+    try{ e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); }catch(_){}
+    returnToGameRoom();
+  };
+  ids.forEach(id=>{
+    const b = el(id);
+    if(!b) return;
+    b.onclick = go;
+    b.addEventListener('click', go, true);
+    b.addEventListener('pointerup', go, true);
+    b.addEventListener('touchend', go, {capture:true, passive:false});
+  });
+  document.addEventListener('click', (e)=>{
+    const hit = e.target && e.target.closest && e.target.closest('#btnExitFromRoomRight,#btnBackFromRoom,#btnHomeExit');
+    if(hit && isGameRoomMode()) go(e);
+  }, true);
+}
+
 async function startFromGameRoom(ctx){
+  try{
+    sessionStorage.setItem('typer_game_room_ctx', JSON.stringify(ctx));
+    localStorage.setItem('typer_game_room_ctx', JSON.stringify(ctx));
+  }catch(e){}
   localStorage.setItem(KEY_LANG, ctx.lang || "pl");
   localStorage.setItem(KEY_NICK, ctx.nick || "");
   localStorage.setItem(KEY_PLAYER_NO, ctx.playerNo || "");
@@ -8435,7 +8487,7 @@ async function startFromGameRoom(ctx){
       currentRoundNo: 1,
       currentSeasonNo: 1,
       archiveCount: 0,
-      source: "game_room_v1076"
+      source: "game_room_v1077"
     }, { merge:true });
   }else if(ctx.admin){
     // Nie nadpisujemy istniejącego admina, tylko dopisujemy dane źródłowe GAME ROOM.
@@ -8460,11 +8512,12 @@ async function startFromGameRoom(ctx){
 (async()=>{
   try{
     setBg(BG_HOME);
-    setFooter(`Mariusz Gębka v.2.116`);
+    setFooter(`Mariusz Gębka v.2.118`);
     setSplash(`BUILD ${BUILD}\nŁadowanie Firebase…`);
 
     await initFirebase();
     bindUI();
+    bindGameRoomExitGuards();
     ensurePlayersPanelFillFix();
 
     if(getNick()) refreshNickLabels();
@@ -8478,15 +8531,10 @@ async function startFromGameRoom(ctx){
       return;
     }
 
-    // wymagane logowanie PIN przed wejściem — zawsze pokazuj okno logowania na starcie
-    const okLogin = await ensurePinLogin(true);
-    if(!okLogin) return;
-
-    showScreen("home");
-    showCenterLoading();
-    await new Promise(r=>setTimeout(r, 2000));
-    openJoinRoomModal();
-    hideCenterLoading();
+    // W wersji zintegrowanej Typer nie ma już własnego ekranu startowego.
+    // Bez kontekstu z GAME ROOM wracamy do wyboru gier.
+    window.location.href = '../../index.html?open=games';
+    return;
   }catch(e){
     console.error(e);
     setSplash("BŁĄD:\n" + (e?.message || String(e)));
