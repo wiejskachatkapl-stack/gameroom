@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1078';
+const VERSION = 'GAME ROOM v1079';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 
@@ -384,9 +384,9 @@ function renderGames(room){
       <div class="games-title">${l==='en'?'CHOOSE A GAME':'WYBIERZ GRĘ'}</div>
       <div class="games-subtitle">${l==='en'?'PLAY WITH US!':'GRAJ Z NAMI!'}</div>
       <div class="games-grid">
-        ${games.map(g=>`<button class="game-graphic-btn" data-game="${g.id}" aria-label="${l==='en'?g.en:g.pl}"><img src="assets/buttons/games/${dir}/${g.img}.png?v=1073" alt="${l==='en'?g.en:g.pl}"></button>`).join('')}
+        ${games.map(g=>`<button class="game-graphic-btn" data-game="${g.id}" aria-label="${l==='en'?g.en:g.pl}"><img src="assets/buttons/games/${dir}/${g.img}.png?v=1079" alt="${l==='en'?g.en:g.pl}"></button>`).join('')}
       </div>
-      <button id="gamesBackBtn" class="game-graphic-back" aria-label="${l==='en'?'Back':'Cofnij'}"><img src="assets/buttons/games/${dir}/back.png?v=1073" alt="${l==='en'?'Back':'Cofnij'}"></button>
+      <button id="gamesBackBtn" class="game-graphic-back" aria-label="${l==='en'?'Back':'Cofnij'}"><img src="assets/buttons/games/${dir}/back.png?v=1079" alt="${l==='en'?'Back':'Cofnij'}"></button>
     </div>
     ${version()}
   </section>`;
@@ -510,11 +510,18 @@ function renderGameStage(room,game){
 
 function openCreateRoom(){renderRooms()}
 function init(){
+  const qs = new URLSearchParams(window.location.search || '');
+  const wantsGames = qs.get('open') === 'games';
+  const wantedRoom = (qs.get('room') || '').trim().toUpperCase();
   if(storage.get('gr_logged_in')&&profile()){
-    const activeCode=hubGet(HUB_KEYS.active,'');
+    const activeCode=wantedRoom || hubGet(HUB_KEYS.active,'');
     const hubRoom=getHubRoomByCode(activeCode);
     if(hubRoom && hubRoom.activeGame && hubRoom.activeGame !== 'lobby'){
       try{ setHubActiveGame(localRoomFromHub(hubRoom), 'lobby'); }catch(e){}
+    }
+    if(wantsGames && hubRoom){
+      try{ history.replaceState(null, '', location.pathname); }catch(e){}
+      return renderGames(localRoomFromHub(hubRoom));
     }
     return renderRooms();
   }
