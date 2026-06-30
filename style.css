@@ -2781,3 +2781,40 @@ select.profile-input-v1051,
 @media (pointer:coarse) and (orientation:portrait){
   .stage-card{width:82%;min-height:44%;padding:16px}
 }
+
+/* === GAME ROOM v1075: prawdziwe lobby TYPERA inside GAME ROOM === */
+.typer-lobby{
+  aspect-ratio:3/2;
+  width:min(100vw,150vh);
+  max-height:100vh;
+  background-image:url('assets/screens/bg_login.jpg?v=1075');
+  background-size:100% 100%;
+  background-position:center;
+  background-repeat:no-repeat;
+  position:relative;
+  overflow:hidden;
+  color:#fff;
+  text-shadow:0 3px 5px #000;
+}
+.typer-lobby-card{
+  position:absolute;
+  left:15.5%;
+  top:17.5%;
+  width:69%;
+  height:70%;
+  border:3px solid rgba(90,190,255,.68);
+  border-radius:28px;
+  background:linear-gradient(180deg,rgba(1,8,20,.88),rgba(2,5,12,.70));
+  box-shadow:0 0 34px rgba(0,170,255,.42), inset 0 0 35px rgba(255,255,255,.08);
+  padding:2.2% 2.4%;
+  box-sizing:border-box;
+  text-align:center;
+}
+.typer-lobby-kicker{font-size:clamp(14px,1.45vw,25px);font-weight:1000;letter-spacing:2px;color:#4fc3ff;line-height:1}
+.typer-lobby h1{font-size:clamp(52px,6.2vw,100px);line-height:.86;margin:1% 0 .5%;color:#ffc400;text-shadow:0 5px 0 #000,0 0 22px rgba(255,196,0,.7)}
+.typer-lobby-sub{font-size:clamp(13px,1.25vw,22px);font-weight:900;color:#dff7ff;margin-bottom:1.5%}
+.typer-room-strip{height:15%;display:grid;grid-template-columns:1.1fr .85fr 1fr;gap:1.2%;margin-bottom:1.8%}
+.typer-room-strip>div{border:2px solid rgba(255,255,255,.28);border-radius:14px;background:rgba(0,0,0,.28);display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0}
+.typer-room-strip span{font-size:clamp(9px,.88vw,15px);font-weight:1000;color:#5bd6ff;letter-spacing:1px}.typer-room-strip strong{display:block;max-width:96%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:clamp(14px,1.48vw,25px);font-weight:1000;color:#fff;margin-top:3px}
+.typer-main-grid{height:55%;display:grid;grid-template-columns:1fr 1fr;gap:1.8%}.typer-players-box,.typer-actions-box{border:2px solid rgba(255,255,255,.26);border-radius:18px;background:rgba(0,0,0,.23);padding:3%;box-sizing:border-box;min-width:0;overflow:hidden}.typer-players-box h2,.typer-actions-box h2{margin:0 0 3%;font-size:clamp(15px,1.55vw,26px);font-weight:1000;color:#4fc3ff}.typer-player-list{height:82%;overflow-y:auto;padding-right:1.5%}.typer-player-row{height:24%;min-height:44px;margin-bottom:2%;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(255,255,255,.06);display:flex;align-items:center;text-align:left;padding:0 3%;box-sizing:border-box;gap:3%}.typer-player-row.me{border-color:rgba(255,196,0,.85);box-shadow:0 0 12px rgba(255,196,0,.22)}.typer-player-row .dot{width:12px;height:12px;border-radius:50%;background:#9a1c1c;box-shadow:0 0 8px #9a1c1c;flex:0 0 auto}.typer-player-row .dot.on{background:#25ef6b;box-shadow:0 0 9px #25ef6b}.typer-player-row div{flex:1;min-width:0}.typer-player-row strong{display:block;font-size:clamp(13px,1.25vw,21px);font-weight:1000;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.typer-player-row em{display:block;font-style:normal;font-size:clamp(10px,.95vw,16px);font-weight:900;color:#b8e8ff}.typer-player-row b{font-size:clamp(9px,.82vw,14px);color:#ffc400}.typer-actions-box p{font-size:clamp(12px,1.12vw,19px);font-weight:800;line-height:1.28;margin:0 0 4%;color:#e8f8ff}.typer-start,.typer-back{width:82%;height:18%;min-height:42px;border:0;border-radius:16px;font-weight:1000;font-size:clamp(14px,1.45vw,24px);cursor:pointer;text-shadow:none}.typer-start{background:linear-gradient(180deg,#60ff90,#0fae45);color:#001b08;box-shadow:0 5px 0 #075d25,0 0 18px rgba(50,255,110,.35);margin:0 auto 2%;display:block}.typer-start:disabled{filter:grayscale(1);opacity:.55;cursor:not-allowed}.typer-admin-note{font-size:clamp(10px,.96vw,17px);font-weight:900;color:#b8e8ff;margin-bottom:3%}.typer-back{background:linear-gradient(180deg,#ffd24d,#ff9c00);color:#241000;box-shadow:0 5px 0 #7a3300,0 0 18px rgba(255,180,0,.42)}
+@media (pointer:coarse){.typer-lobby{width:100vw;max-height:100vh;aspect-ratio:3/2}.typer-lobby-card{left:14%;top:15%;width:72%;height:73%;border-radius:20px;padding:1.7%}.typer-room-strip{height:14%;margin-bottom:1.2%}.typer-main-grid{height:57%}.typer-player-row{min-height:30px}.typer-start,.typer-back{min-height:34px}}

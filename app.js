@@ -1,9 +1,9 @@
-const VERSION = 'GAME ROOM v1074';
+const VERSION = 'GAME ROOM v1075';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 
 
-// GAME ROOM HUB v1074 — wspólne dane dla wszystkich gier.
+// GAME ROOM HUB v1075 — wspólne dane dla wszystkich gier.
 // Na tym etapie zapis jest bezpieczny: lokalny fallback + gotowy kształt pod Firebase.
 const HUB_KEYS={profiles:'gr_hub_profiles',rooms:'gr_hub_rooms',active:'gr_hub_active_room'};
 const HUB_PATHS={profiles:'profiles',rooms:'rooms',games:'games'};
@@ -422,10 +422,67 @@ function gameLabel(gameId){
   };
   return labels[gameId]?.[l]||String(gameId||'').toUpperCase();
 }
+function hubPlayersForRoom(room){
+  const p=profile()||{};
+  const hubRoom=getHubRoomByCode(room?.code||room?.roomId||'')||{};
+  const players=Object.values(hubRoom.players||{}).filter(Boolean);
+  if(!players.some(x=>x.playerId===p.playerId)){
+    players.unshift({playerId:p.playerId,nick:p.name||'',role:(room?.ownerId===p.playerId||hubRoom.admin===p.playerId)?'admin':'player',online:true});
+  }
+  return players;
+}
+function isRoomAdmin(room){
+  const p=profile()||{};
+  const hubRoom=getHubRoomByCode(room?.code||room?.roomId||'')||{};
+  return (hubRoom.admin&&hubRoom.admin===p.playerId) || (room?.ownerId&&room.ownerId===p.playerId);
+}
+function renderTyperLobby(room){
+  const p=profile(); if(!p)return renderLogin();
+  const l=lang();
+  const hubRoom=getHubRoomByCode(room?.code||room?.roomId||'')||{};
+  const roomName=hubRoom.roomName||hubRoom.name||room?.name||room?.roomName||(l==='en'?'Room':'Pokój');
+  const roomCode=hubRoom.code||hubRoom.roomId||room?.code||room?.roomId||'';
+  const adminId=hubRoom.admin||room?.ownerId||'';
+  const players=hubPlayersForRoom({...room,code:roomCode});
+  const admin=isRoomAdmin({...room,code:roomCode});
+  app.innerHTML=`<section class="screen typer-lobby">
+    <div class="typer-lobby-card">
+      <div class="typer-lobby-kicker">${l==='en'?'GAME LOBBY':'LOBBY GRY'}</div>
+      <h1>TYPER</h1>
+      <div class="typer-lobby-sub">${l==='en'?'Room prepared from GAME ROOM':'Pokój przejęty z GAME ROOM'}</div>
+
+      <div class="typer-room-strip">
+        <div><span>${l==='en'?'ROOM':'POKÓJ'}</span><strong>${esc(roomName)}</strong></div>
+        <div><span>${l==='en'?'CODE':'KOD'}</span><strong>${esc(roomCode)}</strong></div>
+        <div><span>ADMIN</span><strong>${esc(adminId||'—')}</strong></div>
+      </div>
+
+      <div class="typer-main-grid">
+        <div class="typer-players-box">
+          <h2>${l==='en'?'PLAYERS IN ROOM':'GRACZE W POKOJU'}</h2>
+          <div class="typer-player-list">
+            ${players.map(pl=>`<div class="typer-player-row ${pl.playerId===p.playerId?'me':''}"><span class="dot ${pl.online?'on':'off'}"></span><div><strong>${esc(pl.nick||pl.name||'Gracz')}</strong><em>${esc(pl.playerId||'')}</em></div><b>${(pl.role==='admin'||pl.playerId===adminId)?'ADMIN':''}</b></div>`).join('')}
+          </div>
+        </div>
+        <div class="typer-actions-box">
+          <h2>${l==='en'?'TYPER STATUS':'STATUS TYPERA'}</h2>
+          <p>${l==='en'?'This is the first real Typer lobby inside GAME ROOM. The next step will attach rounds, predictions and rankings.':'To jest pierwsze prawdziwe lobby Typera wewnątrz GAME ROOM. Następny krok to podpięcie kolejek, typowania i rankingów.'}</p>
+          <button id="typerStartBtn" class="typer-start" type="button" ${admin?'':'disabled'}>${l==='en'?'START TYPER':'START TYPER'}</button>
+          <div class="typer-admin-note">${admin?(l==='en'?'You are the room admin.':'Jesteś adminem pokoju.'):(l==='en'?'Only room admin can start.':'Tylko admin pokoju może rozpocząć.')}</div>
+          <button id="typerBackBtn" class="typer-back" type="button">${l==='en'?'BACK TO GAME ROOM':'WRÓĆ DO GAME ROOM'}</button>
+        </div>
+      </div>
+    </div>
+    ${version()}
+  </section>`;
+  document.getElementById('typerBackBtn').onclick=()=>{setHubActiveGame({code:roomCode,name:roomName,ownerId:adminId},'lobby');renderGames({code:roomCode,name:roomName,ownerId:adminId})};
+  document.getElementById('typerStartBtn').onclick=()=>toast(l==='en'?'Next step: Typer rounds.':'Następny krok: kolejki Typera.');
+}
 function renderGameStage(room,game){
   const p=profile(); if(!p)return renderLogin();
   const l=lang();
   const gameId=typeof game==='string'?game:game?.id;
+  if(gameId==='typer') return renderTyperLobby(room);
   const label=typeof game==='object'?(l==='en'?game.en:game.pl):gameLabel(gameId);
   const roomName=room?.name||room?.roomName||(l==='en'?'Room':'Pokój');
   const roomCode=room?.code||room?.roomId||'';
