@@ -10,6 +10,10 @@ function openBingoGameRoom(){
   var q = [];
   if(nick) q.push("nick=" + encodeURIComponent(nick));
   if(room) q.push("room=" + encodeURIComponent(room));
+  var returnUrl = new URL("index.html", window.location.href).href;
+  returnUrl += "?open=games" + (room ? "&room=" + encodeURIComponent(room) : "");
+  try { localStorage.setItem("bingoReturnUrl", returnUrl); } catch(e) {}
+  q.push("return=" + encodeURIComponent(returnUrl));
   if(q.length) url += "?" + q.join("&");
   window.location.href = url;
 }
@@ -421,7 +425,9 @@ function renderGames(room){
       return;
     }
     if(g.id==='bingo'){
-      window.location.href='games/bingo/index.html?'+ctx;
+      const returnUrl = new URL('index.html', window.location.href).href + '?open=games' + ((room?.code||room?.roomId) ? '&room=' + encodeURIComponent(room?.code||room?.roomId) : '');
+      try { localStorage.setItem('bingoReturnUrl', returnUrl); } catch(e) {}
+      window.location.href='games/bingo/index.html?'+ctx+'&return='+encodeURIComponent(returnUrl);
       return;
     }
     renderGameStage(room,g);
@@ -509,7 +515,12 @@ function renderGameStage(room,game){
   const l=lang();
   const gameId=typeof game==='string'?game:game?.id;
   if(gameId==='typer'){ window.location.href='games/typer/index.html?'+buildGameContext(room,'typer'); return; }
-  if(gameId==='bingo'){ window.location.href='games/bingo/index.html?'+buildGameContext(room,'bingo'); return; }
+  if(gameId==='bingo'){
+    const returnUrl = new URL('index.html', window.location.href).href + '?open=games' + ((room?.code||room?.roomId) ? '&room=' + encodeURIComponent(room?.code||room?.roomId) : '');
+    try { localStorage.setItem('bingoReturnUrl', returnUrl); } catch(e) {}
+    window.location.href='games/bingo/index.html?'+buildGameContext(room,'bingo')+'&return='+encodeURIComponent(returnUrl);
+    return;
+  }
   const label=typeof game==='object'?(l==='en'?game.en:game.pl):gameLabel(gameId);
   const roomName=room?.name||room?.roomName||(l==='en'?'Room':'Pokój');
   const roomCode=room?.code||room?.roomId||'';
