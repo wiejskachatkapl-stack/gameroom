@@ -384,9 +384,9 @@ function renderGames(room){
       <div class="games-title">${l==='en'?'CHOOSE A GAME':'WYBIERZ GRĘ'}</div>
       <div class="games-subtitle">${l==='en'?'PLAY WITH US!':'GRAJ Z NAMI!'}</div>
       <div class="games-grid">
-        ${games.map(g=>`<button class="game-graphic-btn" data-game="${g.id}" aria-label="${l==='en'?g.en:g.pl}"><img src="assets/buttons/games/${dir}/${g.img}.png?v=1079" alt="${l==='en'?g.en:g.pl}"></button>`).join('')}
+        ${games.map(g=>`<button class="game-graphic-btn" data-game="${g.id}" aria-label="${l==='en'?g.en:g.pl}"><img src="assets/buttons/games/${dir}/${g.img}.png?v=1080" alt="${l==='en'?g.en:g.pl}"></button>`).join('')}
       </div>
-      <button id="gamesBackBtn" class="game-graphic-back" aria-label="${l==='en'?'Back':'Cofnij'}"><img src="assets/buttons/games/${dir}/back.png?v=1079" alt="${l==='en'?'Back':'Cofnij'}"></button>
+      <button id="gamesBackBtn" class="game-graphic-back" aria-label="${l==='en'?'Back':'Cofnij'}"><img src="assets/buttons/games/${dir}/back.png?v=1080" alt="${l==='en'?'Back':'Cofnij'}"></button>
     </div>
     ${version()}
   </section>`;
