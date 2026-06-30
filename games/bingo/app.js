@@ -687,10 +687,11 @@
   }
 
   function exitToGameRoom(){
-    const target = window.BINGO_EXIT_URL || '../index.html';
+    const fallback = '../../index.html?open=games&room=' + encodeURIComponent(state.roomCode || '');
+    const target = window.BINGO_EXIT_URL || fallback;
     try {
       if(window.parent && window.parent !== window){
-        window.parent.postMessage({type:'BINGO_EXIT', version: VERSION}, '*');
+        window.parent.postMessage({type:'BINGO_EXIT', version: VERSION, target:'games', room: state.roomCode}, '*');
         return;
       }
     } catch(e) {}
