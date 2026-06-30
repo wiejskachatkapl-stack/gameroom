@@ -1,9 +1,9 @@
-const VERSION = 'GAME ROOM v1075';
+const VERSION = 'GAME ROOM v1076';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 
 
-// GAME ROOM HUB v1075 — wspólne dane dla wszystkich gier.
+// GAME ROOM HUB v1076 — wspólne dane dla wszystkich gier.
 // Na tym etapie zapis jest bezpieczny: lokalny fallback + gotowy kształt pod Firebase.
 const HUB_KEYS={profiles:'gr_hub_profiles',rooms:'gr_hub_rooms',active:'gr_hub_active_room'};
 const HUB_PATHS={profiles:'profiles',rooms:'rooms',games:'games'};
@@ -37,7 +37,7 @@ function setHubActiveGame(room,gameId){
 }
 function buildGameContext(room,gameId){
   const p=profile()||{};
-  const params=new URLSearchParams({game:gameId,room:room?.code||'',roomName:room?.name||'',player:p.playerId||'',nick:p.name||'',lang:lang()});
+  const params=new URLSearchParams({game:gameId,room:room?.code||'',roomName:room?.name||'',player:p.playerId||'',nick:p.name||'',lang:lang(),admin:(room?.ownerId===p.playerId||room?.admin===p.playerId)?'1':'0'});
   return params.toString();
 }
 
@@ -398,6 +398,10 @@ function renderGames(room){
     setHubActiveGame(room,g.id);
     const ctx=buildGameContext(room,g.id);
     storage.set('gr_last_game_context',{game:g.id,query:ctx,roomCode:room?.code||'',playerId:p.playerId,createdAt:Date.now()});
+    if(g.id==='typer'){
+      window.location.href='games/typer/index.html?'+ctx;
+      return;
+    }
     renderGameStage(room,g);
   });
 }
@@ -482,7 +486,7 @@ function renderGameStage(room,game){
   const p=profile(); if(!p)return renderLogin();
   const l=lang();
   const gameId=typeof game==='string'?game:game?.id;
-  if(gameId==='typer') return renderTyperLobby(room);
+  if(gameId==='typer'){ window.location.href='games/typer/index.html?'+buildGameContext(room,'typer'); return; }
   const label=typeof game==='object'?(l==='en'?game.en:game.pl):gameLabel(gameId);
   const roomName=room?.name||room?.roomName||(l==='en'?'Room':'Pokój');
   const roomCode=room?.code||room?.roomId||'';
