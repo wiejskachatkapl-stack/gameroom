@@ -1,0 +1,23 @@
+BINGO v1019 Firebase
+
+Ta wersja podpina:
+- graczy w pokoju,
+- status DOŁĄCZ / gotowość,
+- wspólne losowanie kul,
+- zwycięzcę rundy,
+- punkty i tabelę rankingową
+
+pod Firebase Realtime Database.
+
+Konfiguracja Firebase została pobrana z paczki GameRoom, jeśli była dostępna.
+Jeśli w pliku app.js widzisz UZUPELNIJ_..., trzeba wkleić właściwe dane Firebase.
+
+Ścieżka danych:
+bingo/rooms/KOD_POKOJU
+
+Uwaga techniczna: konfiguracja z GameRoom nie zawierała databaseURL. Kod próbuje połączyć się przez firebase.database(); jeśli Twoja baza RTDB wymaga pełnego URL, dopisz databaseURL w app.js.
+
+
+BINGO v1020:
+Dodano databaseURL:
+https://typer-b3087-default-rtdb.europe-west1.firebasedatabase.app

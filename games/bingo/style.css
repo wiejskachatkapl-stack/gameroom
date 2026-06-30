@@ -1,0 +1,611 @@
+:root{
+  --stage-w: 1600;
+  --stage-h: 900;
+  --neon-blue:#1ab7ff;
+  --neon-pink:#ff3fbd;
+  --neon-green:#4cff9a;
+  --text:#ffffff;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#030012;font-family:Arial,Helvetica,sans-serif;color:var(--text)}
+button{font-family:inherit}
+.app,.screen{position:fixed;inset:0;width:100%;height:100%;overflow:hidden;background:#030012}
+.screen{display:none;place-items:center}
+.screen.is-active{display:grid}
+.stage{position:relative;aspect-ratio:16/9;width:min(100vw,calc(100vh * 16 / 9));height:min(100vh,calc(100vw * 9 / 16));background-position:center;background-repeat:no-repeat;background-size:100% 100%;filter:saturate(1.05)}
+.stage-start{background-image:url('assets/images/bingo_start.png')}
+.stage-game{background-image:url('assets/images/bingo_game_bg.png')}
+.hit-btn{position:absolute;border:0;background:rgba(0,0,0,.01);color:transparent;cursor:pointer;border-radius:24px;outline:none;user-select:none}
+.hit-btn:focus-visible{box-shadow:0 0 0 4px rgba(255,255,255,.95),0 0 20px 8px rgba(0,190,255,.8)}
+.hit-btn:active{transform:scale(.985)}
+.hit-play{left:30.1%;top:55.0%;width:41.0%;height:14.6%}
+.hit-exit-start{left:30.1%;top:74.4%;width:41.0%;height:14.2%}
+.hit-exit-game{position:absolute;right:4.2%;bottom:5.6%;width:14.0%;height:11.4%;background:transparent;color:transparent;border:0;cursor:pointer}
+
+/* Dane pokoju nakładane dynamicznie na czyste tło. */
+.left-info{position:absolute;left:10.9%;top:35.2%;width:8.7%;height:15.3%;pointer-events:none;display:flex;flex-direction:column;gap:10%}
+.info-card{position:relative;width:100%;height:45%;border:2px solid currentColor;border-radius:10px;background:rgba(3,0,18,.48);box-shadow:0 0 10px currentColor,inset 0 0 16px rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+.info-card-nick{color:var(--neon-pink)}
+.info-card-room{color:var(--neon-blue)}
+.info-label{font-size:clamp(7px,.62vw,12px);font-weight:900;line-height:1;text-shadow:0 0 8px currentColor;margin-bottom:5%}
+.info-value{display:block;width:100%;text-align:center;color:#fff;font-weight:900;letter-spacing:.02em;line-height:1;text-shadow:0 0 8px rgba(255,255,255,.95),0 0 18px currentColor;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 .35vw}
+.nick-value,.room-value{font-size:clamp(8px,.95vw,17px)}
+
+/* Lista graczy po prawej. Jest pusta, dopóki w pokoju nie ma graczy. */
+.players-panel{position:absolute;right:5.9%;top:13.5%;bottom:18.5%;width:18.2%;display:flex;flex-direction:column;justify-content:flex-start;gap:2.3%;padding:.4% 0;pointer-events:none}
+.player-row{width:100%;min-height:10%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6vh;color:#ffffff;text-shadow:0 0 10px rgba(255,255,255,.95)}
+.player-name{font-weight:900;font-size:clamp(11px,1.45vw,26px);letter-spacing:.05em;text-transform:uppercase;line-height:1;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.balls{display:flex;gap:.38vw;justify-content:center}
+.balls i{display:block;width:2.25vw;height:2.25vw;max-width:39px;max-height:39px;min-width:14px;min-height:14px;border:2px solid #ffffff;border-radius:50%;background:rgba(0,0,0,.12);box-shadow:0 0 10px rgba(255,255,255,.72),inset 0 0 10px rgba(255,255,255,.05)}
+.balls i.filled{background:linear-gradient(180deg,#ffe86a,#ffc400 62%,#d99100);border-color:#ffffff;box-shadow:0 0 14px rgba(255,216,72,.95),inset 0 0 10px rgba(255,255,255,.32)}
+@media (max-aspect-ratio: 10/13){
+  body{overflow:hidden}
+  .stage{width:100vw;height:56.25vw;max-height:100vh;max-width:177.78vh}
+}
+@media (max-width:700px){
+  .game-controls{left:21.8%;top:61.7%;width:11.4%;height:7.0%;gap:0}
+  .game-action-btn{border-width:1px;border-radius:8px;font-size:clamp(7px,1.0vw,11px)}
+  .bingo-win-message{width:52%;min-height:22%;border-radius:16px;border-width:2px}
+
+  .draw-machine{left:23.4%;top:47.2%;width:7.8%;height:13.8%}
+  .drawn-numbers{left:18.2%;right:28.0%;bottom:6.3%;gap:.28vw}
+  .drawn-number{border-width:1px;min-width:12px;min-height:12px}
+
+  .bingo-board{left:32.4%;top:25.8%;width:31.2%;height:42.8%;gap:.35vw;border-radius:10px}
+  .bingo-cell{border-width:1px;border-radius:5px}
+
+  .left-info{left:10.6%;top:35.0%;width:9.0%}
+  .info-label{font-size:clamp(5px,.8vw,9px)}
+  .nick-value,.room-value{font-size:clamp(6px,1.0vw,11px)}
+  .players-panel{right:5.2%;top:13%;width:18.8%}
+  .player-name{font-size:clamp(8px,1.4vw,14px)}
+  .balls{gap:.25vw}
+  .balls i{border-width:1px;min-width:8px;min-height:8px}
+}
+
+
+
+
+/* Karta BINGO losowana dynamicznie po kliknięciu GRAJ. */
+.bingo-board{
+  position:absolute;
+  left:38.0%;
+  top:27.2%;
+  width:25.8%;
+  height:39.0%
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  grid-template-rows:.62fr repeat(5,1fr);
+  gap:.55vw;
+  padding:.85%;
+  border-radius:18px;
+  background:rgba(3,0,18,.30);
+  box-shadow:0 0 18px rgba(26,183,255,.35), inset 0 0 22px rgba(255,255,255,.04);
+  pointer-events:auto;
+}
+
+.bingo-head{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#ffffff;
+  font-weight:900;
+  font-size:clamp(14px,2.0vw,36px);
+  line-height:1;
+  text-shadow:0 0 10px rgba(255,255,255,.9),0 0 18px rgba(26,183,255,.8);
+  user-select:none;
+}
+
+.bingo-cell{
+  border:2px solid rgba(255,255,255,.92);
+  border-radius:8px;
+  background:rgba(255,255,255,.90);
+  color:#081225;
+  font-weight:900;
+  font-size:clamp(13px,1.7vw,30px);
+  line-height:1;
+  text-align:center;
+  cursor:pointer;
+  box-shadow:0 0 10px rgba(255,255,255,.28), inset 0 0 10px rgba(0,0,0,.10);
+  user-select:none;
+}
+
+.bingo-cell:active{
+  transform:scale(.96);
+}
+
+.bingo-cell.is-marked{
+  background:linear-gradient(180deg,#51ff97,#0ba946);
+  color:#ffffff;
+  border-color:#aaffc8;
+  text-shadow:0 0 8px rgba(255,255,255,.9);
+  box-shadow:0 0 16px rgba(76,255,154,.95), inset 0 0 12px rgba(255,255,255,.28);
+}
+
+.bingo-cell.is-free{
+  background:radial-gradient(circle,#5ec8ff 0%,#1167c9 62%,#07143d 100%);
+  color:#ffffff;
+  border-color:#9ae8ff;
+  box-shadow:0 0 16px rgba(26,183,255,.9), inset 0 0 12px rgba(255,255,255,.25);
+}
+
+
+/* Maszyna losująca i lista wylosowanych liczb. */
+.draw-machine{
+  position:absolute;
+  left:26.2%;
+  top:47.5%;
+  width:6.4%;
+  height:11.5%
+  pointer-events:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 35% 28%, rgba(255,255,255,.95) 0 7%, rgba(255,255,255,.35) 8% 17%, transparent 18%),
+    radial-gradient(circle at 50% 50%, rgba(26,183,255,.20), rgba(255,63,189,.14) 48%, rgba(0,0,0,.18) 72%);
+  border:2px solid rgba(255,255,255,.62);
+  box-shadow:0 0 18px rgba(26,183,255,.55), inset 0 0 24px rgba(255,255,255,.14);
+}
+
+.draw-ball{
+  width:76%;
+  height:76%;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#081225;
+  font-weight:900;
+  font-size:clamp(16px,2.35vw,42px);
+  line-height:1;
+  background:
+    radial-gradient(circle at 33% 24%, #ffffff 0 9%, #f6f6f6 10% 28%, #ffd748 29% 64%, #d58d00 88%);
+  border:2px solid rgba(255,255,255,.86);
+  box-shadow:0 0 18px rgba(255,216,72,.80), inset -10px -14px 20px rgba(87,45,0,.30), inset 10px 9px 16px rgba(255,255,255,.48);
+  text-shadow:0 1px 0 rgba(255,255,255,.45);
+}
+
+.draw-ball.is-spinning{
+  animation:bingoBallSpin .42s linear infinite;
+  filter:blur(.2px) brightness(1.12);
+}
+
+@keyframes bingoBallSpin{
+  0%{transform:rotate(0deg) scale(1)}
+  50%{transform:rotate(180deg) scale(1.06)}
+  100%{transform:rotate(360deg) scale(1)}
+}
+
+.drawn-numbers{
+  position:absolute;
+  left:21.8%;
+  right:23.8%;
+  bottom:6.8%
+  min-height:5.2%;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:flex-start;
+  gap:.42vw;
+  padding:.35% .7%;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.drawn-number{
+  min-width:2.08vw;
+  height:2.08vw;
+  max-width:36px;
+  max-height:36px;
+  min-height:18px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  color:#111;
+  background:linear-gradient(180deg,#ffe86a,#ffc400 62%,#d99100);
+  border:2px solid rgba(255,255,255,.84);
+  box-shadow:0 0 10px rgba(255,216,72,.86), inset 0 0 8px rgba(255,255,255,.34);
+  font-weight:900;
+  font-size:clamp(9px,1.0vw,18px);
+  line-height:1;
+}
+
+/* Przycisk START i komunikat zwycięzcy. */
+.game-controls{
+  position:absolute;
+  left:24.8%;
+  top:60.8%;
+  width:9.0%;
+  height:6.2%
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:auto;
+}
+.game-action-btn{
+  width:100%;
+  height:76%;
+  border:2px solid rgba(255,255,255,.78);
+  border-radius:14px;
+  color:#111111;
+  font-weight:900;
+  font-size:clamp(10px,1.1vw,20px);
+  letter-spacing:.05em;
+  cursor:pointer;
+  text-shadow:none;
+  box-shadow:0 0 14px rgba(76,255,154,.95), inset 0 0 14px rgba(255,255,255,.18);
+  user-select:none;
+}
+.game-action-btn:active{transform:scale(.96)}
+.btn-start-draw{background:linear-gradient(180deg,rgba(55,255,130,.96),rgba(0,136,54,.96));color:#111111}
+.bingo-win-message{
+  position:absolute;
+  left:50%;
+  top:42%;
+  width:46%;
+  min-height:23%;
+  transform:translate(-50%,-50%) scale(.92);
+  border:3px solid rgba(255,232,106,.92);
+  border-radius:26px;
+  background:rgba(3,0,18,.88);
+  box-shadow:0 0 28px rgba(255,216,72,.95), inset 0 0 24px rgba(255,255,255,.12);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:1.4vh;
+  color:#ffffff;
+  pointer-events:none;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .18s ease, transform .18s ease, visibility .18s ease;
+  z-index:20;
+  text-align:center;
+  padding:2%;
+}
+.bingo-win-message.is-visible{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
+.bingo-win-message strong{
+  display:block;
+  color:#ffe86a;
+  font-size:clamp(34px,5.2vw,92px);
+  line-height:1;
+  text-shadow:0 0 16px rgba(255,216,72,.95),0 0 30px rgba(255,63,189,.75);
+}
+.bingo-win-message span{
+  display:block;
+  color:#ffffff;
+  font-size:clamp(18px,2.5vw,44px);
+  font-weight:900;
+  line-height:1.1;
+  text-shadow:0 0 12px rgba(255,255,255,.95);
+}
+
+
+.win-board{
+  width:78%;
+  max-width:520px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  grid-template-rows:.52fr repeat(5,1fr);
+  gap:.35vw;
+  margin-top:.6vh;
+}
+.win-board-head{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#ffffff;
+  font-weight:900;
+  font-size:clamp(11px,1.3vw,22px);
+  text-shadow:0 0 8px rgba(255,255,255,.95),0 0 12px rgba(26,183,255,.75);
+}
+.win-board-cell{
+  min-height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(255,255,255,.92);
+  border-radius:6px;
+  background:rgba(255,255,255,.92);
+  color:#081225;
+  font-weight:900;
+  font-size:clamp(10px,1.0vw,18px);
+  line-height:1;
+  box-shadow:0 0 8px rgba(255,255,255,.22), inset 0 0 6px rgba(0,0,0,.08);
+}
+.win-board-cell.is-marked{
+  background:linear-gradient(180deg,#51ff97,#0ba946);
+  color:#ffffff;
+  border-color:#aaffc8;
+}
+.win-board-cell.is-free{
+  background:radial-gradient(circle,#5ec8ff 0%,#1167c9 62%,#07143d 100%);
+  color:#ffffff;
+  border-color:#9ae8ff;
+}
+.win-board-cell.is-winning{
+  box-shadow:0 0 14px rgba(255,216,72,.95), inset 0 0 8px rgba(255,255,255,.35);
+  border-color:#ffe86a;
+}
+@media (max-width:700px){
+  .win-board{width:84%;gap:.28vw}
+  .win-board-cell{min-height:18px;border-radius:4px}
+}
+
+
+/* Tabela rankingowa po lewej stronie. */
+.ranking-panel{
+  position:absolute;
+  left:2.6%;
+  top:49.5%;
+  width:17.2%;
+  height:33.0%;
+  border:2px solid rgba(255,255,255,.62);
+  border-radius:16px;
+  background:rgba(3,0,18,.54);
+  box-shadow:0 0 18px rgba(26,183,255,.38), inset 0 0 20px rgba(255,255,255,.06);
+  padding:.7% .8%;
+  display:flex;
+  flex-direction:column;
+  gap:.45vw;
+}
+.ranking-title{
+  text-align:center;
+  color:#ffe86a;
+  font-weight:900;
+  letter-spacing:.08em;
+  font-size:clamp(10px,1.1vw,20px);
+  text-shadow:0 0 10px rgba(255,216,72,.95);
+}
+.ranking-head,
+.ranking-row{
+  display:grid;
+  grid-template-columns:1.1fr 3.4fr 1.4fr 1.5fr 1.6fr;
+  align-items:center;
+  gap:.25vw;
+}
+.ranking-head{
+  color:#7fd9ff;
+  font-size:clamp(7px,.72vw,13px);
+  font-weight:900;
+  padding:0 .15vw .15vw;
+  border-bottom:1px solid rgba(127,217,255,.4);
+  text-shadow:0 0 8px rgba(127,217,255,.8);
+}
+.ranking-rows{
+  display:flex;
+  flex-direction:column;
+  gap:.22vw;
+  overflow:hidden;
+}
+.ranking-row{
+  min-height:1.55vw;
+  padding:.18vw .15vw;
+  border-radius:7px;
+  background:rgba(255,255,255,.06);
+  color:#ffffff;
+  font-size:clamp(7px,.78vw,13px);
+  font-weight:800;
+}
+.ranking-row.is-me{
+  background:rgba(255,216,72,.18);
+  box-shadow:0 0 10px rgba(255,216,72,.26) inset;
+}
+.ranking-row span,.ranking-head span{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.ranking-name{
+  text-transform:uppercase;
+}
+@media (max-width:700px){
+  .ranking-panel{left:2.2%;top:49.0%;width:18.2%;height:33.8%;border-radius:10px}
+  .ranking-head,.ranking-row{gap:.15vw}
+  .ranking-row{min-height:10px}
+}
+
+
+@media (max-width:700px){
+  .bingo-board{left:37.7%;top:27.2%;width:26.8%;height:39.4%}
+  .draw-machine{left:26.0%;top:47.8%;width:6.8%;height:12.0%}
+  .game-controls{left:24.4%;top:61.0%;width:9.6%;height:6.3%;gap:0}
+  .drawn-numbers{left:21.4%;right:24.2%;bottom:6.6%;gap:.28vw}
+  .hit-exit-game{right:4.0%;bottom:5.8%;width:14.2%;height:11.0%}
+}
+
+
+/* v1015 - naprawa rozjechanej planszy po v1014.
+   Wymuszenie poprawnych proporcji i pozycji bez zmiany mechaniki. */
+.stage-game .bingo-board{
+  position:absolute;
+  left:35.8%;
+  top:25.8%;
+  width:28.2%;
+  height:41.6%;
+  display:grid !important;
+  grid-template-columns:repeat(5,1fr) !important;
+  grid-template-rows:.62fr repeat(5,1fr) !important;
+  gap:.48vw;
+  padding:.78%;
+  border-radius:18px;
+}
+
+.stage-game .bingo-head{
+  display:flex !important;
+  align-items:center;
+  justify-content:center;
+  min-width:0;
+  min-height:0;
+}
+
+.stage-game .bingo-cell{
+  display:flex !important;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  height:100%;
+  min-width:0;
+  min-height:0;
+  padding:0;
+}
+
+.stage-game .draw-machine{
+  left:26.0%;
+  top:46.7%;
+  width:6.7%;
+  height:12.0%;
+}
+
+.stage-game .game-controls{
+  left:24.35%;
+  top:60.6%;
+  width:9.8%;
+  height:6.7%;
+}
+
+.stage-game .drawn-numbers{
+  left:21.4%;
+  right:24.4%;
+  bottom:6.4%;
+  max-height:13.5%;
+  gap:.38vw;
+  padding:.25% .55%;
+}
+
+.stage-game .drawn-number{
+  min-width:1.92vw;
+  height:1.92vw;
+  max-width:33px;
+  max-height:33px;
+  min-height:16px;
+}
+
+.stage-game .hit-exit-game{
+  right:4.0%;
+  bottom:5.2%;
+  width:14.2%;
+  height:11.0%;
+}
+
+.stage-game .ranking-panel{
+  left:2.4%;
+  top:49.0%;
+  width:17.8%;
+  height:34.0%;
+}
+
+@media (max-width:700px){
+  .stage-game .bingo-board{
+    left:35.4%;
+    top:25.8%;
+    width:29.0%;
+    height:42.0%;
+    gap:.30vw;
+    border-radius:10px;
+  }
+  .stage-game .draw-machine{
+    left:25.7%;
+    top:47.0%;
+    width:7.0%;
+    height:12.2%;
+  }
+  .stage-game .game-controls{
+    left:23.9%;
+    top:60.7%;
+    width:10.3%;
+    height:6.7%;
+  }
+  .stage-game .drawn-numbers{
+    left:21.0%;
+    right:24.7%;
+    bottom:6.3%;
+    max-height:13.2%;
+    gap:.25vw;
+  }
+  .stage-game .hit-exit-game{
+    right:4.0%;
+    bottom:5.5%;
+    width:14.2%;
+    height:10.8%;
+  }
+  .stage-game .ranking-panel{
+    left:2.1%;
+    top:48.8%;
+    width:18.2%;
+    height:34.2%;
+  }
+}
+
+
+/* v1016 - podniesienie NICK/KOD i delikatnie przymglone tła. */
+.stage-game .left-info{
+  left:10.9%;
+  top:25.8%;
+  width:8.7%;
+  height:15.3%;
+}
+
+.stage-game .info-card{
+  background:rgba(3,0,18,.66);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  box-shadow:0 0 10px currentColor,inset 0 0 18px rgba(255,255,255,.08),0 0 22px rgba(0,0,0,.35);
+}
+
+.stage-game .ranking-panel{
+  background:rgba(3,0,18,.66);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  box-shadow:0 0 18px rgba(26,183,255,.38), inset 0 0 20px rgba(255,255,255,.07),0 0 24px rgba(0,0,0,.38);
+}
+
+@media (max-width:700px){
+  .stage-game .left-info{
+    left:10.6%;
+    top:25.6%;
+    width:9.0%;
+  }
+}
+
+
+/* v1017 - status graczy i przycisk DOŁĄCZ */
+.player-name-line{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.42vw;
+}
+.player-ready-dot{
+  display:block;
+  width:.82vw;
+  height:.82vw;
+  min-width:8px;
+  min-height:8px;
+  max-width:14px;
+  max-height:14px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.92);
+  box-shadow:0 0 8px rgba(255,255,255,.25);
+  flex:0 0 auto;
+}
+.player-ready-dot.is-ready{
+  background:#3cff6e;
+  box-shadow:0 0 10px rgba(60,255,110,.95), inset 0 0 4px rgba(255,255,255,.35);
+}
+.player-ready-dot.is-not-ready{
+  background:#ff3c3c;
+  box-shadow:0 0 10px rgba(255,60,60,.95), inset 0 0 4px rgba(255,255,255,.25);
+}
+.game-action-btn.btn-join-room{
+  font-size:clamp(9px,1.0vw,18px);
+}
+
+@media (max-width:700px){
+  .player-name-line{gap:.6vw}
+  .game-action-btn.btn-join-room{font-size:clamp(7px,.95vw,10px)}
+}
