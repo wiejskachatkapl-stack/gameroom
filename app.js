@@ -1,6 +1,46 @@
-const VERSION = 'GAME ROOM v1072';
+const VERSION = 'GAME ROOM v1073';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
+
+
+// GAME ROOM HUB v1073 — wspólne dane dla wszystkich gier.
+// Na tym etapie zapis jest bezpieczny: lokalny fallback + gotowy kształt pod Firebase.
+const HUB_KEYS={profiles:'gr_hub_profiles',rooms:'gr_hub_rooms',active:'gr_hub_active_room'};
+const HUB_PATHS={profiles:'profiles',rooms:'rooms',games:'games'};
+function hubGet(key,def={}){return storage.get(key,def)||def}
+function hubSet(key,val){storage.set(key,val)}
+function hubProfilePayload(p){
+  if(!p)return null;
+  return {playerId:p.playerId,nick:p.name||'',name:p.name||'',countryCode:p.countryCode||'PL',country:p.country||'',avatar:p.avatar||'blue',cap:p.cap||null,updatedAt:Date.now()};
+}
+function hubRoomPayload(room,p){
+  if(!room||!room.code)return null;
+  const player=p||profile();
+  const isOwner=room.ownerId===player?.playerId;
+  return {roomId:room.code,code:room.code,roomName:room.name||'Pokój',name:room.name||'Pokój',admin:room.ownerId||room.admin||player?.playerId||'',activeGame:room.activeGame||'lobby',players:{[player?.playerId||'unknown']:{playerId:player?.playerId||'',nick:player?.name||'',online:true,role:isOwner?'admin':'player',joinedAt:Date.now()}},updatedAt:Date.now()};
+}
+function saveHubProfile(p){
+  const payload=hubProfilePayload(p); if(!payload)return;
+  const all=hubGet(HUB_KEYS.profiles,{}); all[payload.playerId]=payload; hubSet(HUB_KEYS.profiles,all);
+}
+function saveHubRoom(room,p){
+  const payload=hubRoomPayload(room,p); if(!payload)return;
+  const all=hubGet(HUB_KEYS.rooms,{}); const old=all[payload.code]||{};
+  all[payload.code]={...old,...payload,players:{...(old.players||{}),...(payload.players||{})}};
+  hubSet(HUB_KEYS.rooms,all); hubSet(HUB_KEYS.active,payload.code);
+}
+function setHubActiveGame(room,gameId){
+  if(!room||!room.code)return;
+  const all=hubGet(HUB_KEYS.rooms,{}); const old=all[room.code]||hubRoomPayload(room,profile())||{};
+  all[room.code]={...old,activeGame:gameId,updatedAt:Date.now()};
+  hubSet(HUB_KEYS.rooms,all); hubSet(HUB_KEYS.active,room.code);
+}
+function buildGameContext(room,gameId){
+  const p=profile()||{};
+  const params=new URLSearchParams({game:gameId,room:room?.code||'',roomName:room?.name||'',player:p.playerId||'',nick:p.name||'',lang:lang()});
+  return params.toString();
+}
+
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
 
 const I18N={
@@ -66,7 +106,9 @@ function openSettings(){
     const avatar=document.getElementById('setAvatar').value;
     if(name.length<2)return toast(tr('nameMin'));
     if(pin.length!==4)return toast(tr('pin4'));
-    storage.set('gr_profile',{...p,name,pin,avatar,updatedAt:Date.now()});
+    const updatedProfile={...p,name,pin,avatar,updatedAt:Date.now()};
+    storage.set('gr_profile',updatedProfile);
+    saveHubProfile(updatedProfile);
     toast(tr('profileUpdated'));
     modal.remove();
     renderLogin();
@@ -130,6 +172,7 @@ function renderLogin(){
     if(!p)return toast(tr('createFirst'));
     if(pid!==p.playerId||pin!==p.pin)return toast(tr('badLogin'));
     storage.set('gr_logged_in',true);
+    saveHubProfile(p);
     renderRooms();
   };
 }
@@ -256,7 +299,7 @@ function openCapCreator(){
 }
 document.getElementById('openCapCreator').onclick=openCapCreator;
 document.getElementById('backBtn').onclick=renderLogin;
-document.getElementById('profileForm').onsubmit=(ev)=>{ev.preventDefault();const name=document.getElementById('name').value.trim();const pin=[...document.querySelectorAll('.pinBox')].map(x=>x.value).join('');if(name.length<2)return toast(profileT('Wpisz imię lub nick.','Enter name or nick.'));if(pin.length!==4)return toast(profileT('PIN musi mieć 4 cyfry.','PIN must have 4 digits.'));storage.set('gr_profile',{playerId:currentId,countryCode:c.value,country:countries[c.value],name,pin,avatar:currentCap.color||'blue',cap:currentCap,createdAt:Date.now()});toast(profileT('Profil zapisany.','Profile saved.'));setTimeout(renderLogin,700)};
+document.getElementById('profileForm').onsubmit=(ev)=>{ev.preventDefault();const name=document.getElementById('name').value.trim();const pin=[...document.querySelectorAll('.pinBox')].map(x=>x.value).join('');if(name.length<2)return toast(profileT('Wpisz imię lub nick.','Enter name or nick.'));if(pin.length!==4)return toast(profileT('PIN musi mieć 4 cyfry.','PIN must have 4 digits.'));const newProfile={playerId:currentId,countryCode:c.value,country:countries[c.value],name,pin,avatar:currentCap.color||'blue',cap:currentCap,createdAt:Date.now()};storage.set('gr_profile',newProfile);saveHubProfile(newProfile);toast(profileT('Profil zapisany.','Profile saved.'));setTimeout(renderLogin,700)};
 }
 function renderRooms(){
 const p=profile();if(!p)return renderLogin();
@@ -300,19 +343,20 @@ app.innerHTML=`<section class="screen rooms gr-clean-rooms">
   ${version()}
 </section>`;
 const normalizeCode=(id)=>document.getElementById(id).value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
-const joinByCode=()=>{const code=normalizeCode('joinCode');if(code.length!==7)return toast(lang()==='en'?'Enter a 7-character room code.':'Wpisz 7-znakowy kod pokoju.');const r={code,name:(lang()==='en'?'Room':'Pokój'),lastPlayed:'teraz',joinedBy:p.playerId};addRecent(r);renderGames(r)};
+const joinByCode=()=>{const code=normalizeCode('joinCode');if(code.length!==7)return toast(lang()==='en'?'Enter a 7-character room code.':'Wpisz 7-znakowy kod pokoju.');const r={code,name:(lang()==='en'?'Room':'Pokój'),lastPlayed:'teraz',joinedBy:p.playerId};addRecent(r);saveHubRoom(r,p);renderGames(r)};
 document.getElementById('joinRoomBtn').onclick=joinByCode;
 document.getElementById('joinCode').oninput=e=>{e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,7)};
 document.getElementById('regenRoomCode').onclick=()=>{document.getElementById('generatedRoomCode').textContent=roomCode()};
 const refreshBtn=document.getElementById('refreshRoomsBtn'); if(refreshBtn) refreshBtn.onclick=()=>toast('Lista pokoi odświeżona.');
-document.querySelectorAll('.gr-join-card').forEach(b=>b.onclick=()=>{const r=rooms[Number(b.dataset.i)];if(r)renderGames(r)});
-document.getElementById('saveRoomBtn').onclick=()=>{const name=document.getElementById('newRoomName').value.trim();const code=document.getElementById('generatedRoomCode').textContent.trim();if(name.length<2)return toast('Wpisz nazwę pokoju.');addRecent({code,name,lastPlayed:'teraz',ownerId:p.playerId,pin:p.pin});toast('Pokój zapisany: '+code);renderRooms()};
+document.querySelectorAll('.gr-join-card').forEach(b=>b.onclick=()=>{const r=rooms[Number(b.dataset.i)];if(r){saveHubRoom(r,p);renderGames(r)}});
+document.getElementById('saveRoomBtn').onclick=()=>{const name=document.getElementById('newRoomName').value.trim();const code=document.getElementById('generatedRoomCode').textContent.trim();if(name.length<2)return toast('Wpisz nazwę pokoju.');const newRoom={code,name,lastPlayed:'teraz',ownerId:p.playerId,pin:p.pin,activeGame:'lobby'};addRecent(newRoom);saveHubRoom(newRoom,p);toast('Pokój zapisany: '+code);renderRooms()};
 document.getElementById('clearRoomBtn').onclick=()=>{document.getElementById('newRoomName').value='';document.getElementById('generatedRoomCode').textContent=roomCode()};
 document.getElementById('logoutBtn').onclick=()=>{storage.remove('gr_logged_in');renderLogin()};
 }
 
 function renderGames(room){
   const p=profile(); if(!p)return renderLogin();
+  saveHubRoom(room,p);
   const l=lang();
   const dir=l==='en'?'en':'pl';
   const roomNameRaw = String(room?.name || (l==='en'?'Room':'Pokój'));
@@ -339,9 +383,9 @@ function renderGames(room){
       <div class="games-title">${l==='en'?'CHOOSE A GAME':'WYBIERZ GRĘ'}</div>
       <div class="games-subtitle">${l==='en'?'PLAY WITH US!':'GRAJ Z NAMI!'}</div>
       <div class="games-grid">
-        ${games.map(g=>`<button class="game-graphic-btn" data-game="${g.id}" aria-label="${l==='en'?g.en:g.pl}"><img src="assets/buttons/games/${dir}/${g.img}.png?v=1072" alt="${l==='en'?g.en:g.pl}"></button>`).join('')}
+        ${games.map(g=>`<button class="game-graphic-btn" data-game="${g.id}" aria-label="${l==='en'?g.en:g.pl}"><img src="assets/buttons/games/${dir}/${g.img}.png?v=1073" alt="${l==='en'?g.en:g.pl}"></button>`).join('')}
       </div>
-      <button id="gamesBackBtn" class="game-graphic-back" aria-label="${l==='en'?'Back':'Cofnij'}"><img src="assets/buttons/games/${dir}/back.png?v=1072" alt="${l==='en'?'Back':'Cofnij'}"></button>
+      <button id="gamesBackBtn" class="game-graphic-back" aria-label="${l==='en'?'Back':'Cofnij'}"><img src="assets/buttons/games/${dir}/back.png?v=1073" alt="${l==='en'?'Back':'Cofnij'}"></button>
     </div>
     ${version()}
   </section>`;
@@ -350,7 +394,11 @@ function renderGames(room){
   document.getElementById('gamesBackBtn').onclick=renderRooms;
   document.querySelectorAll('.game-graphic-btn').forEach(btn=>btn.onclick=()=>{
     const g=games.find(x=>x.id===btn.dataset.game);
-    toast((l==='en'?'Selected: ':'Wybrano: ')+(l==='en'?g.en:g.pl));
+    if(!g)return;
+    setHubActiveGame(room,g.id);
+    const ctx=buildGameContext(room,g.id);
+    storage.set('gr_last_game_context',{game:g.id,query:ctx,roomCode:room?.code||'',playerId:p.playerId,createdAt:Date.now()});
+    toast((l==='en'?'Prepared game: ':'Przygotowano grę: ')+(l==='en'?g.en:g.pl));
   });
 }
 
