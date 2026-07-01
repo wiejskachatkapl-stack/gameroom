@@ -342,8 +342,7 @@ app.innerHTML=`<section class="screen rooms gr-clean-rooms">
   <div class="gr-stage">
     <div class="gr-panel gr-create-panel gr-create-launch">
       <h2>DODAJ POKÓJ</h2>
-      <div class="gr-create-note">Otwórz osobne okno i utwórz nowy pokój.</div>
-      <button id="openCreateRoomModal" class="gr-open-create">+ DODAJ POKÓJ</button>
+      <button id="openCreateRoomModal" class="gr-open-create" type="button">+ DODAJ POKÓJ</button>
     </div>
 
     <div class="gr-panel gr-join-panel">
@@ -351,7 +350,7 @@ app.innerHTML=`<section class="screen rooms gr-clean-rooms">
       <div class="gr-section-title">TWOJE POKOJE</div>
       <div class="gr-room-list">${slots}</div>
       <div class="gr-manual-title">LUB WPISZ KOD POKOJU</div>
-      <div class="gr-manual"><input id="joinCode" class="gr-input" maxlength="7" autocomplete="off" placeholder="Wpisz 7-znakowy kod pokoju" /><button id="joinRoomBtn" class="gr-join-manual">DOŁĄCZ</button></div>
+      <div class="gr-manual"><input id="joinCode" class="gr-input" maxlength="7" autocomplete="off" placeholder="Wpisz 7-znakowy kod pokoju" /><button id="joinRoomBtn" class="gr-join-manual" type="button">DOŁĄCZ</button></div>
     </div>
   </div>
 
@@ -363,8 +362,8 @@ app.innerHTML=`<section class="screen rooms gr-clean-rooms">
       <label for="newRoomName">NAZWA POKOJU</label>
       <input id="newRoomName" class="gr-input" maxlength="24" autocomplete="off" placeholder="Wpisz nazwę pokoju" />
       <label>KOD POKOJU</label>
-      <div class="gr-code-row"><div id="generatedRoomCode" class="gr-generated">${newCode}</div><button id="regenRoomCode" class="gr-regenerate" title="Nowy kod">↻</button></div>
-      <div class="gr-modal-actions"><button id="saveRoomBtn" class="gr-save">▣ ZAPISZ POKÓJ</button><button id="closeCreateRoomModal" class="gr-back">ZAMKNIJ</button></div>
+      <div class="gr-code-row"><div id="generatedRoomCode" class="gr-generated">${newCode}</div><button id="regenRoomCode" class="gr-regenerate" type="button" title="Nowy kod">↻</button></div>
+      <div class="gr-modal-actions"><button id="saveRoomBtn" class="gr-save" type="button">▣ ZAPISZ POKÓJ</button><button id="closeCreateRoomModal" class="gr-back" type="button">ZAMKNIJ</button></div>
     </div>
   </div>
 
@@ -374,16 +373,16 @@ const normalizeCode=(id)=>document.getElementById(id).value.trim().toUpperCase()
 const joinByCode=()=>{const code=normalizeCode('joinCode');if(code.length!==7)return toast(lang()==='en'?'Enter a 7-character room code.':'Wpisz 7-znakowy kod pokoju.');const r={code,name:(lang()==='en'?'Room':'Pokój'),lastPlayed:'teraz',joinedBy:p.playerId};addRecent(r);saveHubRoom(r,p);renderGames(r)};
 document.getElementById('joinRoomBtn').onclick=joinByCode;
 document.getElementById('joinCode').oninput=e=>{e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,7)};
-document.getElementById('regenRoomCode').onclick=()=>{document.getElementById('generatedRoomCode').textContent=roomCode()};
+const regenBtn=document.getElementById('regenRoomCode'); if(regenBtn) regenBtn.onclick=(e)=>{e.preventDefault();document.getElementById('generatedRoomCode').textContent=roomCode()};
 const refreshBtn=document.getElementById('refreshRoomsBtn'); if(refreshBtn) refreshBtn.onclick=()=>toast('Lista pokoi odświeżona.');
 document.querySelectorAll('.gr-join-card').forEach(b=>b.onclick=()=>{const r=rooms[Number(b.dataset.i)];if(r){saveHubRoom(r,p);renderGames(r)}});
 const roomModal=document.getElementById('createRoomModal');
 const openCreateRoomModal=()=>{roomModal.classList.remove('hidden');roomModal.setAttribute('aria-hidden','false');setTimeout(()=>{const el=document.getElementById('newRoomName'); if(el) el.focus();},30)};
 const closeCreateRoomModal=()=>{roomModal.classList.add('hidden');roomModal.setAttribute('aria-hidden','true');};
-document.getElementById('openCreateRoomModal').onclick=openCreateRoomModal;
-document.getElementById('closeCreateRoomModal').onclick=closeCreateRoomModal;
+document.getElementById('openCreateRoomModal').onclick=(e)=>{e.preventDefault();openCreateRoomModal();};
+document.getElementById('closeCreateRoomModal').onclick=(e)=>{e.preventDefault();closeCreateRoomModal();};
 roomModal.onclick=(e)=>{if(e.target===roomModal) closeCreateRoomModal();};
-document.getElementById('saveRoomBtn').onclick=()=>{const name=document.getElementById('newRoomName').value.trim();const code=document.getElementById('generatedRoomCode').textContent.trim();if(name.length<2)return toast('Wpisz nazwę pokoju.');const newRoom={code,name,lastPlayed:'teraz',ownerId:p.playerId,pin:p.pin,activeGame:'lobby'};addRecent(newRoom);saveHubRoom(newRoom,p);toast('Pokój zapisany: '+code);renderRooms()};
+document.getElementById('saveRoomBtn').onclick=(e)=>{e.preventDefault();const name=document.getElementById('newRoomName').value.trim();const code=document.getElementById('generatedRoomCode').textContent.trim();if(name.length<2)return toast('Wpisz nazwę pokoju.');const newRoom={code,name,lastPlayed:'teraz',ownerId:p.playerId,pin:p.pin,activeGame:'lobby'};addRecent(newRoom);saveHubRoom(newRoom,p);toast('Pokój zapisany: '+code);renderRooms()};
 document.getElementById('logoutBtn').onclick=()=>{storage.remove('gr_logged_in');renderLogin()};
 }
 
