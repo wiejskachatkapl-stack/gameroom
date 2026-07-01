@@ -48,6 +48,8 @@
     resultRecorded: false,
     stats: getStatsStore(),
     roomState: null,
+    playerProgress: {},
+    lastSyncedProgress: -1,
     db: null,
     roomRef: null,
     firebaseReady: false,
@@ -138,12 +140,18 @@
     const playersObj = data && data.players && typeof data.players === 'object' ? data.players : {};
     const players = Object.keys(playersObj).map(name => normalizeName(name)).filter(Boolean).slice(0,8);
     const joined = {};
-    players.forEach(name => joined[name] = !!(playersObj[name] && playersObj[name].joined));
+    const progress = {};
+    players.forEach(name => {
+      joined[name] = !!(playersObj[name] && playersObj[name].joined);
+      const rawProgress = playersObj[name] && Number(playersObj[name].progress);
+      progress[name] = Number.isFinite(rawProgress) ? Math.max(0, Math.min(5, rawProgress)) : 0;
+    });
     if(cleanOwner && !players.includes(cleanOwner)) players.unshift(cleanOwner);
     return {
       owner: cleanOwner,
       players: Array.from(new Set(players)).filter(name => name !== 'GRACZ' || state.nick === 'GRACZ').slice(0,8),
       joined,
+      progress,
       drawnNumbers: Array.isArray(data && data.drawnNumbers) ? data.drawnNumbers.filter(n => Number.isInteger(n)).slice(0,75) : [],
       drawStatus: (data && data.drawStatus) || 'idle',
       currentBall: data && data.currentBall,
@@ -171,6 +179,7 @@
     state.roomState = room;
     state.players = getDisplayPlayers();
     state.drawnNumbers = Array.isArray(room.drawnNumbers) ? room.drawnNumbers.slice(0,75) : [];
+    state.playerProgress = room.progress && typeof room.progress === 'object' ? room.progress : {};
     if(room.stats && typeof room.stats === 'object'){
       state.stats = room.stats;
       saveStatsStore();
@@ -210,6 +219,7 @@
             [state.nick]: {
               nick: state.nick,
               joined: true,
+              progress: 0,
               online: true,
               joinedAt: firebase.database.ServerValue.TIMESTAMP
             }
@@ -222,6 +232,7 @@
       updates['players/' + state.nick + '/nick'] = state.nick;
       updates['players/' + state.nick + '/online'] = true;
       updates['players/' + state.nick + '/lastSeen'] = firebase.database.ServerValue.TIMESTAMP;
+      if(typeof state.playerProgress[state.nick] !== 'number') updates['players/' + state.nick + '/progress'] = 0;
       if(existing.owner === state.nick) updates['players/' + state.nick + '/joined'] = true;
       return state.roomRef.update(updates);
     }).catch(() => {
@@ -254,6 +265,7 @@
       owner: room.owner,
       players: room.players,
       joined: room.joined,
+      progress: state.playerProgress || {},
       drawnNumbers: state.drawnNumbers,
       currentBall: state.drawnNumbers.length ? state.drawnNumbers[state.drawnNumbers.length - 1] : null,
       stats: state.stats
@@ -297,6 +309,7 @@
       state.players.forEach(name => {
         updates['players/' + name + '/nick'] = name;
         updates['players/' + name + '/online'] = true;
+        if(typeof state.playerProgress[name] !== 'number') updates['players/' + name + '/progress'] = 0;
         if(name === state.nick && isHost()) updates['players/' + name + '/joined'] = true;
       });
       state.roomRef.update(updates);
@@ -422,6 +435,7 @@
       updates['players/' + state.nick + '/nick'] = state.nick;
       updates['players/' + state.nick + '/joined'] = true;
       updates['players/' + state.nick + '/online'] = true;
+      updates['players/' + state.nick + '/progress'] = state.playerProgress[state.nick] || 0;
       updates['players/' + state.nick + '/joinedAt'] = firebase.database.ServerValue.TIMESTAMP;
       return state.roomRef.update(updates);
     }
@@ -437,7 +451,7 @@
     room.joined[room.owner] = true;
     room.joined[state.nick] = true;
     saveLocalRoomState(room);
-    applyRemoteState({ owner: room.owner, players: room.players, joined: room.joined, drawnNumbers: state.drawnNumbers, stats: state.stats });
+    applyRemoteState({ owner: room.owner, players: room.players, joined: room.joined, progress: state.playerProgress || {}, drawnNumbers: state.drawnNumbers, stats: state.stats });
   }
 
   function randomNumbers(min, max, count){
@@ -491,13 +505,41 @@
     return [];
   }
 
+  function syncMyProgress(progress){
+    const cleanProgress = Math.max(0, Math.min(5, Number(progress) || 0));
+    state.playerProgress[state.nick] = cleanProgress;
+    if(state.lastSyncedProgress === cleanProgress) return;
+    state.lastSyncedProgress = cleanProgress;
+
+    if(state.firebaseReady && state.roomRef){
+      const updates = {};
+      updates['players/' + state.nick + '/progress'] = cleanProgress;
+      state.roomRef.update(updates).catch(()=>{});
+      return;
+    }
+
+    try {
+      let room = readLocalRoomState();
+      if(!room.progress || typeof room.progress !== 'object') room.progress = {};
+      room.progress[state.nick] = cleanProgress;
+      saveLocalRoomState(room);
+    } catch(e) {}
+  }
+
   function updatePlayerProgress(){
     const rows = playersPanel.querySelectorAll('.player-row');
-    const progress = getBestLineProgress();
-    rows.forEach((row,rowIndex) => {
+    const myProgress = getBestLineProgress();
+    syncMyProgress(myProgress);
+
+    rows.forEach(row => {
+      const nick = normalizeName(row.dataset.nick || '');
+      const playerProgress = nick === state.nick
+        ? myProgress
+        : Math.max(0, Math.min(5, Number(state.playerProgress[nick]) || 0));
+
       const balls = row.querySelectorAll('.balls i');
       balls.forEach((ball,index) => {
-        ball.classList.toggle('filled', index < progress && rowIndex === 0);
+        ball.classList.toggle('filled', index < playerProgress);
       });
     });
     updateReadyDots();
@@ -613,6 +655,8 @@
     state.isDrawing = false;
     state.winningLine = [];
     state.resultRecorded = false;
+    state.playerProgress[state.nick] = 0;
+    state.lastSyncedProgress = -1;
     if(state.drawTimer){ clearTimeout(state.drawTimer); state.drawTimer = null; }
     if(state.drawSpinTimer){ clearInterval(state.drawSpinTimer); state.drawSpinTimer = null; }
     if(drawBall){ drawBall.classList.remove('is-spinning'); drawBall.textContent = '?'; }
