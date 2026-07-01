@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1c1a16" />
+  <title>GAME ROOM v1102</title>
+  <link rel="manifest" href="manifest.json?v=1102" />
+  <link rel="stylesheet" href="style.css?v=1102" />
+</head>
+<body>
+  <main id="app"></main>
+
+  <script>
+    // v1078: czyszczenie starego cache/PWA, żeby nie odpalał się zapamiętany Typer.
+    try {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(regs){ regs.forEach(function(r){ r.unregister(); }); });
+      }
+      if (window.caches) { caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }); }
+    } catch(e) {}
+  </script>
+  <script src="firebase.js?v=1078"></script>
+  <script src="app.js?v=1102"></script>
+
+<script>
+(function(){
+  function openBingoGameRoom(){
+    var nick = "";
+    var room = "";
+    try {
+      nick = localStorage.getItem("gameRoomNick") || localStorage.getItem("playerNick") || localStorage.getItem("bingoNick") || "";
+      room = localStorage.getItem("gameRoomCode") || localStorage.getItem("roomCode") || localStorage.getItem("bingoRoomCode") || "";
+    } catch(e) {}
+    var url = "games/bingo/index.html";
+    var q = [];
+    if(nick) q.push("nick=" + encodeURIComponent(nick));
+    if(room) q.push("room=" + encodeURIComponent(room));
+    var returnUrl = new URL("index.html", window.location.href).href;
+    returnUrl += "?open=games" + (room ? "&room=" + encodeURIComponent(room) : "");
+    try { localStorage.setItem("bingoReturnUrl", returnUrl); } catch(e) {}
+    q.push("return=" + encodeURIComponent(returnUrl));
+    if(q.length) url += "?" + q.join("&");
+    window.location.href = url;
+  }
+
+  window.openBingoGameRoom = openBingoGameRoom;
+
+  document.addEventListener("click", function(e){
+    var el = e.target && e.target.closest ? e.target.closest("button,a,[data-game],[data-target],[data-action]") : null;
+    if(!el) return;
+    var img = el.querySelector ? el.querySelector("img") : null;
+    var text = (el.textContent || el.alt || (img && (img.alt || img.title || img.src)) || el.title || el.getAttribute("aria-label") || "").toUpperCase();
+    var data = ((el.dataset && (el.dataset.game || el.dataset.target || el.dataset.action)) || "").toUpperCase();
+    var href = (el.getAttribute("href") || "").toUpperCase();
+    var idc = ((el.id || "") + " " + (el.className || "")).toUpperCase();
+    if(text.indexOf("BINGO") !== -1 || data.indexOf("BINGO") !== -1 || href.indexOf("BINGO") !== -1 || idc.indexOf("BINGO") !== -1){
+      e.preventDefault();
+      openBingoGameRoom();
+    }
+  }, true);
+})();
+</script>
+
+</body>
+</html>
