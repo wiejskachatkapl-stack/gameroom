@@ -3835,7 +3835,7 @@ select.profile-input-v1051,
 }
 
 
-/* v1100 SAFE – transparentność bez wymuszania orientacji */
+/* v1101 – bezpieczna transparentność i przywrócone wejście Bingo */
 .screen:not(.login-clean) .gr-panel,
 .screen:not(.login-clean) .gr-room-shell,
 .screen:not(.login-clean) .gr-create-launch,

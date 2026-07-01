@@ -19,7 +19,7 @@ function openBingoGameRoom(){
 }
 window.openBingoGameRoom = openBingoGameRoom;
 
-const VERSION = 'GAME ROOM v1100';
+const VERSION = 'GAME ROOM v1101';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 
@@ -414,6 +414,36 @@ function buildBingoLaunchUrl(room){
   return 'games/bingo/index.html?' + q.toString();
 }
 
+
+function launchBingoFromGameRoom(room){
+  try{
+    const p = profile();
+    const nick = p && p.name ? p.name : '';
+    const playerId = p && p.playerId ? p.playerId : '';
+    const roomCode = room && room.code ? room.code : '';
+    const roomName = room && room.name ? room.name : '';
+
+    try{
+      localStorage.setItem('bingoNick', nick);
+      localStorage.setItem('bingoRoomCode', roomCode);
+      localStorage.setItem('bingoPlayerId', playerId);
+      localStorage.setItem('bingoRoomName', roomName);
+    }catch(e){}
+
+    const q = new URLSearchParams();
+    q.set('room', roomCode);
+    q.set('roomName', roomName);
+    q.set('nick', nick);
+    q.set('player', playerId);
+    q.set('ts', String(Date.now()));
+
+    window.location.href = 'games/bingo/index.html?' + q.toString();
+  }catch(e){
+    console.error('BINGO launch error:', e);
+    window.location.href = 'games/bingo/index.html?ts=' + Date.now();
+  }
+}
+
 function renderGames(room){
   const p=profile(); if(!p)return renderLogin();
   room = {...(room||{}), activeGame:'lobby'};
@@ -468,7 +498,7 @@ function renderGames(room){
     if(g.id==='bingo'){
       const returnUrl = new URL('index.html', window.location.href).href + '?open=games' + ((room?.code||room?.roomId) ? '&room=' + encodeURIComponent(room?.code||room?.roomId) : '');
       try { localStorage.setItem('bingoReturnUrl', returnUrl); } catch(e) {}
-      window.location.href=buildBingoLaunchUrl(room);
+      launchBingoFromGameRoom(room);
       return;
     }
     renderGameStage(room,g);
@@ -559,7 +589,7 @@ function renderGameStage(room,game){
   if(gameId==='bingo'){
     const returnUrl = new URL('index.html', window.location.href).href + '?open=games' + ((room?.code||room?.roomId) ? '&room=' + encodeURIComponent(room?.code||room?.roomId) : '');
     try { localStorage.setItem('bingoReturnUrl', returnUrl); } catch(e) {}
-    window.location.href=buildBingoLaunchUrl(room);
+    launchBingoFromGameRoom(room);
     return;
   }
   const label=typeof game==='object'?(l==='en'?game.en:game.pl):gameLabel(gameId);
