@@ -341,7 +341,6 @@ app.innerHTML=`<section class="screen rooms gr-clean-rooms">
 
   <div class="gr-stage">
     <div class="gr-panel gr-create-panel">
-      <div class="gr-panel-icon">♟ ♟</div>
       <h2>UTWÓRZ POKÓJ</h2>
       <label for="newRoomName">NAZWA POKOJU</label>
       <input id="newRoomName" class="gr-input" maxlength="24" autocomplete="off" placeholder="Wpisz nazwę pokoju" />
@@ -351,7 +350,6 @@ app.innerHTML=`<section class="screen rooms gr-clean-rooms">
     </div>
 
     <div class="gr-panel gr-join-panel">
-      <div class="gr-panel-icon blue">♟ ♟</div>
       <h2>DOŁĄCZ DO POKOJU</h2>
       <div class="gr-section-title">TWOJE POKOJE</div>
       <div class="gr-room-list">${slots}</div>

@@ -2818,3 +2818,208 @@ select.profile-input-v1051,
 .typer-room-strip span{font-size:clamp(9px,.88vw,15px);font-weight:1000;color:#5bd6ff;letter-spacing:1px}.typer-room-strip strong{display:block;max-width:96%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:clamp(14px,1.48vw,25px);font-weight:1000;color:#fff;margin-top:3px}
 .typer-main-grid{height:55%;display:grid;grid-template-columns:1fr 1fr;gap:1.8%}.typer-players-box,.typer-actions-box{border:2px solid rgba(255,255,255,.26);border-radius:18px;background:rgba(0,0,0,.23);padding:3%;box-sizing:border-box;min-width:0;overflow:hidden}.typer-players-box h2,.typer-actions-box h2{margin:0 0 3%;font-size:clamp(15px,1.55vw,26px);font-weight:1000;color:#4fc3ff}.typer-player-list{height:82%;overflow-y:auto;padding-right:1.5%}.typer-player-row{height:24%;min-height:44px;margin-bottom:2%;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(255,255,255,.06);display:flex;align-items:center;text-align:left;padding:0 3%;box-sizing:border-box;gap:3%}.typer-player-row.me{border-color:rgba(255,196,0,.85);box-shadow:0 0 12px rgba(255,196,0,.22)}.typer-player-row .dot{width:12px;height:12px;border-radius:50%;background:#9a1c1c;box-shadow:0 0 8px #9a1c1c;flex:0 0 auto}.typer-player-row .dot.on{background:#25ef6b;box-shadow:0 0 9px #25ef6b}.typer-player-row div{flex:1;min-width:0}.typer-player-row strong{display:block;font-size:clamp(13px,1.25vw,21px);font-weight:1000;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.typer-player-row em{display:block;font-style:normal;font-size:clamp(10px,.95vw,16px);font-weight:900;color:#b8e8ff}.typer-player-row b{font-size:clamp(9px,.82vw,14px);color:#ffc400}.typer-actions-box p{font-size:clamp(12px,1.12vw,19px);font-weight:800;line-height:1.28;margin:0 0 4%;color:#e8f8ff}.typer-start,.typer-back{width:82%;height:18%;min-height:42px;border:0;border-radius:16px;font-weight:1000;font-size:clamp(14px,1.45vw,24px);cursor:pointer;text-shadow:none}.typer-start{background:linear-gradient(180deg,#60ff90,#0fae45);color:#001b08;box-shadow:0 5px 0 #075d25,0 0 18px rgba(50,255,110,.35);margin:0 auto 2%;display:block}.typer-start:disabled{filter:grayscale(1);opacity:.55;cursor:not-allowed}.typer-admin-note{font-size:clamp(10px,.96vw,17px);font-weight:900;color:#b8e8ff;margin-bottom:3%}.typer-back{background:linear-gradient(180deg,#ffd24d,#ff9c00);color:#241000;box-shadow:0 5px 0 #7a3300,0 0 18px rgba(255,180,0,.42)}
 @media (pointer:coarse){.typer-lobby{width:100vw;max-height:100vh;aspect-ratio:3/2}.typer-lobby-card{left:14%;top:15%;width:72%;height:73%;border-radius:20px;padding:1.7%}.typer-room-strip{height:14%;margin-bottom:1.2%}.typer-main-grid{height:57%}.typer-player-row{min-height:30px}.typer-start,.typer-back{min-height:34px}}
+
+
+/* v1085 – GAME ROOM: dopracowany ekran wyboru pokoju */
+.rooms.gr-clean-rooms{
+  width:min(100vw, 176vh) !important;
+  max-width:100vw !important;
+  max-height:100vh !important;
+  margin:0 auto !important;
+  overflow:hidden !important;
+}
+.gr-stage{
+  left:18.0% !important;
+  top:21.0% !important;
+  width:64.0% !important;
+  height:58.2% !important;
+}
+.gr-panel{
+  border-radius:22px !important;
+  background:rgba(0,0,0,.16) !important;
+  box-shadow:inset 0 0 28px rgba(0,0,0,.26) !important;
+}
+.gr-panel-icon{display:none !important;}
+.gr-panel h2{
+  top:10.0% !important;
+  font-size:clamp(18px,1.75vw,31px) !important;
+  line-height:1.02 !important;
+  letter-spacing:.4px !important;
+}
+.gr-create-panel h2,
+.gr-join-panel h2{
+  font-size:clamp(18px,1.75vw,31px) !important;
+}
+.gr-create-panel label,
+.gr-section-title,
+.gr-manual-title{
+  font-size:clamp(11px,1.0vw,17px) !important;
+}
+.gr-input{
+  height:9.6% !important;
+  border-width:2px !important;
+  background:rgba(0,0,0,.28) !important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.04), 0 0 10px rgba(0,0,0,.14) !important;
+}
+.gr-create-panel .gr-input{
+  left:7.5% !important;
+  width:85.0% !important;
+  font-size:clamp(12px,1.15vw,20px) !important;
+}
+.gr-code-row{
+  left:7.5% !important;
+  width:85.0% !important;
+  height:9.8% !important;
+}
+.gr-code-box{font-size:clamp(18px,2.1vw,38px) !important;}
+.gr-regenerate{width:12.5% !important;font-size:clamp(18px,1.8vw,30px) !important;}
+.gr-actions{
+  left:7.5% !important;
+  width:85.0% !important;
+  bottom:8.2% !important;
+  gap:6.0% !important;
+}
+.gr-actions button,.gr-join-card,.gr-join-manual{
+  min-height:44px !important;
+  font-size:clamp(10px,.95vw,16px) !important;
+  font-weight:900 !important;
+}
+.gr-room-list{
+  left:6.5% !important;
+  width:87.0% !important;
+  top:34.5% !important;
+  height:43.2% !important;
+}
+.gr-room-card{
+  min-height:54px !important;
+  background:rgba(0,0,0,.14) !important;
+}
+.gr-room-name{font-size:clamp(11px,.98vw,16px) !important;}
+.gr-room-code{font-size:clamp(10px,.86vw,14px) !important;}
+.gr-join-card{width:22.5% !important;min-width:74px !important;}
+.gr-manual{
+  left:6.5% !important;
+  width:87.0% !important;
+  height:10.0% !important;
+  gap:3.2% !important;
+}
+.gr-manual .gr-input{
+  height:100% !important;
+  font-size:clamp(13px,1.1vw,19px) !important;
+}
+.gr-manual .gr-join-manual{min-width:94px !important;}
+.gr-logout{
+  left:29.5% !important;
+  width:41.0% !important;
+  bottom:3.0% !important;
+}
+
+/* telefon – ekran pokojów zawsze w poziomie i większe pola */
+@media (orientation:portrait){
+  html, body{
+    width:100vw !important;
+    height:100vh !important;
+    overflow:hidden !important;
+    background:#0b0d10 !important;
+  }
+  .rooms.gr-clean-rooms{
+    position:fixed !important;
+    left:50% !important;
+    top:50% !important;
+    width:100vh !important;
+    height:100vw !important;
+    max-width:none !important;
+    max-height:none !important;
+    transform:translate(-50%,-50%) rotate(90deg) !important;
+    transform-origin:center center !important;
+  }
+  .gr-profile-head{
+    left:12.0% !important;
+    top:1.8% !important;
+    transform:scale(.88) !important;
+    transform-origin:left top !important;
+  }
+  .gr-stage{
+    left:13.3% !important;
+    top:19.5% !important;
+    width:73.8% !important;
+    height:62.3% !important;
+  }
+  .gr-panel{
+    border-radius:22px !important;
+    background:rgba(0,0,0,.24) !important;
+    box-shadow:inset 0 0 28px rgba(0,0,0,.32) !important;
+  }
+  .gr-panel h2{top:8.5% !important;font-size:clamp(18px,3.4vw,26px) !important;}
+  .gr-create-panel label,.gr-section-title,.gr-manual-title{
+    font-size:clamp(12px,2.2vw,18px) !important;
+    letter-spacing:.4px !important;
+  }
+  .gr-input,.gr-code-row,.gr-room-card,.gr-manual{
+    border-width:3px !important;
+    box-shadow:0 0 0 1px rgba(255,255,255,.05), inset 0 0 14px rgba(0,0,0,.35) !important;
+  }
+  .gr-create-panel .gr-input{
+    left:6.4% !important;
+    width:87.2% !important;
+    height:11.4% !important;
+    font-size:clamp(15px,2.5vw,21px) !important;
+    padding:0 14px !important;
+  }
+  .gr-code-row{
+    left:6.4% !important;
+    width:87.2% !important;
+    height:11.6% !important;
+  }
+  .gr-code-box{
+    font-size:clamp(24px,4.0vw,34px) !important;
+    letter-spacing:1px !important;
+  }
+  .gr-regenerate{width:13.8% !important;font-size:clamp(22px,3.5vw,30px) !important;}
+  .gr-actions{
+    left:6.4% !important;
+    width:87.2% !important;
+    bottom:8.0% !important;
+    height:11.5% !important;
+    gap:4.0% !important;
+  }
+  .gr-actions button,.gr-join-manual,.gr-join-card{
+    min-height:50px !important;
+    border-width:3px !important;
+    font-size:clamp(13px,2.2vw,18px) !important;
+  }
+  .gr-room-list{
+    left:5.8% !important;
+    width:88.4% !important;
+    top:33.0% !important;
+    height:44.2% !important;
+    padding-right:2.4% !important;
+  }
+  .gr-room-card{
+    min-height:64px !important;
+    padding:0 10px !important;
+    background:rgba(0,0,0,.18) !important;
+  }
+  .gr-room-name{font-size:clamp(13px,2.2vw,18px) !important;}
+  .gr-room-code{font-size:clamp(12px,1.9vw,16px) !important;}
+  .gr-join-card{width:24.0% !important;min-width:88px !important;}
+  .gr-manual{
+    left:5.8% !important;
+    width:88.4% !important;
+    bottom:6.0% !important;
+    height:11.8% !important;
+    gap:3.0% !important;
+  }
+  .gr-manual .gr-input{
+    font-size:clamp(15px,2.4vw,20px) !important;
+    padding:0 14px !important;
+  }
+  .gr-manual .gr-join-manual{min-width:98px !important;}
+  .gr-logout{
+    left:25.5% !important;
+    width:49.0% !important;
+    bottom:2.2% !important;
+    height:7.0% !important;
+    font-size:clamp(12px,2.0vw,17px) !important;
+  }
+}
