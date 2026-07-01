@@ -33,7 +33,6 @@
 
   const params = new URLSearchParams(window.location.search);
 
-
   if(params.get('nick') || params.get('room')){
     try{
       if(params.get('nick')) localStorage.setItem('bingoNick', params.get('nick'));
