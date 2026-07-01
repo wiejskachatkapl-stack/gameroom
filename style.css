@@ -3790,3 +3790,46 @@ select.profile-input-v1051,
     font-size:23px !important;
   }
 }
+
+
+/* v1092 – telefon: ekran wyboru gier większy i niżej */
+@media (pointer:coarse) and (orientation:landscape){
+  .games-player-head{
+    left:2.0% !important;
+    top:3.0% !important;
+    width:22% !important;
+    height:24% !important;
+    transform:scale(.68) !important;
+    transform-origin:left top !important;
+  }
+  .games-room-title{
+    left:90px !important;
+    top:54px !important;
+    width:170px !important;
+    min-height:44px !important;
+    padding:5px 8px !important;
+  }
+  .games-graphic-panel{
+    left:18.0% !important;
+    top:35.2% !important;
+    width:64.0% !important;
+    height:58.5% !important;
+    padding:0 !important;
+  }
+  .games-grid{
+    width:92% !important;
+    gap:8px !important;
+    transform:translateY(1.5%) !important;
+  }
+  .game-graphic-btn{
+    max-width:128px !important;
+    width:100% !important;
+  }
+  .game-graphic-back{
+    width:20% !important;
+    max-width:120px !important;
+    min-width:86px !important;
+    margin-top:8px !important;
+    transform:translateY(2px) !important;
+  }
+}
