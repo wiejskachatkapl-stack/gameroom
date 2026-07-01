@@ -3023,3 +3023,215 @@ select.profile-input-v1051,
     font-size:clamp(12px,2.0vw,17px) !important;
   }
 }
+
+
+/* v1086 – GAME ROOM: czytelny ekran pokojów na telefonie */
+@media (orientation:portrait){
+  html, body{
+    width:100vw !important;
+    height:100vh !important;
+    overflow:hidden !important;
+    background:#0b0d10 !important;
+  }
+  .rooms.gr-clean-rooms{
+    position:fixed !important;
+    left:50% !important;
+    top:50% !important;
+    width:100vh !important;
+    height:100vw !important;
+    max-width:none !important;
+    max-height:none !important;
+    transform:translate(-50%,-50%) rotate(90deg) !important;
+    transform-origin:center center !important;
+  }
+  .gr-profile-head{
+    left:10.8% !important;
+    top:1.4% !important;
+    transform:scale(.70) !important;
+    transform-origin:left top !important;
+  }
+  .gr-stage{
+    left:14.0% !important;
+    top:21.5% !important;
+    width:72.0% !important;
+    height:58.5% !important;
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:2.2% !important;
+    padding:0 !important;
+  }
+  .gr-panel{
+    border-radius:20px !important;
+    background:rgba(0,0,0,.32) !important;
+    box-shadow:inset 0 0 22px rgba(0,0,0,.34) !important;
+    overflow:hidden !important;
+  }
+  .gr-panel h2{
+    left:7% !important;
+    width:86% !important;
+    top:8.0% !important;
+    font-size:clamp(15px,2.45vw,21px) !important;
+    line-height:.96 !important;
+    letter-spacing:.2px !important;
+    white-space:normal !important;
+  }
+  .gr-create-panel h2{
+    font-size:clamp(17px,2.7vw,23px) !important;
+    top:9.0% !important;
+  }
+  .gr-join-panel h2{
+    font-size:clamp(14px,2.25vw,19px) !important;
+    top:8.0% !important;
+  }
+  .gr-panel label,
+  .gr-section-title,
+  .gr-manual-title{
+    left:7% !important;
+    width:86% !important;
+    font-size:clamp(10px,1.7vw,14px) !important;
+    line-height:1.05 !important;
+    letter-spacing:.2px !important;
+  }
+  .gr-create-panel label:nth-of-type(1){ top:28.0% !important; }
+  .gr-create-panel label:nth-of-type(2){ top:50.5% !important; }
+  .gr-section-title{ top:27.0% !important; }
+  .gr-manual-title{ bottom:17.8% !important; }
+
+  .gr-input,
+  .gr-code-row,
+  .gr-room-card,
+  .gr-manual{
+    border-width:2px !important;
+    border-radius:12px !important;
+    box-shadow:0 0 0 1px rgba(255,255,255,.05), inset 0 0 10px rgba(0,0,0,.36) !important;
+  }
+  .gr-create-panel .gr-input{
+    left:7% !important;
+    width:86% !important;
+    height:9.0% !important;
+    top:auto !important;
+    font-size:clamp(13px,2.0vw,17px) !important;
+    padding:0 14px !important;
+  }
+  #newRoomName.gr-input{ top:34.8% !important; }
+  .gr-code-row{
+    left:7% !important;
+    width:86% !important;
+    top:57.2% !important;
+    height:9.6% !important;
+  }
+  .gr-code-box,
+  .gr-generated{
+    font-size:clamp(20px,3.2vw,28px) !important;
+    letter-spacing:.8px !important;
+    padding:0 16px !important;
+  }
+  .gr-regenerate{
+    width:13% !important;
+    font-size:clamp(18px,3.0vw,24px) !important;
+  }
+  .gr-actions{
+    left:7% !important;
+    width:86% !important;
+    bottom:7.2% !important;
+    height:11.2% !important;
+    gap:4.2% !important;
+  }
+  .gr-actions button{
+    min-height:44px !important;
+    font-size:clamp(12px,1.9vw,16px) !important;
+    border-width:2px !important;
+  }
+
+  .gr-room-list{
+    left:6.2% !important;
+    width:87.6% !important;
+    top:35.0% !important;
+    height:26.5% !important;
+    padding-right:2.0% !important;
+  }
+  .gr-room-card{
+    min-height:66px !important;
+    margin-bottom:8px !important;
+    padding:4px 8px !important;
+    background:rgba(0,0,0,.22) !important;
+    display:grid !important;
+    grid-template-columns:12% 1fr 29% !important;
+    align-items:center !important;
+    column-gap:2% !important;
+  }
+  .gr-room-icon{
+    flex:none !important;
+    font-size:clamp(14px,2.1vw,18px) !important;
+  }
+  .gr-room-data{
+    min-width:0 !important;
+    padding-right:0 !important;
+    line-height:1.08 !important;
+  }
+  .gr-room-name{
+    font-size:clamp(12px,1.9vw,16px) !important;
+    margin-bottom:2px !important;
+  }
+  .gr-room-code{
+    font-size:clamp(11px,1.65vw,14px) !important;
+  }
+  .gr-join-card{
+    position:static !important;
+    right:auto !important;
+    top:auto !important;
+    width:100% !important;
+    min-width:0 !important;
+    height:42px !important;
+    font-size:clamp(11px,1.7vw,14px) !important;
+    border-width:2px !important;
+  }
+
+  .gr-manual{
+    left:6.2% !important;
+    width:87.6% !important;
+    bottom:7.0% !important;
+    height:10.8% !important;
+    gap:3.0% !important;
+    display:grid !important;
+    grid-template-columns:1fr 31% !important;
+    align-items:stretch !important;
+  }
+  .gr-manual .gr-input{
+    height:100% !important;
+    width:100% !important;
+    font-size:clamp(13px,1.95vw,16px) !important;
+    padding:0 14px !important;
+  }
+  .gr-join-manual{
+    width:100% !important;
+    min-width:0 !important;
+    height:100% !important;
+    font-size:clamp(12px,1.8vw,15px) !important;
+    border-width:2px !important;
+  }
+
+  .gr-logout{
+    left:27.5% !important;
+    width:45.0% !important;
+    bottom:2.5% !important;
+    height:6.0% !important;
+    font-size:clamp(11px,1.7vw,14px) !important;
+  }
+  .gr-clean-rooms .version{
+    font-size:10px !important;
+    right:1.5% !important;
+    bottom:1.2% !important;
+  }
+}
+
+/* dodatkowo dla bardzo niskich telefonów w poziomym wymuszeniu */
+@media (orientation:portrait) and (max-height:430px){
+  .gr-profile-head{ transform:scale(.62) !important; top:1.0% !important; }
+  .gr-stage{ top:22.2% !important; height:57.0% !important; }
+  .gr-create-panel h2{ font-size:clamp(15px,2.4vw,20px) !important; }
+  .gr-join-panel h2{ font-size:clamp(13px,2.0vw,17px) !important; }
+  .gr-room-list{ height:24.5% !important; }
+  .gr-room-card{ min-height:58px !important; }
+  .gr-actions button,.gr-join-card,.gr-join-manual{ font-size:clamp(11px,1.6vw,14px) !important; }
+}
