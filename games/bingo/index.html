@@ -3,66 +3,64 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#070018" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <title>BINGO v1020</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="style.css?v=1020" />
+  <meta name="theme-color" content="#1c1a16" />
+  <title>GAME ROOM v1101</title>
+  <link rel="manifest" href="manifest.json?v=1101" />
+  <link rel="stylesheet" href="style.css?v=1101" />
 </head>
 <body>
-  <main id="app" class="app" aria-label="BINGO v1020">
-    <section id="screenStart" class="screen screen-start is-active" aria-label="Ekran startowy BINGO">
-      <div class="stage stage-start">
-        <button id="btnPlay" class="hit-btn hit-play" type="button" aria-label="Graj">GRAJ</button>
-        <button id="btnExitStart" class="hit-btn hit-exit-start" type="button" aria-label="Wyjście">WYJŚCIE</button>
-      </div>
-    </section>
+  <main id="app"></main>
 
-    <section id="screenGame" class="screen screen-game" aria-label="Ekran gry BINGO">
-      <div class="stage stage-game">
-        <div class="left-info" aria-label="Dane pokoju">
-          <div class="info-card info-card-nick">
-            <span class="info-label">NICK</span>
-            <strong id="playerNick" class="info-value nick-value">Mariusz</strong>
-          </div>
-          <div class="info-card info-card-room">
-            <span class="info-label">KOD POKOJU</span>
-            <strong id="roomCode" class="info-value room-value">PWG5N2D</strong>
-          </div>
-        </div>
+  <script>
+    // v1078: czyszczenie starego cache/PWA, żeby nie odpalał się zapamiętany Typer.
+    try {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(regs){ regs.forEach(function(r){ r.unregister(); }); });
+      }
+      if (window.caches) { caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }); }
+    } catch(e) {}
+  </script>
+  <script src="firebase.js?v=1078"></script>
+  <script src="app.js?v=1101"></script>
 
-        <aside id="rankingPanel" class="ranking-panel" aria-label="Tabela graczy">
-          <div class="ranking-title">TABELA</div>
-          <div class="ranking-head">
-            <span>#</span><span>NICK</span><span>PKT</span><span>GRY</span><span>ŚR</span>
-          </div>
-          <div id="rankingRows" class="ranking-rows"></div>
-        </aside>
+<script>
+(function(){
+  function openBingoGameRoom(){
+    var nick = "";
+    var room = "";
+    try {
+      nick = localStorage.getItem("gameRoomNick") || localStorage.getItem("playerNick") || localStorage.getItem("bingoNick") || "";
+      room = localStorage.getItem("gameRoomCode") || localStorage.getItem("roomCode") || localStorage.getItem("bingoRoomCode") || "";
+    } catch(e) {}
+    var url = "games/bingo/index.html";
+    var q = [];
+    if(nick) q.push("nick=" + encodeURIComponent(nick));
+    if(room) q.push("room=" + encodeURIComponent(room));
+    var returnUrl = new URL("index.html", window.location.href).href;
+    returnUrl += "?open=games" + (room ? "&room=" + encodeURIComponent(room) : "");
+    try { localStorage.setItem("bingoReturnUrl", returnUrl); } catch(e) {}
+    q.push("return=" + encodeURIComponent(returnUrl));
+    if(q.length) url += "?" + q.join("&");
+    window.location.href = url;
+  }
 
-        <div id="drawMachine" class="draw-machine" aria-label="Maszyna losująca">
-          <div id="drawBall" class="draw-ball">?</div>
-        </div>
+  window.openBingoGameRoom = openBingoGameRoom;
 
-        <div id="bingoBoard" class="bingo-board" aria-label="Karta BINGO"></div>
+  document.addEventListener("click", function(e){
+    var el = e.target && e.target.closest ? e.target.closest("button,a,[data-game],[data-target],[data-action]") : null;
+    if(!el) return;
+    var img = el.querySelector ? el.querySelector("img") : null;
+    var text = (el.textContent || el.alt || (img && (img.alt || img.title || img.src)) || el.title || el.getAttribute("aria-label") || "").toUpperCase();
+    var data = ((el.dataset && (el.dataset.game || el.dataset.target || el.dataset.action)) || "").toUpperCase();
+    var href = (el.getAttribute("href") || "").toUpperCase();
+    var idc = ((el.id || "") + " " + (el.className || "")).toUpperCase();
+    if(text.indexOf("BINGO") !== -1 || data.indexOf("BINGO") !== -1 || href.indexOf("BINGO") !== -1 || idc.indexOf("BINGO") !== -1){
+      e.preventDefault();
+      openBingoGameRoom();
+    }
+  }, true);
+})();
+</script>
 
-        <div id="drawnNumbers" class="drawn-numbers" aria-label="Wylosowane liczby"></div>
-
-        <aside id="playersPanel" class="players-panel" aria-label="Gracze w pokoju"></aside>
-
-        <div id="gameControls" class="game-controls" aria-label="Sterowanie grą">
-          <button id="btnStartDraw" class="game-action-btn btn-start-draw" type="button">START</button>
-        </div>
-
-        <div id="bingoWinMessage" class="bingo-win-message" aria-live="polite"></div>
-
-        <button id="btnExitGame" class="hit-btn hit-exit-game" type="button" aria-label="Wyjście">WYJŚCIE</button>
-      </div>
-    </section>
-  </main>
-  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
-  <script src="app.js?v=1020"></script>
 </body>
 </html>
