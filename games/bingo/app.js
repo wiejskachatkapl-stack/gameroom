@@ -508,14 +508,31 @@
   }
 
   function joinCurrentPlayer(){
+    if(!state.presentRound || typeof state.presentRound !== 'object') state.presentRound = {};
+    if(!state.activeRound || typeof state.activeRound !== 'object') state.activeRound = {};
+
+    state.presentRound[state.nick] = true;
+    state.activeRound[state.nick] = true;
+
     if(state.firebaseReady && state.roomRef){
       const updates = {};
       updates['players/' + state.nick + '/nick'] = state.nick;
       updates['players/' + state.nick + '/joined'] = true;
       updates['players/' + state.nick + '/online'] = true;
       updates['players/' + state.nick + '/progress'] = state.playerProgress[state.nick] || 0;
+      updates['presentRound/' + state.nick] = true;
+      updates['activeRound/' + state.nick] = true;
       updates['players/' + state.nick + '/joinedAt'] = firebase.database.ServerValue.TIMESTAMP;
-      return state.roomRef.update(updates);
+
+      renderPlayers(getDisplayPlayers());
+      updatePlayerProgress();
+      renderRanking();
+      updatePrimaryButton();
+
+      state.roomRef.update(updates).catch((err)=>{
+        console.warn('BINGO join error:', err);
+      });
+      return;
     }
 
     let room = readLocalRoomState();
@@ -526,10 +543,14 @@
     room.players.forEach(name => {
       if(typeof room.joined[name] !== 'boolean') room.joined[name] = false;
     });
+    if(!room.presentRound || typeof room.presentRound !== 'object') room.presentRound = {};
+    if(!room.activeRound || typeof room.activeRound !== 'object') room.activeRound = {};
     room.joined[room.owner] = true;
     room.joined[state.nick] = true;
+    room.presentRound[state.nick] = true;
+    room.activeRound[state.nick] = true;
     saveLocalRoomState(room);
-    applyRemoteState({ owner: room.owner, players: room.players, joined: room.joined, progress: state.playerProgress || {}, drawnNumbers: state.drawnNumbers, stats: state.stats });
+    applyRemoteState({ owner: room.owner, players: room.players, joined: room.joined, presentRound: room.presentRound, activeRound: room.activeRound, progress: state.playerProgress || {}, drawnNumbers: state.drawnNumbers, stats: state.stats });
   }
 
   function randomNumbers(min, max, count){
@@ -879,7 +900,10 @@
       if(state.isDrawing || state.drawTimer) return;
       drawNextNumber();
     } else {
-      if(state.activeRound && state.activeRound[state.nick]) return;
+      if(state.activeRound && state.activeRound[state.nick]){
+        updatePrimaryButton();
+        return;
+      }
       joinCurrentPlayer();
     }
   });
