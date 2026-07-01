@@ -3235,3 +3235,303 @@ select.profile-input-v1051,
   .gr-room-card{ min-height:58px !important; }
   .gr-actions button,.gr-join-card,.gr-join-manual{ font-size:clamp(11px,1.6vw,14px) !important; }
 }
+
+
+/* v1087 – GAME ROOM: modal tworzenia pokoju i czytelny telefon */
+.rooms.gr-clean-rooms .gr-stage{
+  left:18.2% !important;
+  top:22.3% !important;
+  width:64.3% !important;
+  height:60.2% !important;
+  display:grid !important;
+  grid-template-columns:28% 70% !important;
+  gap:2.0% !important;
+}
+.rooms.gr-clean-rooms .gr-create-launch{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  padding:10% 8% !important;
+  text-align:center !important;
+}
+.rooms.gr-clean-rooms .gr-create-launch h2{
+  position:static !important;
+  width:100% !important;
+  margin:0 0 14px 0 !important;
+  font-size:clamp(18px,1.7vw,29px) !important;
+  line-height:1.0 !important;
+}
+.rooms.gr-clean-rooms .gr-create-note{
+  color:rgba(238,232,214,.88) !important;
+  font-size:clamp(12px,.95vw,16px) !important;
+  line-height:1.25 !important;
+  text-shadow:0 2px 4px #000 !important;
+  margin:0 0 20px 0 !important;
+}
+.rooms.gr-clean-rooms .gr-open-create{
+  width:84% !important;
+  min-height:52px !important;
+  border:2px solid rgba(205,167,55,.92) !important;
+  border-radius:14px !important;
+  background:rgba(0,0,0,.22) !important;
+  color:#d3a627 !important;
+  font-size:clamp(14px,1.1vw,18px) !important;
+  font-weight:900 !important;
+  text-shadow:0 2px 4px #000 !important;
+  box-shadow:inset 0 0 14px rgba(0,0,0,.25) !important;
+  cursor:pointer !important;
+}
+.rooms.gr-clean-rooms .gr-join-panel h2{
+  top:9.5% !important;
+  font-size:clamp(21px,1.9vw,32px) !important;
+}
+.rooms.gr-clean-rooms .gr-section-title{
+  top:23.0% !important;
+  font-size:clamp(12px,1.0vw,17px) !important;
+}
+.rooms.gr-clean-rooms .gr-room-list{
+  top:29.5% !important;
+  height:35.5% !important;
+}
+.rooms.gr-clean-rooms .gr-room-card{
+  min-height:58px !important;
+  display:grid !important;
+  grid-template-columns:10% 1fr 22% !important;
+  align-items:center !important;
+  column-gap:2% !important;
+  padding:4px 8px !important;
+}
+.rooms.gr-clean-rooms .gr-room-icon{flex:none !important;}
+.rooms.gr-clean-rooms .gr-room-data{padding-right:0 !important;}
+.rooms.gr-clean-rooms .gr-join-card{
+  position:static !important;
+  width:100% !important;
+  min-width:0 !important;
+  height:40px !important;
+}
+.rooms.gr-clean-rooms .gr-manual-title{
+  bottom:18.0% !important;
+  font-size:clamp(12px,1.0vw,16px) !important;
+}
+.rooms.gr-clean-rooms .gr-manual{
+  bottom:6.8% !important;
+  height:10.5% !important;
+  display:grid !important;
+  grid-template-columns:1fr 22% !important;
+  gap:2.6% !important;
+  align-items:stretch !important;
+}
+.rooms.gr-clean-rooms .gr-manual .gr-input{width:100% !important;}
+.rooms.gr-clean-rooms .gr-join-manual{
+  width:100% !important;
+  min-width:0 !important;
+  height:100% !important;
+}
+.rooms.gr-clean-rooms .gr-modal{
+  position:absolute !important;
+  inset:0 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  background:rgba(0,0,0,.56) !important;
+  z-index:80 !important;
+}
+.rooms.gr-clean-rooms .gr-modal.hidden{display:none !important;}
+.rooms.gr-clean-rooms .gr-modal-card{
+  width:min(420px, 44vw) !important;
+  min-height:330px !important;
+  padding:20px 22px 22px !important;
+  border:3px solid rgba(205,167,55,.88) !important;
+  border-radius:22px !important;
+  background:rgba(7,9,12,.94) !important;
+  box-shadow:0 12px 40px rgba(0,0,0,.5), inset 0 0 24px rgba(0,0,0,.28) !important;
+  position:relative !important;
+}
+.rooms.gr-clean-rooms .gr-modal-card h3{
+  margin:0 0 18px 0 !important;
+  text-align:center !important;
+  color:#d3a627 !important;
+  font-size:clamp(22px,1.9vw,34px) !important;
+  font-weight:900 !important;
+  text-shadow:0 2px 4px #000 !important;
+}
+.rooms.gr-clean-rooms .gr-modal-card label{
+  display:block !important;
+  margin:10px 0 8px !important;
+  color:#198eff !important;
+  font-size:clamp(12px,1.0vw,16px) !important;
+  font-weight:900 !important;
+  text-align:center !important;
+  text-shadow:0 2px 4px #000 !important;
+}
+.rooms.gr-clean-rooms .gr-modal-card .gr-input{
+  position:static !important;
+  width:100% !important;
+  height:52px !important;
+  font-size:clamp(14px,1.1vw,18px) !important;
+  padding:0 16px !important;
+  margin:0 !important;
+}
+.rooms.gr-clean-rooms .gr-modal-card .gr-code-row{
+  position:static !important;
+  width:100% !important;
+  height:56px !important;
+  margin-top:0 !important;
+}
+.rooms.gr-clean-rooms .gr-modal-card .gr-generated{
+  font-size:clamp(24px,2.2vw,34px) !important;
+}
+.rooms.gr-clean-rooms .gr-modal-actions{
+  margin-top:18px !important;
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:12px !important;
+}
+.rooms.gr-clean-rooms .gr-modal-actions .gr-save,
+.rooms.gr-clean-rooms .gr-modal-actions .gr-back{
+  position:static !important;
+  width:100% !important;
+  min-height:50px !important;
+  border-radius:12px !important;
+  background:rgba(0,0,0,.16) !important;
+  font-size:clamp(13px,1.05vw,17px) !important;
+}
+
+@media (orientation:portrait){
+  .rooms.gr-clean-rooms .gr-profile-head{
+    left:10.6% !important;
+    top:1.2% !important;
+    transform:scale(.66) !important;
+    transform-origin:left top !important;
+  }
+  .rooms.gr-clean-rooms .gr-stage{
+    left:13.8% !important;
+    top:21.8% !important;
+    width:72.4% !important;
+    height:58.5% !important;
+    grid-template-columns:27% 71% !important;
+    gap:2.0% !important;
+  }
+  .rooms.gr-clean-rooms .gr-create-launch{
+    padding:10% 6% !important;
+  }
+  .rooms.gr-clean-rooms .gr-create-launch h2{
+    font-size:clamp(14px,2.1vw,18px) !important;
+    margin-bottom:10px !important;
+  }
+  .rooms.gr-clean-rooms .gr-create-note{
+    font-size:clamp(10px,1.45vw,12px) !important;
+    margin-bottom:14px !important;
+    line-height:1.18 !important;
+  }
+  .rooms.gr-clean-rooms .gr-open-create{
+    width:92% !important;
+    min-height:48px !important;
+    font-size:clamp(11px,1.7vw,14px) !important;
+    line-height:1.1 !important;
+    padding:0 8px !important;
+  }
+  .rooms.gr-clean-rooms .gr-join-panel h2{
+    top:7.2% !important;
+    left:6% !important;
+    width:88% !important;
+    font-size:clamp(13px,2.0vw,18px) !important;
+    line-height:.96 !important;
+  }
+  .rooms.gr-clean-rooms .gr-section-title{
+    top:19.2% !important;
+    left:6% !important;
+    width:88% !important;
+    font-size:clamp(10px,1.55vw,13px) !important;
+  }
+  .rooms.gr-clean-rooms .gr-room-list{
+    left:5.2% !important;
+    width:89.6% !important;
+    top:24.6% !important;
+    height:38.0% !important;
+    padding-right:1.6% !important;
+  }
+  .rooms.gr-clean-rooms .gr-room-card{
+    min-height:56px !important;
+    grid-template-columns:10% 1fr 30% !important;
+    column-gap:2% !important;
+    padding:4px 6px !important;
+  }
+  .rooms.gr-clean-rooms .gr-room-icon{
+    font-size:clamp(12px,1.8vw,16px) !important;
+  }
+  .rooms.gr-clean-rooms .gr-room-name{
+    font-size:clamp(11px,1.65vw,14px) !important;
+  }
+  .rooms.gr-clean-rooms .gr-room-code{
+    font-size:clamp(10px,1.4vw,12px) !important;
+  }
+  .rooms.gr-clean-rooms .gr-join-card{
+    height:38px !important;
+    font-size:clamp(10px,1.5vw,12px) !important;
+  }
+  .rooms.gr-clean-rooms .gr-manual-title{
+    left:6% !important;
+    width:88% !important;
+    bottom:17.1% !important;
+    font-size:clamp(10px,1.55vw,13px) !important;
+  }
+  .rooms.gr-clean-rooms .gr-manual{
+    left:5.2% !important;
+    width:89.6% !important;
+    bottom:6.2% !important;
+    height:10.2% !important;
+    grid-template-columns:1fr 30% !important;
+    gap:2.2% !important;
+  }
+  .rooms.gr-clean-rooms .gr-manual .gr-input{
+    font-size:clamp(12px,1.7vw,14px) !important;
+    padding:0 12px !important;
+  }
+  .rooms.gr-clean-rooms .gr-join-manual{
+    font-size:clamp(10px,1.5vw,12px) !important;
+  }
+  .rooms.gr-clean-rooms .gr-logout{
+    left:27.0% !important;
+    width:46% !important;
+    bottom:2.4% !important;
+    height:5.8% !important;
+    font-size:clamp(10px,1.45vw,12px) !important;
+  }
+  .rooms.gr-clean-rooms .gr-modal-card{
+    width:62vw !important;
+    min-height:auto !important;
+    padding:14px 14px 16px !important;
+    border-radius:18px !important;
+  }
+  .rooms.gr-clean-rooms .gr-modal-card h3{
+    font-size:clamp(16px,2.4vw,20px) !important;
+    margin-bottom:12px !important;
+  }
+  .rooms.gr-clean-rooms .gr-modal-card label{
+    font-size:clamp(10px,1.5vw,12px) !important;
+    margin:8px 0 6px !important;
+  }
+  .rooms.gr-clean-rooms .gr-modal-card .gr-input{
+    height:46px !important;
+    font-size:clamp(12px,1.8vw,14px) !important;
+    padding:0 12px !important;
+  }
+  .rooms.gr-clean-rooms .gr-modal-card .gr-code-row{
+    height:48px !important;
+  }
+  .rooms.gr-clean-rooms .gr-modal-card .gr-generated{
+    font-size:clamp(18px,2.6vw,24px) !important;
+    padding:0 14px !important;
+  }
+  .rooms.gr-clean-rooms .gr-modal-actions{
+    gap:8px !important;
+    margin-top:14px !important;
+  }
+  .rooms.gr-clean-rooms .gr-modal-actions .gr-save,
+  .rooms.gr-clean-rooms .gr-modal-actions .gr-back{
+    min-height:44px !important;
+    font-size:clamp(10px,1.55vw,12px) !important;
+  }
+}
