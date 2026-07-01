@@ -19,7 +19,7 @@ function openBingoGameRoom(){
 }
 window.openBingoGameRoom = openBingoGameRoom;
 
-const VERSION = 'GAME ROOM v1102';
+const VERSION = 'GAME ROOM v1103';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 
@@ -414,6 +414,39 @@ function buildBingoLaunchUrl(room){
   return 'games/bingo/index.html?' + q.toString();
 }
 
+
+function enterBingoDirectFromRoom(room){
+  const p = profile() || {};
+  const nick = p.name || '';
+  const playerId = p.playerId || '';
+  const roomCode = room?.code || room?.roomId || '';
+  const roomName = room?.name || room?.roomName || '';
+
+  const returnUrl = new URL('index.html', window.location.href).href + '?open=games' + (roomCode ? '&room=' + encodeURIComponent(roomCode) : '');
+
+  try{
+    localStorage.setItem('gameRoomNick', nick);
+    localStorage.setItem('playerNick', nick);
+    localStorage.setItem('gameRoomCode', roomCode);
+    localStorage.setItem('roomCode', roomCode);
+    localStorage.setItem('bingoNick', nick);
+    localStorage.setItem('bingoRoomCode', roomCode);
+    localStorage.setItem('bingoPlayerId', playerId);
+    localStorage.setItem('bingoRoomName', roomName);
+    localStorage.setItem('bingoReturnUrl', returnUrl);
+  }catch(e){}
+
+  const url = new URL('games/bingo/index.html', window.location.href);
+  if(nick) url.searchParams.set('nick', nick);
+  if(roomCode) url.searchParams.set('room', roomCode);
+  if(playerId) url.searchParams.set('player', playerId);
+  if(roomName) url.searchParams.set('roomName', roomName);
+  url.searchParams.set('return', returnUrl);
+  url.searchParams.set('v', '1103');
+  url.searchParams.set('_', String(Date.now()));
+  window.location.href = url.href;
+}
+
 function renderGames(room){
   const p=profile(); if(!p)return renderLogin();
   room = {...(room||{}), activeGame:'lobby'};
@@ -466,9 +499,7 @@ function renderGames(room){
       return;
     }
     if(g.id==='bingo'){
-      const returnUrl = new URL('index.html', window.location.href).href + '?open=games' + ((room?.code||room?.roomId) ? '&room=' + encodeURIComponent(room?.code||room?.roomId) : '');
-      try { localStorage.setItem('bingoReturnUrl', returnUrl); } catch(e) {}
-      window.location.href=buildBingoLaunchUrl(room);
+      enterBingoDirectFromRoom(room);
       return;
     }
     renderGameStage(room,g);
