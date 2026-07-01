@@ -19,7 +19,7 @@ function openBingoGameRoom(){
 }
 window.openBingoGameRoom = openBingoGameRoom;
 
-const VERSION = 'GAME ROOM v1099';
+const VERSION = 'GAME ROOM v1100';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 
@@ -82,6 +82,7 @@ function version(){return `<div class="version">${VERSION}</div>`}
 
 function esc(v){return String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
 function openSettings(){
+  requestLandscapeScreen();
   const p=profile();
   const currentLang=lang();
   const modal=document.createElement('div');
@@ -147,6 +148,7 @@ function openSettings(){
   };
 }
 function renderLogin(){
+  releaseScreenOrientation();
   const p=profile();
   const loginValue = p?.playerId || '';
   app.innerHTML=`<section class="screen login login-clean">
@@ -210,6 +212,7 @@ function renderCapPreview(cap){
   </div>`;
 }
 function renderProfile(){
+  requestLandscapeScreen();
 let currentCountry='PL';
 let currentId=id(currentCountry);
 let currentCap={shape:'classic',color:'blue',symbol:'⚽',image:''};
@@ -321,6 +324,7 @@ document.getElementById('backBtn').onclick=renderLogin;
 document.getElementById('profileForm').onsubmit=(ev)=>{ev.preventDefault();const name=document.getElementById('name').value.trim();const pin=[...document.querySelectorAll('.pinBox')].map(x=>x.value).join('');if(name.length<2)return toast(profileT('Wpisz imię lub nick.','Enter name or nick.'));if(pin.length!==4)return toast(profileT('PIN musi mieć 4 cyfry.','PIN must have 4 digits.'));const newProfile={playerId:currentId,countryCode:c.value,country:countries[c.value],name,pin,avatar:currentCap.color||'blue',cap:currentCap,createdAt:Date.now()};storage.set('gr_profile',newProfile);saveHubProfile(newProfile);toast(profileT('Profil zapisany.','Profile saved.'));setTimeout(renderLogin,700)};
 }
 function renderRooms(){
+  requestLandscapeScreen();
 const p=profile();if(!p)return renderLogin();
 const rooms=recentRooms().filter(r => r && (r.ownerId === p.playerId || r.joinedBy === p.playerId));
 const listCount=Math.max(4,rooms.length);
@@ -415,6 +419,7 @@ function buildBingoLaunchUrl(room){
 }
 
 function renderGames(room){
+  requestLandscapeScreen();
   const p=profile(); if(!p)return renderLogin();
   room = {...(room||{}), activeGame:'lobby'};
   saveHubRoom(room,p);

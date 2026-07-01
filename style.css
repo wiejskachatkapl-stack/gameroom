@@ -3833,3 +3833,33 @@ select.profile-input-v1051,
     transform:translateY(2px) !important;
   }
 }
+
+
+/* v1100 – poziom po logowaniu i transparentne okna */
+.screen:not(.login-clean) .gr-panel,
+.screen:not(.login-clean) .gr-room-shell,
+.screen:not(.login-clean) .gr-create-launch,
+.screen:not(.login-clean) .gr-join-panel,
+.screen:not(.login-clean) .gr-modal-card,
+.screen:not(.login-clean) .games-graphic-panel,
+.screen:not(.login-clean) .games-room-title,
+.screen:not(.login-clean) .games-player-head,
+.screen:not(.login-clean) .game-stage-card,
+.screen:not(.login-clean) .game-launch-card,
+.screen:not(.login-clean) .settings-card,
+.screen:not(.login-clean) .profile-card{
+  background:rgba(0,0,0,.22) !important;
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+}
+
+.screen:not(.login-clean) .gr-modal{
+  background:rgba(0,0,0,.46) !important;
+}
+
+.screen:not(.login-clean) input,
+.screen:not(.login-clean) .gr-code-row,
+.screen:not(.login-clean) .gr-room-card,
+.screen:not(.login-clean) .gr-manual{
+  background:rgba(0,0,0,.24) !important;
+}
