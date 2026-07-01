@@ -58,6 +58,7 @@
     stats: getStatsStore(),
     roomState: null,
     activeRound: {},
+    presentRound: {},
     roundId: '',
     playerProgress: {},
     lastSyncedProgress: -1,
@@ -164,7 +165,16 @@
       const clean = normalizeName(name);
       if(activeRoundRaw[name]) activeRound[clean] = true;
     });
+
+    const presentRoundRaw = data && data.presentRound && typeof data.presentRound === 'object' ? data.presentRound : {};
+    const presentRound = {};
+    Object.keys(presentRoundRaw).forEach(name => {
+      const clean = normalizeName(name);
+      if(presentRoundRaw[name]) presentRound[clean] = true;
+    });
+
     if(cleanOwner && Object.keys(activeRound).length === 0) activeRound[cleanOwner] = true;
+    if(cleanOwner && Object.keys(presentRound).length === 0) presentRound[cleanOwner] = true;
 
     return {
       owner: cleanOwner,
@@ -172,6 +182,7 @@
       joined,
       progress,
       activeRound,
+      presentRound,
       roundId: data && data.roundId ? String(data.roundId) : '',
       drawnNumbers: Array.isArray(data && data.drawnNumbers) ? data.drawnNumbers.filter(n => Number.isInteger(n)).slice(0,75) : [],
       drawStatus: (data && data.drawStatus) || 'idle',
@@ -186,13 +197,14 @@
       ? state.roomState.players.slice(0,8)
       : (state.players.length ? state.players : [state.nick]).slice(0,8);
 
-    // v1097: prawa strona ma pokazywać wszystkich graczy widocznych w pokoju/rankingu,
-    // żeby na każdym telefonie lista była taka sama.
-    const clean = Array.from(new Set(allPlayers.map(normalizeName))).filter(Boolean);
-    if(clean.length) return clean.slice(0,8);
+    // Prawa strona pokazuje tylko graczy aktualnie obecnych w Bingo.
+    // Czerwona kropka = wszedł do Bingo, zielona = kliknął DOŁĄCZ.
+    const present = state.presentRound && typeof state.presentRound === 'object'
+      ? allPlayers.filter(name => !!state.presentRound[normalizeName(name)])
+      : [];
 
-    if(state.roomState && state.roomState.owner) return [state.roomState.owner].slice(0,8);
-    return [state.nick].slice(0,8);
+    if(present.length) return Array.from(new Set(present.map(normalizeName))).slice(0,8);
+    return [];
   }
 
   function isHost(){
@@ -201,8 +213,7 @@
 
   function isJoinedPlayer(name){
     const clean = normalizeName(name);
-    if(state.roomState && state.roomState.owner === clean) return true;
-    return !!(state.roomState && state.roomState.joined && state.roomState.joined[clean]);
+    return !!(state.activeRound && state.activeRound[clean]);
   }
 
   function applyRemoteState(room){
@@ -211,6 +222,7 @@
     state.drawnNumbers = Array.isArray(room.drawnNumbers) ? room.drawnNumbers.slice(0,75) : [];
     state.playerProgress = room.progress && typeof room.progress === 'object' ? room.progress : {};
     state.activeRound = room.activeRound && typeof room.activeRound === 'object' ? room.activeRound : {};
+    state.presentRound = room.presentRound && typeof room.presentRound === 'object' ? room.presentRound : {};
     state.roundId = room.roundId || state.roundId || '';
     if(room.stats && typeof room.stats === 'object'){
       state.stats = room.stats;
@@ -257,6 +269,9 @@
           activeRound: {
             [state.nick]: true
           },
+          presentRound: {
+            [state.nick]: true
+          },
           players: {
             [state.nick]: {
               nick: state.nick,
@@ -274,6 +289,7 @@
       updates['players/' + state.nick + '/nick'] = state.nick;
       updates['players/' + state.nick + '/online'] = true;
       updates['players/' + state.nick + '/lastSeen'] = firebase.database.ServerValue.TIMESTAMP;
+      updates['presentRound/' + state.nick] = true;
       if(typeof state.playerProgress[state.nick] !== 'number') updates['players/' + state.nick + '/progress'] = 0;
 
       if(existing.owner === state.nick){
@@ -284,7 +300,8 @@
           updates['roundId'] = String(Date.now());
           updates['winner'] = '';
         } else {
-          updates['activeRound/' + state.nick] = true;
+          updates['presentRound/' + state.nick] = true;
+      updates['activeRound/' + state.nick] = true;
       if(!state.activeRound || typeof state.activeRound !== 'object') state.activeRound = {};
       state.activeRound[state.nick] = true;
         }
@@ -644,7 +661,7 @@
       bingoWinMessage.classList.remove('is-visible');
       bingoWinMessage.innerHTML = '';
       state.winMessageTimer = null;
-    }, 3000);
+    }, 2000);
   }
 
   function showBingoWinner(winnerName){
@@ -749,7 +766,8 @@
       newActiveRound[state.nick] = true;
       state.activeRound = newActiveRound;
       state.lastRemoteWinner = '';
-      state.roomRef.update({ drawnNumbers: [], currentBall: null, drawStatus: 'idle', winner: '', winnerAt: null, roundId: String(Date.now()), activeRound: newActiveRound });
+      state.presentRound = newActiveRound;
+      state.roomRef.update({ drawnNumbers: [], currentBall: null, drawStatus: 'idle', winner: '', winnerAt: null, roundId: String(Date.now()), activeRound: newActiveRound, presentRound: newActiveRound });
     }
   }
 
@@ -815,7 +833,21 @@
     showScreen('game');
   }
 
+  function leaveBingoPresence(){
+    if(state.firebaseReady && state.roomRef){
+      const updates = {};
+      updates['presentRound/' + state.nick] = null;
+      updates['activeRound/' + state.nick] = null;
+      updates['players/' + state.nick + '/joined'] = false;
+      updates['players/' + state.nick + '/online'] = false;
+      state.roomRef.update(updates).catch(()=>{});
+    }
+    if(state.presentRound) delete state.presentRound[state.nick];
+    if(state.activeRound) delete state.activeRound[state.nick];
+  }
+
   function exitToGameRoom(){
+    leaveBingoPresence();
     let savedReturn = '';
     try {
       savedReturn = params.get('return') || localStorage.getItem('bingoReturnUrl') || '';
@@ -865,6 +897,8 @@
     if(event.key !== roomStateKey()) return;
     syncLocalRoomMembership();
   });
+
+  window.addEventListener('beforeunload', leaveBingoPresence);
 
   window.BingoGame = {
     version: VERSION,
