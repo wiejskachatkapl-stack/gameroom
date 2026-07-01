@@ -19,7 +19,7 @@ function openBingoGameRoom(){
 }
 window.openBingoGameRoom = openBingoGameRoom;
 
-const VERSION = 'GAME ROOM v1094';
+const VERSION = 'GAME ROOM v1095';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 
@@ -386,6 +386,34 @@ document.getElementById('logoutBtn').onclick=()=>{storage.remove('gr_logged_in')
 const gearBtn=document.getElementById('gearBtn'); if(gearBtn) gearBtn.onclick=openSettings;
 }
 
+
+function buildBingoLaunchUrl(room){
+  const p = profile();
+  const nick = p && p.name ? p.name : '';
+  const playerId = p && p.playerId ? p.playerId : '';
+  const roomCode = room && room.code ? room.code : '';
+  const roomName = room && room.name ? room.name : '';
+
+  try{
+    localStorage.setItem('bingoNick', nick);
+    localStorage.setItem('bingoRoomCode', roomCode);
+    localStorage.setItem('bingoPlayerId', playerId);
+    localStorage.setItem('bingoRoomName', roomName);
+    localStorage.removeItem('bingoRoomState_v1018_' + roomCode);
+    localStorage.removeItem('bingoRoomState_v1019_' + roomCode);
+    localStorage.removeItem('bingoRoomState_v1020_' + roomCode);
+  }catch(e){}
+
+  const q = new URLSearchParams();
+  q.set('game','bingo');
+  q.set('room', roomCode);
+  q.set('roomName', roomName);
+  q.set('player', playerId);
+  q.set('nick', nick);
+  q.set('ts', String(Date.now()));
+  return 'games/bingo/index.html?' + q.toString();
+}
+
 function renderGames(room){
   const p=profile(); if(!p)return renderLogin();
   room = {...(room||{}), activeGame:'lobby'};
@@ -440,7 +468,7 @@ function renderGames(room){
     if(g.id==='bingo'){
       const returnUrl = new URL('index.html', window.location.href).href + '?open=games' + ((room?.code||room?.roomId) ? '&room=' + encodeURIComponent(room?.code||room?.roomId) : '');
       try { localStorage.setItem('bingoReturnUrl', returnUrl); } catch(e) {}
-      window.location.href='games/bingo/index.html?'+ctx+'&return='+encodeURIComponent(returnUrl);
+      window.location.href=buildBingoLaunchUrl(room);
       return;
     }
     renderGameStage(room,g);
@@ -531,7 +559,7 @@ function renderGameStage(room,game){
   if(gameId==='bingo'){
     const returnUrl = new URL('index.html', window.location.href).href + '?open=games' + ((room?.code||room?.roomId) ? '&room=' + encodeURIComponent(room?.code||room?.roomId) : '');
     try { localStorage.setItem('bingoReturnUrl', returnUrl); } catch(e) {}
-    window.location.href='games/bingo/index.html?'+buildGameContext(room,'bingo')+'&return='+encodeURIComponent(returnUrl);
+    window.location.href=buildBingoLaunchUrl(room);
     return;
   }
   const label=typeof game==='object'?(l==='en'?game.en:game.pl):gameLabel(gameId);
