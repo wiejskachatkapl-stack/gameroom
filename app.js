@@ -19,7 +19,7 @@ function openBingoGameRoom(){
 }
 window.openBingoGameRoom = openBingoGameRoom;
 
-const VERSION = 'GAME ROOM v1079';
+const VERSION = 'GAME ROOM v1090';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 
@@ -147,6 +147,7 @@ function openSettings(){
   };
 }
 function renderLogin(){
+  lockPortraitScreen();
   const p=profile();
   const loginValue = p?.playerId || '';
   app.innerHTML=`<section class="screen login login-clean">
@@ -173,7 +174,6 @@ function renderLogin(){
         <button class="login-action login-main" id="loginBtn" type="submit"><span>↪</span>${tr('loginBtn')}</button>
         <div class="or-line"><span>${lang()==='pl'?'LUB':'OR'}</span></div>
         <button class="login-action login-create" id="createProfileBtn" type="button"><span>♙+</span>${lang()==='pl'?'UTWÓRZ PROFIL':'CREATE PROFILE'}</button>
-        <button class="login-action login-settings" id="helpBtn" type="button"><span>⚙</span>${tr('settings')}</button>
       </form>
     </div>
     ${version()}
@@ -182,7 +182,6 @@ function renderLogin(){
   document.getElementById('langLoginPL').onclick=()=>{storage.set('gr_lang','pl');renderLogin()};
   document.getElementById('langLoginEN').onclick=()=>{storage.set('gr_lang','en');renderLogin()};
   document.getElementById('createProfileBtn').onclick=renderProfile;
-  document.getElementById('helpBtn').onclick=openSettings;
   document.getElementById('togglePin').onclick=()=>{const pin=document.getElementById('loginPin');pin.type=pin.type==='password'?'text':'password'};
   document.getElementById('loginPin').oninput=e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,4)};
   document.getElementById('loginForm').onsubmit=(ev)=>{
@@ -212,6 +211,7 @@ function renderCapPreview(cap){
   </div>`;
 }
 function renderProfile(){
+  unlockScreenOrientation();
 let currentCountry='PL';
 let currentId=id(currentCountry);
 let currentCap={shape:'classic',color:'blue',symbol:'⚽',image:''};
@@ -323,6 +323,7 @@ document.getElementById('backBtn').onclick=renderLogin;
 document.getElementById('profileForm').onsubmit=(ev)=>{ev.preventDefault();const name=document.getElementById('name').value.trim();const pin=[...document.querySelectorAll('.pinBox')].map(x=>x.value).join('');if(name.length<2)return toast(profileT('Wpisz imię lub nick.','Enter name or nick.'));if(pin.length!==4)return toast(profileT('PIN musi mieć 4 cyfry.','PIN must have 4 digits.'));const newProfile={playerId:currentId,countryCode:c.value,country:countries[c.value],name,pin,avatar:currentCap.color||'blue',cap:currentCap,createdAt:Date.now()};storage.set('gr_profile',newProfile);saveHubProfile(newProfile);toast(profileT('Profil zapisany.','Profile saved.'));setTimeout(renderLogin,700)};
 }
 function renderRooms(){
+  unlockScreenOrientation();
 const p=profile();if(!p)return renderLogin();
 const rooms=recentRooms().filter(r => r && (r.ownerId === p.playerId || r.joinedBy === p.playerId));
 const listCount=Math.max(4,rooms.length);
@@ -354,6 +355,7 @@ app.innerHTML=`<section class="screen rooms gr-clean-rooms">
     </div>
   </div>
 
+  <button class="gr-gear" id="gearBtn" type="button" aria-label="Ustawienia">⚙</button>
   <button class="gr-logout" id="logoutBtn">↪ WYLOGUJ / ZMIEŃ PROFIL</button>
 
   <div id="createRoomModal" class="gr-modal hidden" aria-hidden="true">
@@ -384,9 +386,11 @@ document.getElementById('closeCreateRoomModal').onclick=(e)=>{e.preventDefault()
 roomModal.onclick=(e)=>{if(e.target===roomModal) closeCreateRoomModal();};
 document.getElementById('saveRoomBtn').onclick=(e)=>{e.preventDefault();const name=document.getElementById('newRoomName').value.trim();const code=document.getElementById('generatedRoomCode').textContent.trim();if(name.length<2)return toast('Wpisz nazwę pokoju.');const newRoom={code,name,lastPlayed:'teraz',ownerId:p.playerId,pin:p.pin,activeGame:'lobby'};addRecent(newRoom);saveHubRoom(newRoom,p);toast('Pokój zapisany: '+code);renderRooms()};
 document.getElementById('logoutBtn').onclick=()=>{storage.remove('gr_logged_in');renderLogin()};
+document.getElementById('gearBtn').onclick=openSettings;
 }
 
 function renderGames(room){
+  unlockScreenOrientation();
   const p=profile(); if(!p)return renderLogin();
   room = {...(room||{}), activeGame:'lobby'};
   saveHubRoom(room,p);
@@ -407,6 +411,7 @@ function renderGames(room){
     <button id="gamesLangPL" class="games-hot games-lang-pl" type="button" aria-label="PL"></button>
     <button id="gamesLangEN" class="games-hot games-lang-en" type="button" aria-label="EN"></button>
     <div class="games-player-head">
+      <button id="gamesGearBtn" class="games-gear" type="button" aria-label="Ustawienia">⚙</button>
       <div class="games-cap">${renderCapPreview(p.cap || {color:p.avatar||'blue',symbol:'★'})}</div>
       <div class="games-welcome">${l==='en'?'Hi,':'Witaj,'}<br><span>${esc(p.name)}</span></div>
       <div class="games-player-no"><span>${l==='en'?'PLAYER ID:':'NR GRACZA:'}</span><strong>${esc(p.playerId)}</strong></div>
@@ -424,6 +429,7 @@ function renderGames(room){
   </section>`;
   document.getElementById('gamesLangPL').onclick=()=>{storage.set('gr_lang','pl');renderGames(room)};
   document.getElementById('gamesLangEN').onclick=()=>{storage.set('gr_lang','en');renderGames(room)};
+  const ggb=document.getElementById('gamesGearBtn'); if(ggb) ggb.onclick=openSettings;
   document.getElementById('gamesBackBtn').onclick=renderRooms;
   document.querySelectorAll('.game-graphic-btn').forEach(btn=>btn.onclick=()=>{
     const g=games.find(x=>x.id===btn.dataset.game);
@@ -554,21 +560,6 @@ function renderGameStage(room,game){
 
 function openCreateRoom(){renderRooms()}
 function init(){
-  const qs = new URLSearchParams(window.location.search || '');
-  const wantsGames = qs.get('open') === 'games';
-  const wantedRoom = (qs.get('room') || '').trim().toUpperCase();
-  if(storage.get('gr_logged_in')&&profile()){
-    const activeCode=wantedRoom || hubGet(HUB_KEYS.active,'');
-    const hubRoom=getHubRoomByCode(activeCode);
-    if(hubRoom && hubRoom.activeGame && hubRoom.activeGame !== 'lobby'){
-      try{ setHubActiveGame(localRoomFromHub(hubRoom), 'lobby'); }catch(e){}
-    }
-    if(wantsGames && hubRoom){
-      try{ history.replaceState(null, '', location.pathname); }catch(e){}
-      return renderGames(localRoomFromHub(hubRoom));
-    }
-    return renderRooms();
-  }
   renderLogin();
 }
 init();
