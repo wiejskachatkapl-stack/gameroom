@@ -3738,14 +3738,16 @@ select.profile-input-v1051,
 }
 
 
-/* v1090 – login bez ustawień, ustawienia po zalogowaniu + start zawsze od logowania */
+/* v1091 – GAME ROOM: bezpieczna poprawka logowania i ustawień */
 .login-clean .login-settings,
-.login-clean #helpBtn{display:none !important}
+.login-clean #helpBtn{
+  display:none !important;
+}
 
 .gr-gear{
   position:absolute;
   right:2.2%;
-  top:2.4%;
+  top:2.2%;
   width:54px;
   height:54px;
   border-radius:50%;
@@ -3756,9 +3758,8 @@ select.profile-input-v1051,
   font-weight:900;
   box-shadow:0 0 18px rgba(0,160,255,.45), inset 0 0 14px rgba(255,255,255,.12);
   cursor:pointer;
-  z-index:52;
+  z-index:70;
 }
-.gr-gear:active{transform:translateY(1px)}
 .games-gear{
   position:absolute;
   right:-2px;
@@ -3773,15 +3774,17 @@ select.profile-input-v1051,
   font-weight:900;
   box-shadow:0 0 18px rgba(0,160,255,.45), inset 0 0 14px rgba(255,255,255,.12);
   cursor:pointer;
-  z-index:8;
+  z-index:20;
   pointer-events:auto;
 }
-.games-player-head{pointer-events:auto !important}
+.games-player-head{
+  pointer-events:auto !important;
+}
 
 @media (orientation:portrait){
   .gr-gear{
-    right:1.7% !important;
-    top:1.7% !important;
+    right:1.6% !important;
+    top:1.6% !important;
     width:44px !important;
     height:44px !important;
     font-size:23px !important;

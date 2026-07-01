@@ -19,7 +19,7 @@ function openBingoGameRoom(){
 }
 window.openBingoGameRoom = openBingoGameRoom;
 
-const VERSION = 'GAME ROOM v1090';
+const VERSION = 'GAME ROOM v1091';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 
@@ -147,7 +147,6 @@ function openSettings(){
   };
 }
 function renderLogin(){
-  lockPortraitScreen();
   const p=profile();
   const loginValue = p?.playerId || '';
   app.innerHTML=`<section class="screen login login-clean">
@@ -211,7 +210,6 @@ function renderCapPreview(cap){
   </div>`;
 }
 function renderProfile(){
-  unlockScreenOrientation();
 let currentCountry='PL';
 let currentId=id(currentCountry);
 let currentCap={shape:'classic',color:'blue',symbol:'⚽',image:''};
@@ -323,7 +321,6 @@ document.getElementById('backBtn').onclick=renderLogin;
 document.getElementById('profileForm').onsubmit=(ev)=>{ev.preventDefault();const name=document.getElementById('name').value.trim();const pin=[...document.querySelectorAll('.pinBox')].map(x=>x.value).join('');if(name.length<2)return toast(profileT('Wpisz imię lub nick.','Enter name or nick.'));if(pin.length!==4)return toast(profileT('PIN musi mieć 4 cyfry.','PIN must have 4 digits.'));const newProfile={playerId:currentId,countryCode:c.value,country:countries[c.value],name,pin,avatar:currentCap.color||'blue',cap:currentCap,createdAt:Date.now()};storage.set('gr_profile',newProfile);saveHubProfile(newProfile);toast(profileT('Profil zapisany.','Profile saved.'));setTimeout(renderLogin,700)};
 }
 function renderRooms(){
-  unlockScreenOrientation();
 const p=profile();if(!p)return renderLogin();
 const rooms=recentRooms().filter(r => r && (r.ownerId === p.playerId || r.joinedBy === p.playerId));
 const listCount=Math.max(4,rooms.length);
@@ -386,11 +383,10 @@ document.getElementById('closeCreateRoomModal').onclick=(e)=>{e.preventDefault()
 roomModal.onclick=(e)=>{if(e.target===roomModal) closeCreateRoomModal();};
 document.getElementById('saveRoomBtn').onclick=(e)=>{e.preventDefault();const name=document.getElementById('newRoomName').value.trim();const code=document.getElementById('generatedRoomCode').textContent.trim();if(name.length<2)return toast('Wpisz nazwę pokoju.');const newRoom={code,name,lastPlayed:'teraz',ownerId:p.playerId,pin:p.pin,activeGame:'lobby'};addRecent(newRoom);saveHubRoom(newRoom,p);toast('Pokój zapisany: '+code);renderRooms()};
 document.getElementById('logoutBtn').onclick=()=>{storage.remove('gr_logged_in');renderLogin()};
-document.getElementById('gearBtn').onclick=openSettings;
+const gearBtn=document.getElementById('gearBtn'); if(gearBtn) gearBtn.onclick=openSettings;
 }
 
 function renderGames(room){
-  unlockScreenOrientation();
   const p=profile(); if(!p)return renderLogin();
   room = {...(room||{}), activeGame:'lobby'};
   saveHubRoom(room,p);
@@ -429,7 +425,7 @@ function renderGames(room){
   </section>`;
   document.getElementById('gamesLangPL').onclick=()=>{storage.set('gr_lang','pl');renderGames(room)};
   document.getElementById('gamesLangEN').onclick=()=>{storage.set('gr_lang','en');renderGames(room)};
-  const ggb=document.getElementById('gamesGearBtn'); if(ggb) ggb.onclick=openSettings;
+  const gamesGearBtn=document.getElementById('gamesGearBtn'); if(gamesGearBtn) gamesGearBtn.onclick=openSettings;
   document.getElementById('gamesBackBtn').onclick=renderRooms;
   document.querySelectorAll('.game-graphic-btn').forEach(btn=>btn.onclick=()=>{
     const g=games.find(x=>x.id===btn.dataset.game);
