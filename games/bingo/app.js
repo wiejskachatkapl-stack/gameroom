@@ -33,6 +33,16 @@
 
   const params = new URLSearchParams(window.location.search);
 
+  function requestBingoLandscape(){
+    try{
+      if(window.screen && screen.orientation && typeof screen.orientation.lock === 'function'){
+        const p = screen.orientation.lock('landscape');
+        if(p && typeof p.catch === 'function') p.catch(()=>{});
+      }
+    }catch(e){}
+  }
+  requestBingoLandscape();
+
   if(params.get('nick') || params.get('room')){
     try{
       if(params.get('nick')) localStorage.setItem('bingoNick', params.get('nick'));
