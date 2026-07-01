@@ -179,6 +179,13 @@
       ? allPlayers.filter(name => !!state.activeRound[normalizeName(name)])
       : [];
 
+    // Własny ekran gracza musi zawsze widzieć jego nick,
+    // żeby mógł kliknąć DOŁĄCZ i wejść do aktualnej rundy.
+    const me = normalizeName(state.nick);
+    if(!active.includes(me) && allPlayers.includes(me)){
+      active.push(me);
+    }
+
     if(active.length) return active.slice(0,8);
     if(state.roomState && state.roomState.owner) return [state.roomState.owner].slice(0,8);
     return [state.nick].slice(0,8);
@@ -264,6 +271,7 @@
           updates['activeRound'] = { [state.nick]: true };
         } else {
           updates['activeRound/' + state.nick] = true;
+      state.activeRound[state.nick] = true;
         }
       }
 
@@ -457,7 +465,8 @@
       btnStartDraw.textContent = 'START';
       btnStartDraw.classList.remove('btn-join-room');
     } else {
-      btnStartDraw.textContent = 'DOŁĄCZ';
+      const joinedRound = !!(state.activeRound && state.activeRound[state.nick]);
+      btnStartDraw.textContent = joinedRound ? 'DOŁĄCZONO' : 'DOŁĄCZ';
       btnStartDraw.classList.add('btn-join-room');
     }
   }
@@ -798,6 +807,7 @@
       if(state.isDrawing || state.drawTimer) return;
       drawNextNumber();
     } else {
+      if(state.activeRound && state.activeRound[state.nick]) return;
       joinCurrentPlayer();
     }
   });
