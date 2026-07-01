@@ -33,9 +33,17 @@
 
   const params = new URLSearchParams(window.location.search);
 
+  if(params.get('nick') || params.get('room')){
+    try{
+      if(params.get('nick')) localStorage.setItem('bingoNick', params.get('nick'));
+      if(params.get('room')) localStorage.setItem('bingoRoomCode', params.get('room'));
+    }catch(e){}
+  }
+
+
   const state = {
-    nick: getStored('bingoNick') || params.get('nick') || 'Mariusz',
-    roomCode: getStored('bingoRoomCode') || params.get('room') || 'PWG5N2D',
+    nick: params.get('nick') || getStored('bingoNick') || 'Mariusz',
+    roomCode: params.get('room') || getStored('bingoRoomCode') || 'PWG5N2D',
     players: [],
     card: [],
     drawnNumbers: [],
