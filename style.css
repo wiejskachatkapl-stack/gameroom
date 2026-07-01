@@ -3602,3 +3602,137 @@ select.profile-input-v1051,
   .rooms.gr-clean-rooms .gr-modal-actions .gr-save,
   .rooms.gr-clean-rooms .gr-modal-actions .gr-back{min-height:36px !important;font-size:clamp(9px,1.25vw,11px) !important;}
 }
+
+
+/* v1089 – GAME ROOM: mobilny układ wyboru pokoju */
+@media (orientation:portrait){
+  .rooms.gr-clean-rooms .gr-stage{
+    left:12.8% !important;
+    top:24.2% !important;
+    width:74.6% !important;
+    height:61.0% !important;
+    grid-template-columns:30% 68% !important;
+    gap:2.0% !important;
+  }
+  .rooms.gr-clean-rooms .gr-create-launch,
+  .rooms.gr-clean-rooms .gr-join-panel{
+    border-radius:24px !important;
+    overflow:hidden !important;
+  }
+  .rooms.gr-clean-rooms .gr-create-launch{
+    padding:8% 5% !important;
+    justify-content:flex-start !important;
+  }
+  .rooms.gr-clean-rooms .gr-create-launch h2{
+    font-size:clamp(12px,1.65vw,15px) !important;
+    line-height:0.95 !important;
+    margin-top:4px !important;
+    margin-bottom:22px !important;
+  }
+  .rooms.gr-clean-rooms .gr-open-create{
+    width:78% !important;
+    min-height:54px !important;
+    font-size:clamp(11px,1.45vw,13px) !important;
+    line-height:1.05 !important;
+    border-radius:20px !important;
+    margin-top:64px !important;
+    padding:0 8px !important;
+  }
+
+  .rooms.gr-clean-rooms .gr-join-panel h2{
+    top:7.0% !important;
+    left:6% !important;
+    width:88% !important;
+    font-size:clamp(12px,1.8vw,15px) !important;
+    line-height:0.96 !important;
+  }
+  .rooms.gr-clean-rooms .gr-section-title{
+    top:18.2% !important;
+    left:6% !important;
+    width:88% !important;
+    font-size:clamp(9px,1.28vw,11px) !important;
+  }
+  .rooms.gr-clean-rooms .gr-room-list{
+    left:5.5% !important;
+    width:89.0% !important;
+    top:24.2% !important;
+    height:31.8% !important;
+    padding-right:1.2% !important;
+  }
+  .rooms.gr-clean-rooms .gr-room-card{
+    min-height:82px !important;
+    grid-template-columns:9% 1fr 28% !important;
+    column-gap:2% !important;
+    padding:8px 8px !important;
+    border-radius:16px !important;
+  }
+  .rooms.gr-clean-rooms .gr-room-icon{
+    font-size:clamp(14px,1.8vw,17px) !important;
+    align-self:center !important;
+  }
+  .rooms.gr-clean-rooms .gr-room-data{
+    padding-right:0 !important;
+    align-self:center !important;
+  }
+  .rooms.gr-clean-rooms .gr-room-name{
+    font-size:clamp(11px,1.55vw,14px) !important;
+    line-height:1.05 !important;
+    margin-bottom:4px !important;
+    white-space:normal !important;
+    overflow:visible !important;
+    text-overflow:unset !important;
+    word-break:break-word !important;
+  }
+  .rooms.gr-clean-rooms .gr-room-code{
+    font-size:clamp(10px,1.3vw,12px) !important;
+    line-height:1.0 !important;
+    white-space:normal !important;
+  }
+  .rooms.gr-clean-rooms .gr-join-card{
+    height:50px !important;
+    min-height:50px !important;
+    font-size:clamp(10px,1.35vw,12px) !important;
+    border-radius:14px !important;
+    align-self:center !important;
+  }
+
+  .rooms.gr-clean-rooms .gr-manual-title{
+    left:6% !important;
+    width:88% !important;
+    bottom:19.2% !important;
+    font-size:clamp(9px,1.3vw,11px) !important;
+  }
+  .rooms.gr-clean-rooms .gr-manual{
+    left:5.5% !important;
+    width:89.0% !important;
+    bottom:7.0% !important;
+    height:12.0% !important;
+    grid-template-columns:66% 32% !important;
+    gap:2% !important;
+    padding:0 !important;
+    border-radius:16px !important;
+  }
+  .rooms.gr-clean-rooms .gr-manual .gr-input{
+    width:100% !important;
+    height:100% !important;
+    font-size:clamp(11px,1.45vw,13px) !important;
+    padding:0 12px !important;
+    border-radius:14px !important;
+  }
+  .rooms.gr-clean-rooms .gr-join-manual{
+    width:100% !important;
+    height:100% !important;
+    min-width:0 !important;
+    font-size:clamp(10px,1.28vw,12px) !important;
+    border-radius:14px !important;
+  }
+
+  .rooms.gr-clean-rooms .gr-logout{
+    left:29.0% !important;
+    width:42.0% !important;
+    bottom:1.4% !important;
+    height:4.8% !important;
+    font-size:clamp(9px,1.22vw,11px) !important;
+    z-index:45 !important;
+  }
+}
