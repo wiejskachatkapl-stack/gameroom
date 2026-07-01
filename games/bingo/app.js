@@ -54,9 +54,11 @@
     winMessageTimer: null,
     winningLine: [],
     resultRecorded: false,
+    lastRemoteWinner: '',
     stats: getStatsStore(),
     roomState: null,
     activeRound: {},
+    roundId: '',
     playerProgress: {},
     lastSyncedProgress: -1,
     db: null,
@@ -170,6 +172,7 @@
       joined,
       progress,
       activeRound,
+      roundId: data && data.roundId ? String(data.roundId) : '',
       drawnNumbers: Array.isArray(data && data.drawnNumbers) ? data.drawnNumbers.filter(n => Number.isInteger(n)).slice(0,75) : [],
       drawStatus: (data && data.drawStatus) || 'idle',
       currentBall: data && data.currentBall,
@@ -215,6 +218,7 @@
     state.drawnNumbers = Array.isArray(room.drawnNumbers) ? room.drawnNumbers.slice(0,75) : [];
     state.playerProgress = room.progress && typeof room.progress === 'object' ? room.progress : {};
     state.activeRound = room.activeRound && typeof room.activeRound === 'object' ? room.activeRound : {};
+    state.roundId = room.roundId || state.roundId || '';
     if(room.stats && typeof room.stats === 'object'){
       state.stats = room.stats;
       saveStatsStore();
@@ -228,6 +232,12 @@
 
     if(drawBall){
       drawBall.textContent = room.currentBall ? String(room.currentBall) : (state.drawnNumbers.length ? String(state.drawnNumbers[state.drawnNumbers.length - 1]) : '?');
+    }
+
+    if(room.winner && room.winner !== state.lastRemoteWinner){
+      state.lastRemoteWinner = room.winner;
+      state.bingoFinished = true;
+      showRemoteBingoWinner(room.winner);
     }
   }
 
@@ -248,6 +258,7 @@
           owner: state.nick,
           createdAt: firebase.database.ServerValue.TIMESTAMP,
           drawStatus: 'idle',
+          roundId: String(Date.now()),
           currentBall: null,
           drawnNumbers: [],
           activeRound: {
@@ -277,8 +288,11 @@
         const hasDraws = Array.isArray(existing.drawnNumbers) && existing.drawnNumbers.length > 0;
         if(!hasDraws){
           updates['activeRound'] = { [state.nick]: true };
+          updates['roundId'] = String(Date.now());
+          updates['winner'] = '';
         } else {
           updates['activeRound/' + state.nick] = true;
+      if(!state.activeRound || typeof state.activeRound !== 'object') state.activeRound = {};
       state.activeRound[state.nick] = true;
         }
       }
@@ -373,7 +387,9 @@
   }
 
   function getSortedRanking(){
-    const activePlayers = getDisplayPlayers();
+    const activePlayers = (state.roomState && Array.isArray(state.roomState.players) && state.roomState.players.length)
+      ? state.roomState.players.slice(0,8)
+      : getDisplayPlayers();
     ensurePlayerStats(activePlayers);
     return activePlayers.map(name => {
       const clean = normalizeName(name);
@@ -420,6 +436,8 @@
       state.roomRef.update({
         stats: state.stats,
         winner: cleanWinner,
+        winnerAt: firebase.database.ServerValue.TIMESTAMP,
+        activeRound: state.activeRound || {},
         drawStatus: 'finished'
       });
     }
@@ -617,9 +635,29 @@
     return wrap;
   }
 
+  function showRemoteBingoWinner(winnerName){
+    stopDraws();
+    if(!bingoWinMessage) return;
+    const cleanWinner = normalizeName(winnerName || '');
+    bingoWinMessage.innerHTML = '';
+    const title = document.createElement('strong');
+    title.textContent = 'BINGO!';
+    const subtitle = document.createElement('span');
+    subtitle.textContent = 'Wygrał: ' + cleanWinner;
+    bingoWinMessage.append(title, subtitle);
+    bingoWinMessage.classList.add('is-visible');
+    if(state.winMessageTimer) clearTimeout(state.winMessageTimer);
+    state.winMessageTimer = setTimeout(() => {
+      bingoWinMessage.classList.remove('is-visible');
+      bingoWinMessage.innerHTML = '';
+      state.winMessageTimer = null;
+    }, 3000);
+  }
+
   function showBingoWinner(winnerName){
     stopDraws();
     state.winningLine = getWinningLine();
+    state.lastRemoteWinner = normalizeName(winnerName || state.nick);
     recordGameResult(winnerName || state.nick);
     if(!bingoWinMessage) return;
     const cleanWinner = normalizeName(winnerName || state.nick);
@@ -717,7 +755,8 @@
       const newActiveRound = {};
       newActiveRound[state.nick] = true;
       state.activeRound = newActiveRound;
-      state.roomRef.update({ drawnNumbers: [], currentBall: null, drawStatus: 'idle', winner: '', activeRound: newActiveRound });
+      state.lastRemoteWinner = '';
+      state.roomRef.update({ drawnNumbers: [], currentBall: null, drawStatus: 'idle', winner: '', winnerAt: null, roundId: String(Date.now()), activeRound: newActiveRound });
     }
   }
 
