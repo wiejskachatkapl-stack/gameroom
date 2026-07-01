@@ -48,6 +48,7 @@
     resultRecorded: false,
     stats: getStatsStore(),
     roomState: null,
+    activeRound: {},
     playerProgress: {},
     lastSyncedProgress: -1,
     db: null,
@@ -147,11 +148,20 @@
       progress[name] = Number.isFinite(rawProgress) ? Math.max(0, Math.min(5, rawProgress)) : 0;
     });
     if(cleanOwner && !players.includes(cleanOwner)) players.unshift(cleanOwner);
+    const activeRoundRaw = data && data.activeRound && typeof data.activeRound === 'object' ? data.activeRound : {};
+    const activeRound = {};
+    Object.keys(activeRoundRaw).forEach(name => {
+      const clean = normalizeName(name);
+      if(activeRoundRaw[name]) activeRound[clean] = true;
+    });
+    if(cleanOwner && Object.keys(activeRound).length === 0) activeRound[cleanOwner] = true;
+
     return {
       owner: cleanOwner,
       players: Array.from(new Set(players)).filter(name => name !== 'GRACZ' || state.nick === 'GRACZ').slice(0,8),
       joined,
       progress,
+      activeRound,
       drawnNumbers: Array.isArray(data && data.drawnNumbers) ? data.drawnNumbers.filter(n => Number.isInteger(n)).slice(0,75) : [],
       drawStatus: (data && data.drawStatus) || 'idle',
       currentBall: data && data.currentBall,
@@ -161,8 +171,17 @@
   }
 
   function getDisplayPlayers(){
-    if(state.roomState && Array.isArray(state.roomState.players) && state.roomState.players.length) return state.roomState.players.slice(0,8);
-    return (state.players.length ? state.players : [state.nick]).slice(0,8);
+    const allPlayers = (state.roomState && Array.isArray(state.roomState.players) && state.roomState.players.length)
+      ? state.roomState.players.slice(0,8)
+      : (state.players.length ? state.players : [state.nick]).slice(0,8);
+
+    const active = state.activeRound && typeof state.activeRound === 'object'
+      ? allPlayers.filter(name => !!state.activeRound[normalizeName(name)])
+      : [];
+
+    if(active.length) return active.slice(0,8);
+    if(state.roomState && state.roomState.owner) return [state.roomState.owner].slice(0,8);
+    return [state.nick].slice(0,8);
   }
 
   function isHost(){
@@ -180,6 +199,7 @@
     state.players = getDisplayPlayers();
     state.drawnNumbers = Array.isArray(room.drawnNumbers) ? room.drawnNumbers.slice(0,75) : [];
     state.playerProgress = room.progress && typeof room.progress === 'object' ? room.progress : {};
+    state.activeRound = room.activeRound && typeof room.activeRound === 'object' ? room.activeRound : {};
     if(room.stats && typeof room.stats === 'object'){
       state.stats = room.stats;
       saveStatsStore();
@@ -215,6 +235,9 @@
           drawStatus: 'idle',
           currentBall: null,
           drawnNumbers: [],
+          activeRound: {
+            [state.nick]: true
+          },
           players: {
             [state.nick]: {
               nick: state.nick,
@@ -233,7 +256,17 @@
       updates['players/' + state.nick + '/online'] = true;
       updates['players/' + state.nick + '/lastSeen'] = firebase.database.ServerValue.TIMESTAMP;
       if(typeof state.playerProgress[state.nick] !== 'number') updates['players/' + state.nick + '/progress'] = 0;
-      if(existing.owner === state.nick) updates['players/' + state.nick + '/joined'] = true;
+
+      if(existing.owner === state.nick){
+        updates['players/' + state.nick + '/joined'] = true;
+        const hasDraws = Array.isArray(existing.drawnNumbers) && existing.drawnNumbers.length > 0;
+        if(!hasDraws){
+          updates['activeRound'] = { [state.nick]: true };
+        } else {
+          updates['activeRound/' + state.nick] = true;
+        }
+      }
+
       return state.roomRef.update(updates);
     }).catch(() => {
       syncLocalRoomMembership();
@@ -664,7 +697,10 @@
     if(bingoWinMessage){ bingoWinMessage.classList.remove('is-visible'); bingoWinMessage.innerHTML = ''; }
 
     if(state.firebaseReady && state.roomRef && isHost()){
-      state.roomRef.update({ drawnNumbers: [], currentBall: null, drawStatus: 'idle', winner: '' });
+      const newActiveRound = {};
+      newActiveRound[state.nick] = true;
+      state.activeRound = newActiveRound;
+      state.roomRef.update({ drawnNumbers: [], currentBall: null, drawStatus: 'idle', winner: '', activeRound: newActiveRound });
     }
   }
 
