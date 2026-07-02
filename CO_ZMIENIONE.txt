@@ -1,20 +1,18 @@
-GAME ROOM v2002
+GAME ROOM v2000
 
-Naprawa:
-- usunięto błąd z v2001, który psuł linki w index.html,
-- poprawnie ustawiono:
-  manifest.json?v=2002
-  style.css?v=2002
-  app.js?v=2002
-- biały ekran był przez to, że app.js nie ładował się poprawnie.
-
-Zostaje:
-- zmniejszenie ekranu pokoi / tła z v2001.
+Zmiany:
+- żółty kontener DODAJ POKÓJ obniżony o ok. 0,5 cm,
+- przycisk DODAJ POKÓJ zmieniony na szary wypełniony,
+- litery na przycisku czarne,
+- usunięty znak + z przycisku,
+- ustawiono numer wersji GAME ROOM v2000.
 
 Nie ruszano:
-- mechaniki gry,
 - Bingo,
-- Firebase.
+- pokoi w mechanice,
+- Firebase,
+- wyboru gier,
+- żadnych grafik.
 
 Do podmiany:
 - index.html
