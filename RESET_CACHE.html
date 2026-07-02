@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RESET CACHE GAME ROOM</title>
+  <style>
+    html,body{margin:0;height:100%;background:#050010;color:#fff;font-family:Arial;display:grid;place-items:center;text-align:center}
+    .box{width:min(90vw,520px);padding:28px;border:2px solid #22b7ff;border-radius:18px;box-shadow:0 0 24px #22b7ff;background:rgba(0,0,0,.55)}
+    h1{margin:0 0 12px;color:#66d9ff}
+    p{font-size:18px}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Czyszczę cache...</h1>
+    <p>Za chwilę gra otworzy się ponownie.</p>
+  </div>
+  <script>
+  (async function(){
+    try{
+      if('serviceWorker' in navigator){
+        const regs = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(regs.map(r => r.unregister()));
+      }
+      if(window.caches){
+        const keys = await caches.keys();
+        await Promise.all(keys.map(k => caches.delete(k)));
+      }
+      try{ localStorage.setItem('gr_cache_reset_v1108','1'); }catch(e){}
+    }catch(e){}
+    location.replace('./index.html?v=1108&t=' + Date.now());
+  })();
+  </script>
+</body>
+</html>
