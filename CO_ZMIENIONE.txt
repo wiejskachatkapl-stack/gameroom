@@ -1,21 +1,19 @@
-GAME ROOM v2000
+GAME ROOM v2003
 
-Zmiany:
-- żółty kontener DODAJ POKÓJ obniżony o ok. 0,5 cm,
-- przycisk DODAJ POKÓJ zmieniony na szary wypełniony,
-- litery na przycisku czarne,
-- usunięty znak + z przycisku,
-- ustawiono numer wersji GAME ROOM v2000.
+Zmiana:
+- tylko ekran logowania na telefonie w poziomie,
+- zmniejszone przyciski,
+- przyciski ZALOGUJ SIĘ i UTWÓRZ PROFIL ustawione obok siebie,
+- dopasowanie pól i przełącznika języka tak, aby całość mieściła się w ramce tła.
 
 Nie ruszano:
+- mechaniki gry,
+- ekranów pokoi,
 - Bingo,
-- pokoi w mechanice,
-- Firebase,
-- wyboru gier,
-- żadnych grafik.
+- innych widoków.
 
 Do podmiany:
+- style.css
 - index.html
 - app.js
-- style.css
 - manifest.json
