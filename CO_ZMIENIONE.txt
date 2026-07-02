@@ -1,21 +1,10 @@
-GAME ROOM v2000
-
-Zmiany:
-- żółty kontener DODAJ POKÓJ obniżony o ok. 0,5 cm,
-- przycisk DODAJ POKÓJ zmieniony na szary wypełniony,
-- litery na przycisku czarne,
-- usunięty znak + z przycisku,
-- ustawiono numer wersji GAME ROOM v2000.
-
-Nie ruszano:
-- Bingo,
-- pokoi w mechanice,
-- Firebase,
-- wyboru gier,
-- żadnych grafik.
+GAME ROOM v2001
 
 Do podmiany:
 - index.html
 - app.js
 - style.css
 - manifest.json
+
+Zmiana:
+- zmniejszony cały ekran pokoi / tło, aby było lepiej widoczne.

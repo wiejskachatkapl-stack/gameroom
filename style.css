@@ -3950,3 +3950,10 @@ select.profile-input-v1051,
 html:lang(en) #createRoomBtn:after{
   content:"ADD ROOM" !important;
 }
+
+
+/* ===== GAME ROOM v2001: zmniejszenie całego ekranu pokoi ===== */
+.rooms{width:min(94vw,141vh)!important;max-height:94vh!important;margin:auto!important}
+@media (orientation:landscape){.rooms{width:min(94vw,141vh)!important;max-height:94vh!important}}
+@media (orientation:portrait){.rooms{width:96vw!important;max-height:96vh!important}}
+.rooms .version{bottom:8px!important}
