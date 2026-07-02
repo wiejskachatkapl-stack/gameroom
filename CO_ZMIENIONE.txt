@@ -1,17 +1,25 @@
-GAME_ROOM v1105
+GAME_ROOM v1110
 
 Baza:
-- działająca wersja GAME_ROOM v1103
+- ostatni dobry zestaw GAME_ROOM v1105_BINGO_START_SCREEN_FIT
 
-Zmiany:
-- nie dodano JavaScriptowego wymuszania orientacji,
-- nie użyto screen.orientation.lock,
-- mechaniki gry nie ruszano,
-- ekran logowania zostaje normalny,
-- poza ekranem logowania, gdy telefon jest pionowo, pojawia się komunikat: Obróć telefon poziomo,
-- po obróceniu telefonu poziomo komunikat znika i gra działa normalnie,
-- taki sam bezpieczny komunikat dodano w Bingo,
-- do pliki_do_podmiany dodano cały folder games/bingo dla pewnego odświeżenia cache.
+Co było źle:
+- w późniejszych paczkach część plików dalej ładowała stare cache, np. app.js?v=1104 i style.css?v=1104,
+- dlatego po wrzuceniu plików mogło wyglądać, jakby gra się nie zmieniała.
 
-DODATKOWO (v1105):
-- games/bingo/style.css: zmniejszono ekran startowy Bingo na telefonie w poziomie, aby cały był widoczny.
+Zmiany w tej paczce:
+- poprawiono tylko dopasowanie ekranu logowania,
+- poprawnie ustawiono cache na v1110 w index.html,
+- ustawiono wersję w app.js na GAME ROOM v1110,
+- ustawiono start_url w manifest.json na index.html?v=1110,
+- nie ruszano mechaniki gry,
+- nie ruszano Bingo,
+- nie dodano resetów cache,
+- nie dodano wymuszania orientacji przez JavaScript.
+
+Do podmiany:
+- index.html
+- app.js
+- style.css
+- manifest.json
+- sw.js
