@@ -1,25 +1,27 @@
-GAME_ROOM v1110
+GAME_ROOM v1111
 
 Baza:
-- ostatni dobry zestaw GAME_ROOM v1105_BINGO_START_SCREEN_FIT
+- ostatni dobry GAME_ROOM v1105.
 
-Co było źle:
-- w późniejszych paczkach część plików dalej ładowała stare cache, np. app.js?v=1104 i style.css?v=1104,
-- dlatego po wrzuceniu plików mogło wyglądać, jakby gra się nie zmieniała.
+Co naprawia ta paczka:
+- nadpisuje stary sw.js, który mógł trzymać stare pliki,
+- nadpisuje stare pliki RESET.html / RESET_CACHE.html / reset_cache.html / reset.html bezpiecznym przekierowaniem,
+- ustawia realny cache na v1111: index.html ładuje app.js?v=1111 i style.css?v=1111,
+- dopasowuje tylko ekran logowania.
 
-Zmiany w tej paczce:
-- poprawiono tylko dopasowanie ekranu logowania,
-- poprawnie ustawiono cache na v1110 w index.html,
-- ustawiono wersję w app.js na GAME ROOM v1110,
-- ustawiono start_url w manifest.json na index.html?v=1110,
-- nie ruszano mechaniki gry,
-- nie ruszano Bingo,
-- nie dodano resetów cache,
-- nie dodano wymuszania orientacji przez JavaScript.
+Nie ruszano:
+- mechaniki gry,
+- Bingo,
+- pokojów,
+- wyboru gier.
 
-Do podmiany:
+Do podmiany koniecznie WSZYSTKIE pliki z tego katalogu:
 - index.html
 - app.js
 - style.css
 - manifest.json
 - sw.js
+- RESET.html
+- RESET_CACHE.html
+- reset_cache.html
+- reset.html

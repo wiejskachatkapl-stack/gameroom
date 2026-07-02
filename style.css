@@ -3874,7 +3874,7 @@ select.profile-input-v1051,
 /* v1104 END */
 
 
-/* ===== GAME ROOM v1110: CZYSTE dopasowanie logowania ===== */
+/* ===== GAME ROOM v1111: OSTATECZNE czyste wyrównanie logowania ===== */
 /* Tylko ekran logowania. Nie rusza pokojów, wyboru gier ani Bingo. */
 html,body,#app{
   height:100dvh!important;
@@ -3889,75 +3889,77 @@ html,body,#app{
 }
 
 .login-clean .login-shell{
-  padding-top:4.0%!important;
+  padding-top:3.6%!important;
 }
 
 .login-clean .lang-switch{
-  top:19.0%!important;
+  top:18.2%!important;
 }
 
 .login-clean .lang-btn{
-  min-width:84px!important;
-  height:36px!important;
-  font-size:15px!important;
+  min-width:80px!important;
+  height:34px!important;
+  font-size:14px!important;
 }
 
 .login-clean .login-card{
-  left:31.0%!important;
-  top:33.5%!important;
-  width:43.5%!important;
-  gap:5px!important;
+  left:31.4%!important;
+  top:32.6%!important;
+  width:42.2%!important;
+  gap:4px!important;
 }
 
 .login-clean .field-label{
-  font-size:clamp(11px,.95vw,17px)!important;
+  font-size:clamp(10px,.9vw,16px)!important;
   margin-bottom:-2px!important;
 }
 
 .login-clean .input-wrap{
-  height:42px!important;
-  grid-template-columns:54px 1fr 38px!important;
+  height:38px!important;
+  grid-template-columns:50px 1fr 36px!important;
+  border-radius:8px!important;
 }
 
 .login-clean .input-icon{
-  width:54px!important;
-  font-size:21px!important;
+  width:50px!important;
+  font-size:19px!important;
 }
 
 .login-clean .login-input,
 .login-clean #loginId,
 .login-clean #loginPin{
-  font-size:clamp(15px,1.35vw,23px)!important;
-  padding:0 10px!important;
+  font-size:clamp(14px,1.25vw,21px)!important;
+  padding:0 9px!important;
 }
 
 .login-clean .eye-btn,
 .login-clean #togglePin{
-  width:38px!important;
-  font-size:18px!important;
+  width:36px!important;
+  font-size:17px!important;
 }
 
 .login-clean .login-action,
 .login-clean #loginBtn,
 .login-clean #createProfileBtn,
 .login-clean #helpBtn{
-  height:42px!important;
-  font-size:clamp(15px,1.35vw,23px)!important;
-  gap:8px!important;
-  padding:0 12px!important;
+  height:38px!important;
+  font-size:clamp(14px,1.25vw,21px)!important;
+  gap:7px!important;
+  padding:0 10px!important;
+  border-radius:9px!important;
 }
 
 .login-clean .login-main{
-  margin-top:3px!important;
+  margin-top:2px!important;
 }
 
 .login-clean .or-line{
-  height:16px!important;
-  font-size:13px!important;
+  height:14px!important;
+  font-size:12px!important;
 }
 
 .login-clean .or-line span{
-  padding:0 10px!important;
+  padding:0 8px!important;
 }
 
 .login-clean .version{
@@ -3979,75 +3981,8 @@ html,body,#app{
   }
 
   .login-clean .lang-switch{
-    top:18.8%!important;
-    gap:7px!important;
-  }
-
-  .login-clean .lang-btn{
-    min-width:74px!important;
-    height:31px!important;
-    font-size:13px!important;
-  }
-
-  .login-clean .login-card{
-    left:9%!important;
-    top:auto!important;
-    bottom:3.5%!important;
-    width:82%!important;
-    gap:4px!important;
-  }
-
-  .login-clean .field-label{
-    font-size:13px!important;
-  }
-
-  .login-clean .input-wrap{
-    height:40px!important;
-    grid-template-columns:48px 1fr 34px!important;
-  }
-
-  .login-clean .input-icon{
-    width:48px!important;
-    font-size:19px!important;
-  }
-
-  .login-clean .login-input,
-  .login-clean #loginId,
-  .login-clean #loginPin{
-    font-size:17px!important;
-    padding:0 9px!important;
-  }
-
-  .login-clean .eye-btn,
-  .login-clean #togglePin{
-    width:34px!important;
-    font-size:16px!important;
-  }
-
-  .login-clean .login-action,
-  .login-clean #loginBtn,
-  .login-clean #createProfileBtn,
-  .login-clean #helpBtn{
-    height:40px!important;
-    font-size:17px!important;
-    gap:7px!important;
-  }
-
-  .login-clean .or-line{
-    height:14px!important;
-    font-size:12px!important;
-  }
-}
-
-/* Telefon poziomo — niska wysokość ekranu */
-@media (orientation:landscape) and (max-height:560px){
-  .login.login-clean{
-    width:min(100vw, calc(100dvh * 16 / 9))!important;
-    max-height:100dvh!important;
-  }
-
-  .login-clean .lang-switch{
     top:18.2%!important;
+    gap:6px!important;
   }
 
   .login-clean .lang-btn{
@@ -4057,30 +3992,31 @@ html,body,#app{
   }
 
   .login-clean .login-card{
-    left:31.5%!important;
-    top:32.8%!important;
-    width:42.0%!important;
+    left:9%!important;
+    top:auto!important;
+    bottom:3.2%!important;
+    width:82%!important;
     gap:4px!important;
   }
 
   .login-clean .field-label{
-    font-size:11px!important;
+    font-size:12px!important;
   }
 
   .login-clean .input-wrap{
-    height:34px!important;
-    grid-template-columns:44px 1fr 32px!important;
+    height:38px!important;
+    grid-template-columns:46px 1fr 32px!important;
   }
 
   .login-clean .input-icon{
-    width:44px!important;
-    font-size:17px!important;
+    width:46px!important;
+    font-size:18px!important;
   }
 
   .login-clean .login-input,
   .login-clean #loginId,
   .login-clean #loginPin{
-    font-size:14px!important;
+    font-size:16px!important;
     padding:0 8px!important;
   }
 
@@ -4094,13 +4030,74 @@ html,body,#app{
   .login-clean #loginBtn,
   .login-clean #createProfileBtn,
   .login-clean #helpBtn{
-    height:34px!important;
-    font-size:14px!important;
+    height:38px!important;
+    font-size:16px!important;
     gap:6px!important;
   }
 
   .login-clean .or-line{
-    height:12px!important;
+    height:13px!important;
     font-size:11px!important;
+  }
+}
+
+/* Telefon poziomo — bardzo niska wysokość ekranu */
+@media (orientation:landscape) and (max-height:560px){
+  .login-clean .lang-switch{
+    top:17.5%!important;
+  }
+
+  .login-clean .lang-btn{
+    min-width:68px!important;
+    height:28px!important;
+    font-size:11px!important;
+  }
+
+  .login-clean .login-card{
+    left:31.8%!important;
+    top:31.6%!important;
+    width:41.2%!important;
+    gap:3px!important;
+  }
+
+  .login-clean .field-label{
+    font-size:10px!important;
+  }
+
+  .login-clean .input-wrap{
+    height:31px!important;
+    grid-template-columns:40px 1fr 30px!important;
+  }
+
+  .login-clean .input-icon{
+    width:40px!important;
+    font-size:16px!important;
+  }
+
+  .login-clean .login-input,
+  .login-clean #loginId,
+  .login-clean #loginPin{
+    font-size:13px!important;
+    padding:0 7px!important;
+  }
+
+  .login-clean .eye-btn,
+  .login-clean #togglePin{
+    width:30px!important;
+    font-size:14px!important;
+  }
+
+  .login-clean .login-action,
+  .login-clean #loginBtn,
+  .login-clean #createProfileBtn,
+  .login-clean #helpBtn{
+    height:31px!important;
+    font-size:13px!important;
+    gap:5px!important;
+  }
+
+  .login-clean .or-line{
+    height:10px!important;
+    font-size:10px!important;
   }
 }
