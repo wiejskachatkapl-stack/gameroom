@@ -4,16 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#1c1a16" />
-  <title>GAME ROOM v1108</title>
-  <link rel="manifest" href="manifest.json?v=1108" />
-  <link rel="stylesheet" href="style.css?v=1108" />
+  <title>GAME ROOM v1109</title>
+  <link rel="manifest" href="manifest.json?v=1109" />
+  <link rel="stylesheet" href="style.css?v=1109" />
 
   <script>
-    // v1108: awaryjne odblokowanie cache/PWA
+    // v1109: czyszczenie cache bez osobnego pliku resetu
     (function(){
       var qs = new URLSearchParams(location.search);
-      if(qs.get('clear') === '1'){
-        try{ localStorage.setItem('gr_cache_reset_v1108','1'); }catch(e){}
+      if(qs.get('clear') === '1' || qs.get('reset') === '1'){
         Promise.resolve()
           .then(function(){
             if('serviceWorker' in navigator){
@@ -30,11 +29,11 @@
             }
           })
           .then(function(){
-            var clean = location.origin + location.pathname + '?v=1108&t=' + Date.now();
-            location.replace(clean);
+            try{ localStorage.setItem('gr_cache_reset_v1109','1'); }catch(e){}
+            location.replace('./index.html?v=1109&t=' + Date.now());
           })
           .catch(function(){
-            location.replace(location.origin + location.pathname + '?v=1108&t=' + Date.now());
+            location.replace('./index.html?v=1109&t=' + Date.now());
           });
       }
     })();
@@ -53,8 +52,8 @@
       if (window.caches) { caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }); }
     } catch(e) {}
   </script>
-  <script src="firebase.js?v=1108"></script>
-  <script src="app.js?v=1108"></script>
+  <script src="firebase.js?v=1109"></script>
+  <script src="app.js?v=1109"></script>
 
 <script>
 (function(){
