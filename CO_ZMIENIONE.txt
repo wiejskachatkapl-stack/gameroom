@@ -1,11 +1,10 @@
-GAME ROOM v2005
+GAME ROOM v2006
 
 Zmiana:
-- na telefonie w poziomie napis PIN i okno PIN podniesione do góry,
-- przyciski ZALOGUJ SIĘ i UTWÓRZ PROFIL również podniesione,
-- czcionka obu przycisków zmniejszona o 2 pkt.
+- tylko zmniejszenie całego ekranu pokoi na telefonie w poziomie,
+- tło i cały układ ekranu pokoi są mniejsze, aby wszystko było lepiej widoczne.
 
-Nie ruszano niczego poza tym.
+Nie zmieniano niczego poza tym.
 
 Do podmiany:
 - style.css
