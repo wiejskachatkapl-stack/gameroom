@@ -19,7 +19,7 @@ function openBingoGameRoom(){
 }
 window.openBingoGameRoom = openBingoGameRoom;
 
-const VERSION = 'GAME ROOM v1105';
+const VERSION = 'GAME ROOM v2000';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 
@@ -340,7 +340,7 @@ app.innerHTML=`<section class="screen rooms gr-clean-rooms">
   <div class="gr-stage">
     <div class="gr-panel gr-create-panel gr-create-launch">
       <h2>DODAJ POKÓJ</h2>
-      <button id="openCreateRoomModal" class="gr-open-create" type="button">+ DODAJ POKÓJ</button>
+      <button id="openCreateRoomModal" class="gr-open-create" type="button">DODAJ POKÓJ</button>
     </div>
 
     <div class="gr-panel gr-join-panel">
