@@ -19,7 +19,7 @@ function openBingoGameRoom(){
 }
 window.openBingoGameRoom = openBingoGameRoom;
 
-const VERSION = 'GAME ROOM v1103';
+const VERSION = 'GAME ROOM v1104';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 
