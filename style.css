@@ -3952,14 +3952,14 @@ html:lang(en) #createRoomBtn:after{
 }
 
 
-/* ===== GAME ROOM v2004: zmniejszenie całego ekranu pokoi ===== */
+/* ===== GAME ROOM v2005: zmniejszenie całego ekranu pokoi ===== */
 .rooms{width:min(94vw,141vh)!important;max-height:94vh!important;margin:auto!important}
 @media (orientation:landscape){.rooms{width:min(94vw,141vh)!important;max-height:94vh!important}}
 @media (orientation:portrait){.rooms{width:96vw!important;max-height:96vh!important}}
 .rooms .version{bottom:8px!important}
 
 
-/* ===== GAME ROOM v2004: telefon poziomo – ekran logowania mieści się w ramce ===== */
+/* ===== GAME ROOM v2005: telefon poziomo – ekran logowania mieści się w ramce ===== */
 /* Tylko login na telefonach w poziomie: mniejsze przyciski i dwa główne przyciski obok siebie. */
 @media (pointer:coarse) and (orientation:landscape){
   .login.login-clean{
@@ -4058,7 +4058,7 @@ html:lang(en) #createRoomBtn:after{
 }
 
 
-/* ===== GAME ROOM v2004: login na telefonie poziomo – język w lewym górnym rogu, całość wyżej ===== */
+/* ===== GAME ROOM v2005: login na telefonie poziomo – język w lewym górnym rogu, całość wyżej ===== */
 @media (pointer:coarse) and (orientation:landscape){
   .login.login-clean{
     width:min(100vw,177.777vh)!important;
@@ -4150,5 +4150,28 @@ html:lang(en) #createRoomBtn:after{
     right:12px!important;
     bottom:8px!important;
     font-size:11px!important;
+  }
+}
+
+
+/* ===== GAME ROOM v2005: pin i przyciski podniesione, mniejsza czcionka przycisków ===== */
+@media (pointer:coarse) and (orientation:landscape){
+  .login-clean .login-card > label[for="loginPin"]{
+    margin-top:-14px!important;
+  }
+  .login-clean .login-card > .input-wrap:nth-of-type(2){
+    margin-top:-14px!important;
+  }
+  .login-clean #loginBtn,
+  .login-clean #createProfileBtn{
+    margin-top:-12px!important;
+    font-size:10px!important;
+    gap:5px!important;
+  }
+  .login-clean #loginBtn .btn-ic,
+  .login-clean #createProfileBtn .btn-ic,
+  .login-clean #loginBtn span,
+  .login-clean #createProfileBtn span{
+    font-size:12px!important;
   }
 }

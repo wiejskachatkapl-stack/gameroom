@@ -1,10 +1,9 @@
-GAME ROOM v2004
+GAME ROOM v2005
 
 Zmiana:
-- tylko ekran logowania na telefonie w poziomie,
-- przyciski zmiany języka przeniesione na lewą stronę u góry,
-- cały układ logowania podniesiony do góry,
-- zachowane przyciski ZALOGUJ SIĘ i UTWÓRZ PROFIL obok siebie.
+- na telefonie w poziomie napis PIN i okno PIN podniesione do góry,
+- przyciski ZALOGUJ SIĘ i UTWÓRZ PROFIL również podniesione,
+- czcionka obu przycisków zmniejszona o 2 pkt.
 
 Nie ruszano niczego poza tym.
 
