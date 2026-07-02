@@ -8,3 +8,4 @@ Do podmiany:
 
 Zmiana:
 - zmniejszony cały ekran pokoi / tło, aby było lepiej widoczne.
+restart deploy
