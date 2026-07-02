@@ -648,3 +648,12 @@ button{font-family:inherit}
   }
 }
 /* v1104 BINGO END */
+
+
+/* === v1105: dopasowanie ekranu startowego Bingo na telefonie (landscape) === */
+@media (pointer:coarse) and (orientation:landscape){
+  .stage-start{
+    width:min(92vw, calc(92vh * 16 / 9));
+    height:min(92vh, calc(92vw * 9 / 16));
+  }
+}
