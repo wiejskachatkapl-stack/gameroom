@@ -1,16 +1,12 @@
-GAME ROOM v2003
+GAME ROOM v2004
 
 Zmiana:
 - tylko ekran logowania na telefonie w poziomie,
-- zmniejszone przyciski,
-- przyciski ZALOGUJ SIĘ i UTWÓRZ PROFIL ustawione obok siebie,
-- dopasowanie pól i przełącznika języka tak, aby całość mieściła się w ramce tła.
+- przyciski zmiany języka przeniesione na lewą stronę u góry,
+- cały układ logowania podniesiony do góry,
+- zachowane przyciski ZALOGUJ SIĘ i UTWÓRZ PROFIL obok siebie.
 
-Nie ruszano:
-- mechaniki gry,
-- ekranów pokoi,
-- Bingo,
-- innych widoków.
+Nie ruszano niczego poza tym.
 
 Do podmiany:
 - style.css

@@ -3952,14 +3952,14 @@ html:lang(en) #createRoomBtn:after{
 }
 
 
-/* ===== GAME ROOM v2003: zmniejszenie całego ekranu pokoi ===== */
+/* ===== GAME ROOM v2004: zmniejszenie całego ekranu pokoi ===== */
 .rooms{width:min(94vw,141vh)!important;max-height:94vh!important;margin:auto!important}
 @media (orientation:landscape){.rooms{width:min(94vw,141vh)!important;max-height:94vh!important}}
 @media (orientation:portrait){.rooms{width:96vw!important;max-height:96vh!important}}
 .rooms .version{bottom:8px!important}
 
 
-/* ===== GAME ROOM v2003: telefon poziomo – ekran logowania mieści się w ramce ===== */
+/* ===== GAME ROOM v2004: telefon poziomo – ekran logowania mieści się w ramce ===== */
 /* Tylko login na telefonach w poziomie: mniejsze przyciski i dwa główne przyciski obok siebie. */
 @media (pointer:coarse) and (orientation:landscape){
   .login.login-clean{
@@ -4049,6 +4049,102 @@ html:lang(en) #createRoomBtn:after{
   .login-clean #createProfileBtn span{
     min-width:auto!important;
     font-size:0.95em!important;
+  }
+  .login-clean .version{
+    right:12px!important;
+    bottom:8px!important;
+    font-size:11px!important;
+  }
+}
+
+
+/* ===== GAME ROOM v2004: login na telefonie poziomo – język w lewym górnym rogu, całość wyżej ===== */
+@media (pointer:coarse) and (orientation:landscape){
+  .login.login-clean{
+    width:min(100vw,177.777vh)!important;
+    max-height:100vh!important;
+  }
+  .login-clean .lang-switch{
+    left:29.2%!important;
+    top:24.3%!important;
+    transform:none!important;
+    gap:10px!important;
+    z-index:6!important;
+  }
+  .login-clean .lang-btn{
+    min-width:82px!important;
+    height:36px!important;
+    font-size:15px!important;
+    border-radius:10px!important;
+    padding:0 12px!important;
+  }
+  .login-clean .login-card{
+    left:30.4%!important;
+    top:33.4%!important;
+    width:44.6%!important;
+    max-width:none!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    column-gap:10px!important;
+    row-gap:6px!important;
+    align-items:start!important;
+  }
+  .login-clean .field-label,
+  .login-clean .input-wrap,
+  .login-clean .or-line{
+    grid-column:1 / -1!important;
+  }
+  .login-clean .field-label{
+    font-size:13px!important;
+    margin:0 0 -3px 0!important;
+    line-height:1!important;
+  }
+  .login-clean .input-wrap{
+    height:40px!important;
+    border-radius:8px!important;
+    grid-template-columns:54px 1fr 38px!important;
+  }
+  .login-clean .input-icon{
+    width:54px!important;
+    font-size:21px!important;
+  }
+  .login-clean .login-input,
+  .login-clean #loginId,
+  .login-clean #loginPin{
+    font-size:15px!important;
+    padding:0 10px!important;
+  }
+  .login-clean .eye-btn,
+  .login-clean #togglePin{
+    width:38px!important;
+    font-size:16px!important;
+  }
+  .login-clean .or-line{display:none!important;}
+  .login-clean #loginBtn,
+  .login-clean #createProfileBtn{
+    width:100%!important;
+    height:40px!important;
+    min-width:0!important;
+    font-size:12px!important;
+    gap:6px!important;
+    padding:0 8px!important;
+    letter-spacing:.2px!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  .login-clean #loginBtn{grid-column:1 / 2!important; margin-top:2px!important;}
+  .login-clean #createProfileBtn{grid-column:2 / 3!important; margin-top:2px!important;}
+  .login-clean #loginBtn .btn-ic,
+  .login-clean #createProfileBtn .btn-ic{
+    font-size:14px!important;
+    flex:0 0 auto!important;
+  }
+  .login-clean #loginBtn span,
+  .login-clean #createProfileBtn span{
+    min-width:0!important;
+    font-size:1em!important;
   }
   .login-clean .version{
     right:12px!important;
