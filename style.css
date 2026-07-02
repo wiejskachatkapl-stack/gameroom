@@ -3952,7 +3952,7 @@ html:lang(en) #createRoomBtn:after{
 }
 
 
-/* ===== GAME ROOM v2001: zmniejszenie całego ekranu pokoi ===== */
+/* ===== GAME ROOM v2002: zmniejszenie całego ekranu pokoi ===== */
 .rooms{width:min(94vw,141vh)!important;max-height:94vh!important;margin:auto!important}
 @media (orientation:landscape){.rooms{width:min(94vw,141vh)!important;max-height:94vh!important}}
 @media (orientation:portrait){.rooms{width:96vw!important;max-height:96vh!important}}

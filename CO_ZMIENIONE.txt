@@ -1,11 +1,23 @@
-GAME ROOM v2001
+GAME ROOM v2002
+
+Naprawa:
+- usunięto błąd z v2001, który psuł linki w index.html,
+- poprawnie ustawiono:
+  manifest.json?v=2002
+  style.css?v=2002
+  app.js?v=2002
+- biały ekran był przez to, że app.js nie ładował się poprawnie.
+
+Zostaje:
+- zmniejszenie ekranu pokoi / tła z v2001.
+
+Nie ruszano:
+- mechaniki gry,
+- Bingo,
+- Firebase.
 
 Do podmiany:
 - index.html
 - app.js
 - style.css
 - manifest.json
-
-Zmiana:
-- zmniejszony cały ekran pokoi / tło, aby było lepiej widoczne.
-restart deploy
