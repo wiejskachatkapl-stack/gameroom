@@ -609,3 +609,42 @@ button{font-family:inherit}
   .player-name-line{gap:.6vw}
   .game-action-btn.btn-join-room{font-size:clamp(7px,.95vw,10px)}
 }
+
+
+/* v1104 – Bingo komunikat obrotu telefonu */
+@media (pointer:coarse) and (orientation:portrait){
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:99998;
+    background:rgba(0,0,0,.88);
+    backdrop-filter:blur(3px);
+    -webkit-backdrop-filter:blur(3px);
+  }
+  body::after{
+    content:"Obróć telefon poziomo";
+    position:fixed;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    z-index:99999;
+    width:min(82vw,420px);
+    min-height:160px;
+    box-sizing:border-box;
+    padding:96px 24px 28px;
+    border:3px solid rgba(0,210,255,.95);
+    border-radius:24px;
+    background:radial-gradient(circle at 50% 28%, rgba(0,210,255,.34), transparent 32%), rgba(0,0,0,.78);
+    box-shadow:0 0 24px rgba(0,210,255,.85), inset 0 0 22px rgba(0,210,255,.28);
+    color:#fff;
+    font-family:Arial, sans-serif;
+    font-weight:900;
+    font-size:clamp(22px,7vw,34px);
+    text-align:center;
+    line-height:1.1;
+    text-shadow:0 2px 8px #000, 0 0 10px rgba(0,210,255,.95);
+    pointer-events:none;
+  }
+}
+/* v1104 BINGO END */

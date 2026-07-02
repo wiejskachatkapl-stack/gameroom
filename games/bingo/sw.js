@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bingo-v1103-no-cache';
+const CACHE_NAME = 'bingo-v1104';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
