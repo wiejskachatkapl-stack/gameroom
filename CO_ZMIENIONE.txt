@@ -1,0 +1,17 @@
+GAME_ROOM v1105
+
+Baza:
+- działająca wersja GAME_ROOM v1103
+
+Zmiany:
+- nie dodano JavaScriptowego wymuszania orientacji,
+- nie użyto screen.orientation.lock,
+- mechaniki gry nie ruszano,
+- ekran logowania zostaje normalny,
+- poza ekranem logowania, gdy telefon jest pionowo, pojawia się komunikat: Obróć telefon poziomo,
+- po obróceniu telefonu poziomo komunikat znika i gra działa normalnie,
+- taki sam bezpieczny komunikat dodano w Bingo,
+- do pliki_do_podmiany dodano cały folder games/bingo dla pewnego odświeżenia cache.
+
+DODATKOWO (v1105):
+- games/bingo/style.css: zmniejszono ekran startowy Bingo na telefonie w poziomie, aby cały był widoczny.
