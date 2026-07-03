@@ -4192,3 +4192,142 @@ html:lang(en) #createRoomBtn:after{
     bottom:6px!important;
   }
 }
+
+/* ===== GAME ROOM v2007: TYLKO CSS — dopasowanie ekranu pokoi do ramki tła ===== */
+/* Nie rusza HTML, JS, Firebase, Bingo ani mechaniki gry. */
+@media (pointer:coarse) and (orientation:landscape){
+  .rooms.gr-clean-rooms,
+  .screen.rooms.gr-clean-rooms{
+    width:100vw!important;
+    height:auto!important;
+    max-height:100vh!important;
+    aspect-ratio:3/2!important;
+    margin:0 auto!important;
+    background-size:100% 100%!important;
+    background-position:center center!important;
+    background-repeat:no-repeat!important;
+    overflow:hidden!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-stage{
+    left:16.6%!important;
+    top:24.2%!important;
+    width:69.2%!important;
+    height:56.4%!important;
+    display:grid!important;
+    grid-template-columns:28% 70%!important;
+    gap:2.0%!important;
+    padding:0!important;
+    align-items:stretch!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-create-launch{
+    height:100%!important;
+    min-height:0!important;
+    align-self:stretch!important;
+    justify-content:center!important;
+    padding:8% 7%!important;
+    border-radius:20px!important;
+    overflow:visible!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-create-launch h2{
+    margin:0 0 22px 0!important;
+    font-size:clamp(16px,1.9vw,24px)!important;
+    line-height:1.0!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-open-create{
+    width:82%!important;
+    min-height:44px!important;
+    font-size:clamp(11px,1.35vw,14px)!important;
+    line-height:1.05!important;
+    padding:0 8px!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-join-panel{
+    height:100%!important;
+    min-height:0!important;
+    align-self:stretch!important;
+    border-radius:20px!important;
+    overflow:hidden!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-join-panel h2{
+    top:8.2%!important;
+    left:6%!important;
+    width:88%!important;
+    font-size:clamp(16px,2.05vw,24px)!important;
+    line-height:.96!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-section-title,
+  .rooms.gr-clean-rooms .gr-manual-title{
+    display:none!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-room-list{
+    left:6.0%!important;
+    top:28.0%!important;
+    width:88.0%!important;
+    height:34.5%!important;
+    padding-right:1.8%!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-room-card{
+    min-height:54px!important;
+    grid-template-columns:10% 1fr 26%!important;
+    column-gap:2%!important;
+    padding:4px 6px!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-room-icon{
+    font-size:clamp(12px,1.6vw,16px)!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-room-name{
+    font-size:clamp(11px,1.45vw,15px)!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-room-code{
+    font-size:clamp(10px,1.2vw,12px)!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-join-card{
+    height:38px!important;
+    font-size:clamp(10px,1.2vw,12px)!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-manual{
+    left:6.0%!important;
+    bottom:7.4%!important;
+    width:88.0%!important;
+    height:10.0%!important;
+    grid-template-columns:1fr 26%!important;
+    gap:2.2%!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-manual .gr-input{
+    font-size:clamp(11px,1.45vw,14px)!important;
+    padding:0 12px!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-join-manual{
+    font-size:clamp(10px,1.2vw,12px)!important;
+  }
+
+  .rooms.gr-clean-rooms .gr-logout{
+    left:27.2%!important;
+    bottom:1.8%!important;
+    width:45.6%!important;
+    height:5.2%!important;
+    font-size:clamp(11px,1.35vw,14px)!important;
+    z-index:45!important;
+  }
+
+  .rooms.gr-clean-rooms .version{
+    right:2.0%!important;
+    bottom:.8%!important;
+    font-size:10px!important;
+  }
+}
