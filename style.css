@@ -4177,12 +4177,13 @@ html:lang(en) #createRoomBtn:after{
 }
 
 
-/* ===== GAME ROOM v2006: telefon poziomo – zmniejszenie całego ekranu pokoi ===== */
+/* ===== GAME ROOM v2007: telefon poziomo – ekran pokoi rozszerzony na szerokość telefonu ===== */
 @media (pointer:coarse) and (orientation:landscape){
   .rooms,
   .rooms.gr-clean-rooms{
-    width:min(88vw,132vh)!important;
-    max-height:88vh!important;
+    width:100vw!important;
+    height:auto!important;
+    max-height:100vh!important;
     margin:0 auto!important;
     background-size:100% 100%!important;
   }

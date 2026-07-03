@@ -1,12 +1,11 @@
-GAME ROOM v2006
+GAME ROOM v2007
 
-Zmiana:
-- tylko zmniejszenie całego ekranu pokoi na telefonie w poziomie,
-- tło i cały układ ekranu pokoi są mniejsze, aby wszystko było lepiej widoczne.
+Zmiany:
+- rozszerzono ekran pokoi na telefonie w poziomie tak, aby lepiej wypełniał szerokość ekranu,
+- nie zmieniano mechaniki gry,
+- poza tą kosmetyką nic więcej nie zostało ruszone.
 
-Nie zmieniano niczego poza tym.
-
-Do podmiany:
+Pliki do podmiany:
 - style.css
 - index.html
 - app.js
