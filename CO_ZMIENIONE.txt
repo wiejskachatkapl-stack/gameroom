@@ -1,10 +1,12 @@
-GAME ROOM v2008
-Podmień:
-- style.css
-- app.js
-- index.html
+GAME ROOM v2007
 
 Zmiany:
-- kosmetyczne dopasowanie ekranu pokoi na telefonie poziomo zgodnie z zaakceptowaną grafiką
-- obniżone kontenery, ukryte pomocnicze napisy, przycisk wylogowania lekko wyżej
-- mechanika gry bez zmian
+- rozszerzono ekran pokoi na telefonie w poziomie tak, aby lepiej wypełniał szerokość ekranu,
+- nie zmieniano mechaniki gry,
+- poza tą kosmetyką nic więcej nie zostało ruszone.
+
+Pliki do podmiany:
+- style.css
+- index.html
+- app.js
+- manifest.json
