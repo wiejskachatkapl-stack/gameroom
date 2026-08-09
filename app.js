@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1083';
+const VERSION = 'GAME ROOM v1084';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
@@ -18,6 +18,22 @@ function recentRooms(){return storage.get('gr_recent_rooms',[])}
 function addRecent(r){const arr=recentRooms().filter(x=>x.code!==r.code);arr.unshift(r);storage.set('gr_recent_rooms',arr.slice(0,8))}
 function toast(msg){const t=document.createElement('div');t.className='toast';t.textContent=msg;document.querySelector('.screen')?.appendChild(t);setTimeout(()=>t.remove(),2400)}
 function version(){return `<div class="version">${VERSION}</div>`}
+
+function forceFreshOnMobile(){
+  try{
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.getRegistrations().then(regs=>{
+        regs.forEach(r=>r.update().catch(()=>{}));
+      }).catch(()=>{});
+    }
+    if(window.caches){
+      caches.keys().then(keys=>{
+        keys.filter(k=>/game|room|gr|cache|pwa/i.test(k)).forEach(k=>caches.delete(k).catch(()=>{}));
+      }).catch(()=>{});
+    }
+  }catch(e){}
+}
+
 
 function lockLandscape(){
   try{
@@ -94,6 +110,7 @@ function openSettings(){
 }
 
 function renderStart(){
+  forceFreshOnMobile();
   lockLandscape();
   app.innerHTML=`<section class="screen start-screen">
     <div class="start-shell">
@@ -378,4 +395,4 @@ function renderGames(room){
 }
 
 function openCreateRoom(){renderRooms()}
-function init(){lockLandscape();renderStart()}init();
+function init(){forceFreshOnMobile();lockLandscape();renderStart()}init();

@@ -1,11 +1,11 @@
 {
   "name": "GAME ROOM",
   "short_name": "GAME ROOM",
-  "start_url": "./index.html?v=1083",
+  "start_url": "./index.html?v=1084",
   "display": "standalone",
   "orientation": "landscape",
   "background_color": "#111111",
-  "theme_color": "#1c1a16",
+  "theme_color": "#05080f",
   "icons": [
     {
       "src": "assets/icons/icon-192.png",
