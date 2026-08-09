@@ -3134,3 +3134,64 @@ body{
     font-size:11px!important;
   }
 }
+
+
+/* === GAME ROOM v1082: telefon - dopracowanie ekranu logowania === */
+@media (pointer:coarse){
+  .login-from-start .login-card-start{
+    top:45.6%!important;
+    width:min(430px,34vw)!important;
+    max-height:40vh!important;
+    padding:7px 8px 7px!important;
+    gap:2px 6px!important;
+    border-radius:12px!important;
+  }
+  .login-from-start .field-label{
+    font-size:9px!important;
+    margin:0!important;
+    line-height:1!important;
+  }
+  .login-from-start .input-wrap{
+    height:27px!important;
+    grid-template-columns:34px 1fr 24px!important;
+    border-radius:6px!important;
+  }
+  .login-from-start .input-icon{width:34px!important;font-size:13px!important;}
+  .login-from-start .login-input,
+  .login-from-start #loginId,
+  .login-from-start #loginPin{font-size:11px!important;padding:0 5px!important;}
+  .login-from-start .eye-btn,
+  .login-from-start #togglePin{width:24px!important;font-size:10px!important;}
+  .login-from-start .login-action,
+  .login-from-start #loginBtn,
+  .login-from-start #loginBackBtn{
+    height:26px!important;
+    min-height:26px!important;
+    font-size:10px!important;
+    border-radius:8px!important;
+    gap:3px!important;
+    padding:0 5px!important;
+  }
+  .login-from-start .login-action span{min-width:14px!important;}
+}
+
+@media (pointer:coarse) and (max-height:720px){
+  .login-from-start .login-card-start{
+    top:44.6%!important;
+    width:min(405px,33vw)!important;
+    max-height:38vh!important;
+    padding:6px 7px 6px!important;
+    gap:2px 5px!important;
+  }
+  .login-from-start .field-label{font-size:8px!important;}
+  .login-from-start .input-wrap{height:25px!important;grid-template-columns:31px 1fr 22px!important;}
+  .login-from-start .input-icon{width:31px!important;font-size:12px!important;}
+  .login-from-start .login-input,
+  .login-from-start #loginId,
+  .login-from-start #loginPin{font-size:10px!important;padding:0 4px!important;}
+  .login-from-start .eye-btn,
+  .login-from-start #togglePin{width:22px!important;font-size:9px!important;}
+  .login-from-start .login-action,
+  .login-from-start #loginBtn,
+  .login-from-start #loginBackBtn{height:24px!important;min-height:24px!important;font-size:9px!important;}
+}
