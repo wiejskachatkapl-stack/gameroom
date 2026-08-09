@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1075';
+const VERSION = 'GAME ROOM v1081';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
@@ -18,6 +18,15 @@ function recentRooms(){return storage.get('gr_recent_rooms',[])}
 function addRecent(r){const arr=recentRooms().filter(x=>x.code!==r.code);arr.unshift(r);storage.set('gr_recent_rooms',arr.slice(0,8))}
 function toast(msg){const t=document.createElement('div');t.className='toast';t.textContent=msg;document.querySelector('.screen')?.appendChild(t);setTimeout(()=>t.remove(),2400)}
 function version(){return `<div class="version">${VERSION}</div>`}
+
+function lockLandscape(){
+  try{
+    if(screen.orientation && screen.orientation.lock){
+      screen.orientation.lock('landscape').catch(()=>{});
+    }
+  }catch(e){}
+}
+
 
 function esc(v){return String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
 function openSettings(){
@@ -85,6 +94,7 @@ function openSettings(){
 }
 
 function renderStart(){
+  lockLandscape();
   app.innerHTML=`<section class="screen start-screen">
     <div class="start-shell">
       <div class="start-lang-switch" aria-label="language">
@@ -106,6 +116,7 @@ function renderStart(){
 }
 
 function renderLogin(){
+  lockLandscape();
   const p=profile();
   const loginValue = p?.playerId || '';
   app.innerHTML=`<section class="screen login login-clean login-from-start">
@@ -160,6 +171,7 @@ function renderCapPreview(cap){
   </div>`;
 }
 function renderProfile(){
+  lockLandscape();
 let currentCountry='PL';
 let currentId=id(currentCountry);
 let currentCap={shape:'classic',color:'blue',symbol:'⚽',image:''};
@@ -271,6 +283,7 @@ document.getElementById('backBtn').onclick=renderLogin;
 document.getElementById('profileForm').onsubmit=(ev)=>{ev.preventDefault();const name=document.getElementById('name').value.trim();const pin=[...document.querySelectorAll('.pinBox')].map(x=>x.value).join('');if(name.length<2)return toast(profileT('Wpisz imię lub nick.','Enter name or nick.'));if(pin.length!==4)return toast(profileT('PIN musi mieć 4 cyfry.','PIN must have 4 digits.'));storage.set('gr_profile',{playerId:currentId,countryCode:c.value,country:countries[c.value],name,pin,avatar:currentCap.color||'blue',cap:currentCap,createdAt:Date.now()});toast(profileT('Profil zapisany.','Profile saved.'));setTimeout(renderLogin,700)};
 }
 function renderRooms(){
+  lockLandscape();
 const p=profile();if(!p)return renderLogin();
 const rooms=recentRooms().filter(r => r && (r.ownerId === p.playerId || r.joinedBy === p.playerId));
 const listCount=Math.max(4,rooms.length);
@@ -324,6 +337,7 @@ document.getElementById('logoutBtn').onclick=()=>{storage.remove('gr_logged_in')
 }
 
 function renderGames(room){
+  lockLandscape();
   const p=profile(); if(!p)return renderLogin();
   const l=lang();
   const dir=l==='en'?'en':'pl';
@@ -364,4 +378,4 @@ function renderGames(room){
 }
 
 function openCreateRoom(){renderRooms()}
-function init(){try{if(screen.orientation&&screen.orientation.lock){screen.orientation.lock('landscape').catch(()=>{});}}catch(e){}renderStart()}init();
+function init(){lockLandscape();renderStart()}init();
