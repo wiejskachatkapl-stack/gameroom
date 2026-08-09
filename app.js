@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1072';
+const VERSION = 'GAME ROOM v1073';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
@@ -108,14 +108,9 @@ function renderStart(){
 function renderLogin(){
   const p=profile();
   const loginValue = p?.playerId || '';
-  app.innerHTML=`<section class="screen login login-clean">
-    <div class="login-shell">
-      <div class="lang-switch" aria-label="language">
-        <button id="langLoginPL" class="lang-btn ${lang()==='pl'?'active':''}" type="button">🇵🇱 PL</button>
-        <button id="langLoginEN" class="lang-btn ${lang()==='en'?'active':''}" type="button">🇬🇧 EN</button>
-      </div>
-
-      <form class="login-card" id="loginForm" autocomplete="off">
+  app.innerHTML=`<section class="screen login login-clean login-from-start">
+    <div class="login-shell login-shell-start">
+      <form class="login-card login-card-start" id="loginForm" autocomplete="off">
         <label class="field-label" for="loginId">${tr('loginLabel').toUpperCase()}</label>
         <div class="input-wrap">
           <span class="input-icon user-icon">♙</span>
@@ -130,18 +125,13 @@ function renderLogin(){
         </div>
 
         <button class="login-action login-main" id="loginBtn" type="submit"><span>↪</span>${tr('loginBtn')}</button>
-        <div class="or-line"><span>${lang()==='pl'?'LUB':'OR'}</span></div>
-        <button class="login-action login-create" id="createProfileBtn" type="button"><span>♙+</span>${lang()==='pl'?'UTWÓRZ PROFIL':'CREATE PROFILE'}</button>
-        <button class="login-action login-settings" id="helpBtn" type="button"><span>⚙</span>${tr('settings')}</button>
+        <button class="login-action login-back-start" id="loginBackBtn" type="button"><span>←</span>${tr('back')}</button>
       </form>
     </div>
     ${version()}
   </section>`;
 
-  document.getElementById('langLoginPL').onclick=()=>{storage.set('gr_lang','pl');renderLogin()};
-  document.getElementById('langLoginEN').onclick=()=>{storage.set('gr_lang','en');renderLogin()};
-  document.getElementById('createProfileBtn').onclick=renderProfile;
-  document.getElementById('helpBtn').onclick=openSettings;
+  document.getElementById('loginBackBtn').onclick=renderStart;
   document.getElementById('togglePin').onclick=()=>{const pin=document.getElementById('loginPin');pin.type=pin.type==='password'?'text':'password'};
   document.getElementById('loginPin').oninput=e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,4)};
   document.getElementById('loginForm').onsubmit=(ev)=>{
@@ -374,4 +364,4 @@ function renderGames(room){
 }
 
 function openCreateRoom(){renderRooms()}
-function init(){renderStart()}init();
+function init(){try{if(screen.orientation&&screen.orientation.lock){screen.orientation.lock('landscape').catch(()=>{});}}catch(e){}renderStart()}init();

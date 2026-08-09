@@ -2807,3 +2807,73 @@ select.profile-input-v1051,
   .start-actions{width:86vw;bottom:7.2%;gap:12px}
   .start-btn{height:56px;font-size:22px;border-radius:17px;letter-spacing:.45px}
 }
+
+
+/* === GAME ROOM v1073: stały poziom + logowanie na tle startowym === */
+html,body{overscroll-behavior:none;overflow:hidden;}
+.login.login-clean.login-from-start{
+  background-image:url('assets/screens/bg_start_desktop.jpg?v=1073')!important;
+  background-size:cover!important;
+  background-position:center center!important;
+}
+.login-from-start .lang-switch{display:none!important;}
+.login-from-start .login-shell-start{
+  width:100%!important;
+  height:100%!important;
+  display:flex!important;
+  align-items:flex-end!important;
+  justify-content:center!important;
+  padding-bottom:7.0%!important;
+}
+.login-from-start .login-card-start{
+  position:relative!important;
+  left:auto!important; top:auto!important; bottom:auto!important;
+  width:min(500px,36vw)!important;
+  padding:18px 18px 16px!important;
+  gap:10px!important;
+  background:linear-gradient(180deg,rgba(6,12,20,.78),rgba(5,9,16,.68))!important;
+  border:2px solid rgba(83,196,255,.62)!important;
+  box-shadow:0 0 30px rgba(0,0,0,.34), inset 0 0 32px rgba(255,255,255,.07)!important;
+}
+.login-from-start .field-label{font-size:clamp(18px,1.4vw,24px)!important;}
+.login-from-start .input-wrap{height:60px!important;grid-template-columns:72px 1fr 50px!important;}
+.login-from-start .input-icon{width:72px!important;font-size:28px!important;}
+.login-from-start .login-input,.login-from-start #loginId,.login-from-start #loginPin{font-size:28px!important;padding:0 14px!important;}
+.login-from-start .eye-btn,.login-from-start #togglePin{width:50px!important;font-size:21px!important;}
+.login-from-start .login-action,.login-from-start #loginBtn,.login-from-start #loginBackBtn{height:58px!important;font-size:28px!important;gap:10px!important;}
+.login-from-start .login-back-start{background:linear-gradient(180deg,rgba(0,130,220,.92),rgba(0,53,104,.92))!important;border-color:#2aaeff!important;box-shadow:0 0 18px rgba(0,160,255,.42), inset 0 0 24px rgba(255,255,255,.10)!important;}
+@media (pointer:coarse) and (orientation:landscape){
+  .start-screen,.login.login-clean.login-from-start,.rooms.gr-clean-rooms,.games,.profile.profile-v1051{aspect-ratio:auto!important;}
+  .login.login-clean.login-from-start{background-image:url('assets/screens/bg_start_desktop.jpg?v=1073')!important;background-position:center center!important;}
+  .login-from-start .login-shell-start{padding-bottom:7.2%!important;}
+  .login-from-start .login-card-start{width:min(410px,32vw)!important;padding:14px 14px 12px!important;gap:7px!important;}
+  .login-from-start .field-label{font-size:14px!important;margin-bottom:-1px!important;}
+  .login-from-start .input-wrap{height:46px!important;grid-template-columns:58px 1fr 42px!important;}
+  .login-from-start .input-icon{width:58px!important;font-size:23px!important;}
+  .login-from-start .login-input,.login-from-start #loginId,.login-from-start #loginPin{font-size:20px!important;padding:0 10px!important;}
+  .login-from-start .eye-btn,.login-from-start #togglePin{width:42px!important;font-size:18px!important;}
+  .login-from-start .login-action,.login-from-start #loginBtn,.login-from-start #loginBackBtn{height:46px!important;font-size:20px!important;gap:8px!important;border-radius:14px!important;}
+  .login-from-start .version{font-size:11px!important;bottom:1.0%!important;}
+}
+@media (pointer:coarse) and (orientation:portrait){
+  .start-screen,.login.login-clean.login-from-start,.rooms.gr-clean-rooms,.games,.profile.profile-v1051{
+    width:100vh!important;
+    height:100vw!important;
+    max-width:none!important;
+    max-height:none!important;
+    position:absolute!important;
+    top:100%!important;
+    left:0!important;
+    transform:rotate(-90deg)!important;
+    transform-origin:top left!important;
+  }
+  .login.login-clean.login-from-start{background-image:url('assets/screens/bg_start_desktop.jpg?v=1073')!important;background-position:center center!important;}
+  .login-from-start .login-shell-start{padding-bottom:7.0%!important;}
+  .login-from-start .login-card-start{width:min(430px,64vw)!important;padding:14px 14px 12px!important;gap:7px!important;}
+  .login-from-start .field-label{font-size:15px!important;margin-bottom:-1px!important;}
+  .login-from-start .input-wrap{height:46px!important;grid-template-columns:58px 1fr 42px!important;}
+  .login-from-start .input-icon{width:58px!important;font-size:22px!important;}
+  .login-from-start .login-input,.login-from-start #loginId,.login-from-start #loginPin{font-size:20px!important;padding:0 10px!important;}
+  .login-from-start .eye-btn,.login-from-start #togglePin{width:42px!important;font-size:18px!important;}
+  .login-from-start .login-action,.login-from-start #loginBtn,.login-from-start #loginBackBtn{height:45px!important;font-size:20px!important;gap:8px!important;}
+}
