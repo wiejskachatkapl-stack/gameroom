@@ -2877,3 +2877,104 @@ html,body{overscroll-behavior:none;overflow:hidden;}
   .login-from-start .eye-btn,.login-from-start #togglePin{width:42px!important;font-size:18px!important;}
   .login-from-start .login-action,.login-from-start #loginBtn,.login-from-start #loginBackBtn{height:45px!important;font-size:20px!important;gap:8px!important;}
 }
+
+
+/* === GAME ROOM v1074: logowanie wyśrodkowane pod napisem GAME ROOM === */
+.login-from-start .login-shell-start{
+  align-items:flex-start!important;
+  justify-content:center!important;
+  padding-bottom:0!important;
+}
+.login-from-start .login-card-start{
+  position:absolute!important;
+  left:50%!important;
+  top:51.5%!important;
+  transform:translate(-50%,0)!important;
+  width:min(620px,46vw)!important;
+  padding:16px 18px 16px!important;
+  gap:9px 14px!important;
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  background:linear-gradient(180deg,rgba(6,12,20,.78),rgba(5,9,16,.68))!important;
+  border:2px solid rgba(83,196,255,.62)!important;
+  border-radius:18px!important;
+}
+.login-from-start .field-label,
+.login-from-start .input-wrap{
+  grid-column:1 / -1!important;
+}
+.login-from-start .field-label{
+  font-size:clamp(15px,1.2vw,21px)!important;
+  margin:0 0 -3px 0!important;
+}
+.login-from-start .input-wrap{
+  height:52px!important;
+  grid-template-columns:66px 1fr 48px!important;
+}
+.login-from-start .input-icon{width:66px!important;font-size:25px!important;}
+.login-from-start .login-input,
+.login-from-start #loginId,
+.login-from-start #loginPin{
+  font-size:clamp(20px,1.75vw,30px)!important;
+  padding:0 12px!important;
+}
+.login-from-start .eye-btn,
+.login-from-start #togglePin{
+  width:48px!important;
+  font-size:20px!important;
+}
+.login-from-start .login-action,
+.login-from-start #loginBtn,
+.login-from-start #loginBackBtn{
+  width:100%!important;
+  height:52px!important;
+  font-size:clamp(18px,1.55vw,26px)!important;
+  border-radius:14px!important;
+  gap:8px!important;
+}
+.login-from-start #loginBtn{grid-column:1 / 2!important;}
+.login-from-start #loginBackBtn{grid-column:2 / 3!important;}
+
+@media (pointer:coarse) and (orientation:landscape){
+  .login-from-start .login-card-start{
+    left:50%!important;
+    top:50.8%!important;
+    width:min(520px,43vw)!important;
+    padding:12px 12px 12px!important;
+    gap:6px 10px!important;
+    grid-template-columns:1fr 1fr!important;
+  }
+  .login-from-start .field-label{font-size:13px!important;margin-bottom:-2px!important;}
+  .login-from-start .input-wrap{height:40px!important;grid-template-columns:52px 1fr 38px!important;}
+  .login-from-start .input-icon{width:52px!important;font-size:21px!important;}
+  .login-from-start .login-input,
+  .login-from-start #loginId,
+  .login-from-start #loginPin{font-size:18px!important;padding:0 9px!important;}
+  .login-from-start .eye-btn,
+  .login-from-start #togglePin{width:38px!important;font-size:17px!important;}
+  .login-from-start .login-action,
+  .login-from-start #loginBtn,
+  .login-from-start #loginBackBtn{height:40px!important;font-size:17px!important;border-radius:12px!important;}
+}
+
+@media (pointer:coarse) and (orientation:portrait){
+  .login-from-start .login-card-start{
+    left:50%!important;
+    top:51.0%!important;
+    width:min(540px,70vw)!important;
+    padding:12px 12px 12px!important;
+    gap:6px 10px!important;
+    grid-template-columns:1fr 1fr!important;
+  }
+  .login-from-start .field-label{font-size:13px!important;margin-bottom:-2px!important;}
+  .login-from-start .input-wrap{height:40px!important;grid-template-columns:52px 1fr 38px!important;}
+  .login-from-start .input-icon{width:52px!important;font-size:21px!important;}
+  .login-from-start .login-input,
+  .login-from-start #loginId,
+  .login-from-start #loginPin{font-size:18px!important;padding:0 9px!important;}
+  .login-from-start .eye-btn,
+  .login-from-start #togglePin{width:38px!important;font-size:17px!important;}
+  .login-from-start .login-action,
+  .login-from-start #loginBtn,
+  .login-from-start #loginBackBtn{height:40px!important;font-size:17px!important;border-radius:12px!important;}
+}
