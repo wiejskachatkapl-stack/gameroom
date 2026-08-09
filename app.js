@@ -1,4 +1,4 @@
-const VERSION = 'GAME ROOM v1071';
+const VERSION = 'GAME ROOM v1072';
 const app = document.getElementById('app');
 const storage={get(k,d=null){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))},remove(k){localStorage.removeItem(k)}};
 const countries={PL:'Polska (PL)',DE:'Niemcy (DE)',NL:'Holandia (NL)',GB:'Wielka Brytania (GB)',FR:'Francja (FR)',ES:'Hiszpania (ES)',IT:'Włochy (IT)',AT:'Austria (AT)',BE:'Belgia (BE)',CH:'Szwajcaria (CH)',SE:'Szwecja (SE)',NO:'Norwegia (NO)',DK:'Dania (DK)',FI:'Finlandia (FI)',IE:'Irlandia (IE)',PT:'Portugalia (PT)',CZ:'Czechy (CZ)',SK:'Słowacja (SK)',HU:'Węgry (HU)',RO:'Rumunia (RO)',BG:'Bułgaria (BG)',GR:'Grecja (GR)',TR:'Turcja (TR)',UA:'Ukraina (UA)',LT:'Litwa (LT)',LV:'Łotwa (LV)',EE:'Estonia (EE)',US:'USA (US)',CA:'Kanada (CA)',BR:'Brazylia (BR)',AR:'Argentyna (AR)',MX:'Meksyk (MX)',AU:'Australia (AU)',JP:'Japonia (JP)',KR:'Korea Południowa (KR)',CN:'Chiny (CN)',IN:'Indie (IN)',ZA:'RPA (ZA)',MA:'Maroko (MA)',EG:'Egipt (EG)'};
@@ -83,6 +83,28 @@ function openSettings(){
     }
   };
 }
+
+function renderStart(){
+  app.innerHTML=`<section class="screen start-screen">
+    <div class="start-shell">
+      <div class="start-lang-switch" aria-label="language">
+        <button id="startLangPL" class="lang-btn ${lang()==='pl'?'active':''}" type="button">🇵🇱 PL</button>
+        <button id="startLangEN" class="lang-btn ${lang()==='en'?'active':''}" type="button">🇬🇧 EN</button>
+      </div>
+      <div class="start-actions" aria-label="start menu">
+        <button id="startLoginBtn" class="start-btn start-login" type="button">${lang()==='pl'?'LOGOWANIE':'LOGIN'}</button>
+        <button id="startCreateBtn" class="start-btn start-create" type="button">${lang()==='pl'?'ZAŁÓŻ PROFIL':'CREATE PROFILE'}</button>
+      </div>
+    </div>
+    ${version()}
+  </section>`;
+
+  document.getElementById('startLangPL').onclick=()=>{storage.set('gr_lang','pl');renderStart()};
+  document.getElementById('startLangEN').onclick=()=>{storage.set('gr_lang','en');renderStart()};
+  document.getElementById('startLoginBtn').onclick=renderLogin;
+  document.getElementById('startCreateBtn').onclick=renderProfile;
+}
+
 function renderLogin(){
   const p=profile();
   const loginValue = p?.playerId || '';
@@ -352,4 +374,4 @@ function renderGames(room){
 }
 
 function openCreateRoom(){renderRooms()}
-function init(){storage.get('gr_logged_in')&&profile()?renderRooms():renderLogin()}init();
+function init(){renderStart()}init();
