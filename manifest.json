@@ -1,7 +1,7 @@
 {
   "name": "GAME ROOM",
   "short_name": "GAME ROOM",
-  "start_url": "./index.html?v=1086",
+  "start_url": "./index.html?v=1087",
   "display": "standalone",
   "orientation": "landscape",
   "background_color": "#111111",

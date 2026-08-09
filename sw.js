@@ -1,4 +1,4 @@
-const CACHE_NAME = 'game-room-v1086';
+const CACHE_NAME = 'game-room-v1087';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
